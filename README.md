@@ -10,7 +10,7 @@ e Ionic 4 (para o Mobile), portanto é necessário ter instalado os pré-requisi
 ### Pré-requisitos para o Front-end (Angular)
 
 O que você precisa para instalar para o rodar o projeto corretamente.
-
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/)
 ```
 * [Dropwizard](http://www.dropwizard.io/1.0.2/docs/)
 [Bootstrap](https://www.npmjs.com/package/bootstrap)    
