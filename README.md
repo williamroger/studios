@@ -12,38 +12,31 @@ e Ionic 4 (para o Mobile), portanto é necessário ter instalado os pré-requisi
 O que você precisa para instalar para o rodar o projeto corretamente.
 
 ```
-Bootstrap  
-https://www.npmjs.com/package/bootstrap  
+[Bootstrap](https://www.npmjs.com/package/bootstrap)    
 npm i bootstrap
 ```
 ```
-jQuery  
-https://www.npmjs.com/package/jquery  
+[jQuery](https://www.npmjs.com/package/jquery)    
 npm i jquery
 ```
 ```
-Angular Imask  
-https://www.npmjs.com/package/angular-imask  
+[Angular Imask](https://www.npmjs.com/package/angular-imask)   
 npm i angular-imask
 ```
 ```
-Currency Formatter  
-https://www.npmjs.com/package/currency-formatter  
+[Currency Formatter](https://www.npmjs.com/package/currency-formatter)    
 npm i currency-formatter  
 ```
 ```
-MomentJS  
-https://momentjs.com/  
+[MomentJS](https://momentjs.com/)    
 npm install moment
 ```
 ```
-Toastr  
-https://www.npmjs.com/package/toastr  
+[Toastr](https://www.npmjs.com/package/toastr)    
 npm i toastr
 ```
 ```
-PrimeNG  
-https://www.primefaces.org/primeng/#/setup  
+[PrimeNG](https://www.primefaces.org/primeng/#/setup)   
 npm install primeng --save  
 npm install primeicons --save
 ```
