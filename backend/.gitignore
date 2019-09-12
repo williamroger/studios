@@ -1,4 +1,9 @@
 .DS_Store
+vendor/
+.buildpath
+.project
+.settings/
+composer.lock
 env.php
-*.htaccess
-vendor/*
+composer.phar
+.vscode/
