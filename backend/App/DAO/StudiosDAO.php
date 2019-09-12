@@ -11,13 +11,13 @@ class StudiosDAO extends ConnectionDataBase
 
   public function testEstados()
   {
-    $estados = $this->pdo
-      ->query('SELECT * FROM states')
+    $studios = $this->pdo
+      ->query('SELECT * FROM studios')
       ->fetchAll(\PDO::FETCH_ASSOC);
 
     echo "<pre>";
-    foreach($estados as $est) {
-      var_dump($est);
+    foreach($studios as $studio) {
+      var_dump($studio);
     }
     die;
   }

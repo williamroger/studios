@@ -1,11 +1,14 @@
 <?php
 
-use App\Controllers\StudiosController;
+use App\Controllers\StudioController;
 
 use function src\slimConfiguration;
 
 $app = new \Slim\App(slimConfiguration());
 // ============================================================
-$app->get('/', StudiosController::class . ':getStudios');
+$app->get('/studio/getallstudios', StudioController::class . ':getAllStudios');
+$app->post('/studio', StudioController::class . ':insertStudio');
+$app->put('/studio', StudioController::class . ':updateStudio');
+$app->delete('/studio', StudioController::class . ':deletStudio');
 // ============================================================
 $app->run();

@@ -51,3 +51,22 @@ VALUES
 ('Ipojuca', 17);
 
 SELECT * FROM cities;
+
+---------------------------------------------%-------------------------------------------
+
+INSERT INTO studios
+(name, address, phone, description, cnpj, telephone, created_at, has_parking, is_24_hours, city_id)
+VALUES
+('Estúdio Recife 001',
+'Rua Rosa e Silva, 353',
+'81 99876-5434',
+'Ótimo Estúdio para realizar ensaios',
+'23.165.959/0001-82',
+'81 3304-2430',
+NOW(),
+1,
+0,
+1
+);
+
+SELECT * FROM studios;
