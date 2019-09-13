@@ -70,3 +70,18 @@ NOW(),
 );
 
 SELECT * FROM studios;
+
+---------------------------------------------%-------------------------------------------
+
+INSERT INTO users
+  (email, password, created_at, studio_id, is_studio)
+VALUES
+  (
+    'estudiorecife001@studios.com.br',
+    'recife001',
+    NOW(),
+    1,
+    1
+  );
+
+SELECT * FROM users;

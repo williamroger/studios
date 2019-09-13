@@ -3,7 +3,10 @@
 namespace App\Controllers;
 
 use App\DAO\StudiosDAO;
+use App\DAO\UsersDAO;
 use App\Models\StudioModel;
+use App\Models\UserModel;
+use DateTimeZone;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -22,9 +25,23 @@ final class StudioController
   public function insertStudio(Request $request, Response $response, array $args): Response
   {
     $data = $request->getParsedBody();
+    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+    $now = $date->format('Y-m-d H:i:s');
     
-    $studioDao = new StudiosDAO();
-    $studioDao->insertStudio($data['name']);
+    $studioDAO = new StudiosDAO();
+    $userDAO = new UsersDAO();
+    $newUser = new UserModel();
+    
+    $idNewStudio = $studioDAO->insertStudio($data['name']);
+    
+    $newUser->setEmail($data['email'])
+      ->setPassword($data['password'])
+      ->setCreated_at($now)
+      ->setStudio_id(intval(idNewStudio))
+      ->setIs_studio(1)
+      ->setIs_customer(0);
+    
+    $userDAO->insertUser($newUser);
 
     $response = $response->withJson([
       'message' => 'Estúdio cadastrado com sucesso!'

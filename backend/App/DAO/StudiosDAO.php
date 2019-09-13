@@ -35,7 +35,7 @@ class StudiosDAO extends ConnectionDataBase
     return $studios;
   }
 
-  public function insertStudio($studioName): void 
+  public function insertStudio($studioName): string
   {
     $statement = $this->pdo
       ->prepare('INSERT INTO studios
@@ -45,6 +45,8 @@ class StudiosDAO extends ConnectionDataBase
     $statement->execute([
       'name' => $studioName
     ]);
+
+    return $this->pdo->lastInsertId();
   }
 
   /*
