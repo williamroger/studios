@@ -32,7 +32,7 @@ final class StudioController
     $userDAO = new UsersDAO();
     $newUser = new UserModel();
     
-    $idNewStudio = $studioDAO->insertStudio($data['name']);
+    $idNewStudio = $studioDAO->insertStudio($data['name'], $now);
    
     $newUser->setEmail($data['email'])
       ->setPassword($data['password'])
@@ -52,12 +52,41 @@ final class StudioController
 
   public function updateStudio(Request $request, Response $response, array $args): Response
   {
-    $response = $response->withJson([
-      "message" => "Listando todos os Estúdios"
-    ]);
+    $data = $request->getParsedBody();
+    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+    $now = $date->format('Y-m-d H:i:s');
+    $studioID = intval($data['id']);
 
-    $studioDao = new StudiosDAO();
-    $studioDao->testEstados();
+    $studioDAO = new StudiosDAO();
+    $userDAO = new UsersDAO();
+    $studio = new StudioModel();
+    $user = new UserModel();
+
+    $studio->setId($studioID)
+    ->setName($data['name'])
+    ->setAddress($data['address'])
+    ->setPhone($data['phone'])
+    ->setDescription($data['description'])
+    ->setCnpj($data['cnpj'])
+    ->setTelephone($data['telephone'])
+    ->setUpdated_at($now)
+    ->setHasParking(intval($data['has_parking']))
+    ->setIs24Hours(intval($data['is_24_hours']))
+    ->setCityId(intval($data['city_id']))
+    ->setRateCancellation(intval($data['rate_cancellation']))
+    ->setDaysCancellation(intval($data['days_cancellation']));
+
+    $user->setEmail($data['email'])
+    ->setPassword($data['password'])
+    ->setUpdated_at($now)
+    ->setStudio_id($studioID);
+
+    $studioDAO->updateStudio($studio);
+    $userDAO->updateUserStudio($user);
+
+    $response = $response->withJson([
+      'message' => 'Estúdio alterado com sucesso!'
+    ]);
 
     return $response;
   }

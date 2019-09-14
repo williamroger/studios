@@ -11,7 +11,8 @@ class UsersDAO extends ConnectionDataBase
     parent::__construct();
   }
 
-  public function insertUserStudio(UserModel $user): void {
+  public function insertUserStudio(UserModel $user): void 
+  {
     $statement = $this->pdo
       ->prepare('INSERT INTO users 
                   (email, password, created_at, studio_id, is_studio)
@@ -30,6 +31,23 @@ class UsersDAO extends ConnectionDataBase
       'studio_id' => $user->getStudio_id(),
       'is_studio' => $user->getIs_studio()
     ]);
+  }
 
+  public function updateUserStudio(UserModel $user): void
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE users SET
+                    email = :email,
+                    password = :password,
+                    updated_at = :updated_at
+                 WHERE
+                    studio_id = :studio_id;');
+    
+    $statement->execute([
+      'email' => $user->getEmail(),
+      'password' => $user->getPassword(),
+      'updated_at' => $user->getUpdated_at(),
+      'studio_id' => $user->getStudio_id()
+    ]);
   }
 }
