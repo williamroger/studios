@@ -17,6 +17,7 @@ class StudiosDAO extends ConnectionDataBase
       ->query(' SELECT 
                   id,
                   name,
+                  address,
                   phone,
                   description,
                   cnpj,
