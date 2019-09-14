@@ -1,6 +1,7 @@
 INSERT INTO states
 (initials, name)
 VALUES
+('AC', 'Acre'),
 ('AL', 'Alagoas '),
 ('AP', 'Amapá'),
 ('AM', 'Amazonas'),
