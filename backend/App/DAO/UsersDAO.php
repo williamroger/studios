@@ -50,4 +50,14 @@ class UsersDAO extends ConnectionDataBase
       'studio_id' => $user->getStudio_id()
     ]);
   }
+
+  public function deleteUserStudio(int $idStudio): void 
+  {
+    $statement = $this->pdo
+      ->prepare('DELETE FROM users WHERE studio_id = :studio_id');
+    
+    $statement->execute([
+      'studio_id' => $idStudio
+    ]);
+  }
 }

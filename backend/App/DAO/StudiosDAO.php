@@ -85,4 +85,14 @@ class StudiosDAO extends ConnectionDataBase
       'id'                => $studio->getId() 
     ]);
   }
+
+  public function deleteStudio(int $idStudio): void 
+  {
+    $statement = $this->pdo
+      ->prepare('DELETE FROM studios WHERE id = :id');
+
+    $statement->execute([
+      'id' => $idStudio
+    ]);
+  }
 }

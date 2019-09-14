@@ -93,12 +93,18 @@ final class StudioController
 
   public function deleteStudio(Request $request, Response $response, array $args): Response
   {
-    $response = $response->withJson([
-      "message" => "Listando todos os Estúdios"
-    ]);
+    $data = $request->getParsedBody();
+    $idStudio = intval($data['id']);
 
-    $studioDao = new StudiosDAO();
-    $studioDao->testEstados();
+    $studioDAO = new StudiosDAO();
+    $userDAO = new UsersDAO();
+
+    $studioDAO->deleteStudio($idStudio);
+    $userDAO->deleteUserStudio($idStudio);
+
+    $response = $response->withJson([
+      "message" => "Estúdio excluído com sucesso!"
+    ]);
 
     return $response;
   }
