@@ -33,15 +33,15 @@ final class StudioController
     $newUser = new UserModel();
     
     $idNewStudio = $studioDAO->insertStudio($data['name']);
-    
+   
     $newUser->setEmail($data['email'])
       ->setPassword($data['password'])
       ->setCreated_at($now)
-      ->setStudio_id(intval(idNewStudio))
+      ->setStudio_id(intval($idNewStudio))
       ->setIs_studio(1)
       ->setIs_customer(0);
     
-    $userDAO->insertUser($newUser);
+    $userDAO->insertUserStudio($newUser);
 
     $response = $response->withJson([
       'message' => 'Estúdio cadastrado com sucesso!'
