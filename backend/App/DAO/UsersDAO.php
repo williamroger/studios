@@ -100,4 +100,14 @@ class UsersDAO extends ConnectionDataBase
       'customer_id' => $user->getCustomer_id()
     ]);
   }
+
+  public function deleteUserCustomer(int $idCustomer): void 
+  {
+    $statement = $this->pdo
+      ->prepare('DELETE FROM users WHERE customer_id = :customer_id;');
+    
+    $statement->execute([
+      'customer_id' => $idCustomer
+    ]);
+  }
 }

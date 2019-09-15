@@ -51,31 +51,33 @@ final class CustomerController{
     }
     public function updateCustomer(Request $request, Response $response, array $args): Response
     {
+
       $data = $request->getParsedBody();
       $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
       $now = $date->format('Y-m-d H:i:s');
       $customerID = intval($data['id']);
-  
+
       $customerDAO = new CustomersDAO();
       $userDAO = new UsersDAO();
       $customer = new CustomerModel();
       $user = new UserModel();
-  
+
       $customer->setId($customerID)
       ->setName($data['name'])
       ->setPhone($data['phone'])
       ->setUpdated_at($now)
       ->setCpf($data['cpf'])
-      ->setCitiesId(intval($data['cities_id']));
+      ->setCities_id(intval($data['cities_id']));
 
       $user->setEmail($data['email'])
       ->setPassword($data['password'])
       ->setUpdated_at($now)
       ->setCustomer_id($customerID);
-  
+      
       $customerDAO->updateCustomer($customer);
+
       $userDAO->updateUserCustomer($user);
-  
+
       $response = $response->withJson([
         'message' => 'Cliente alterado com sucesso!'
       ]);
@@ -83,4 +85,22 @@ final class CustomerController{
       return $response;
     }
   
+    public function deleteCustomer(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $idCustomer = intval($data['id']);
+
+    $customerDAO = new CustomersDAO();
+    $userDAO = new UsersDAO();
+
+    $customerDAO->deleteCustomer($idCustomer);
+    
+    $userDAO->deleteUserCustomer($idCustomer);
+
+    $response = $response->withJson([
+      "message" => "Estúdio excluído com sucesso!"
+    ]);
+
+    return $response;
+  }
 }

@@ -2,6 +2,8 @@
 
 namespace App\DAO;
 
+use App\Models\CustomerModel;
+
 class CustomersDAO extends ConnectionDataBase
 {
   public function __construct()
@@ -46,7 +48,6 @@ class CustomersDAO extends ConnectionDataBase
       ->prepare('UPDATE customers SET 
                     name = :name,
                     phone = :phone,
-                    created_at = :created_at,
                     updated_at = :updated_at,
                     cpf = :cpf,
                     cities_id = :cities_id
@@ -56,12 +57,22 @@ class CustomersDAO extends ConnectionDataBase
     $statement->execute([
       'name'              => $customer->getName(),
       'phone'             => $customer->getPhone(),
-      'created_at'        => $customer->getCreated_at(),
       'updated_at'        => $customer->getUpdated_at(),
       'cpf'               => $customer->getCpf(),
-      'cities_id'         => $customer->getCitiesId(),
+      'cities_id'         => $customer->getCities_id(),
       'id'                => $customer->getId() 
     ]);
+  }
+
+  public function deleteCustomer(int $idCustomer): void 
+  {
+    $statement = $this->pdo
+      ->prepare('DELETE FROM customers WHERE id = :id');
+
+    $statement->execute([
+      'id' => $idCustomer
+    ]);
+
   }
 
 }
