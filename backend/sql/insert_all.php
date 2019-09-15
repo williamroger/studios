@@ -86,3 +86,28 @@ VALUES
   );
 
 SELECT * FROM users;
+
+---------------------------------------------%-------------------------------------------
+
+INSERT INTO customers
+	(name, phone, created_at, cpf, cities_id)
+VALUES
+	('William',
+     '81-2222-1111',
+     now(),
+     '111-222-111-11',
+     1
+     
+);
+
+---------------------------------------------%-------------------------------------------
+
+INSERT INTO users
+	(email, password, created_at, customer_id, is_customer)
+VALUES
+	('william@gmail.com',
+    '1010',
+    now(),
+    1,
+    1
+);
