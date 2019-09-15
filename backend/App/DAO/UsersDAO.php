@@ -60,4 +60,27 @@ class UsersDAO extends ConnectionDataBase
       'studio_id' => $idStudio
     ]);
   }
+
+  public function insertUserCustomer(UserModel $user): void 
+  {
+    $statement = $this->pdo
+      ->prepare('INSERT INTO users 
+                  (email, password, created_at, customer_id, is_customer)
+                 VALUES (
+                   :email, 
+                   :password, 
+                   :created_at,
+                   :customer_id, 
+                   :is_customer
+                 );');
+    
+    $statement->execute([
+      'email' => $user->getEmail(),
+      'password' => $user->getPassword(),
+      'created_at' => $user->getCreated_at(),
+      'customer_id' => $user->getCustomer_id(),
+      'is_customer' => $user->getIs_customer()
+    ]);
+  }
+
 }

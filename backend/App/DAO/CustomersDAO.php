@@ -24,4 +24,21 @@ class CustomersDAO extends ConnectionDataBase
       
     return $customer;
   }
+
+  public function insertCustomer($customerName, $createdAt): string
+  {
+    $statement = $this->pdo
+      ->prepare('INSERT INTO customers
+                  (name, created_at)
+                VALUES (:name, :created_at);');
+
+    $statement->execute([
+      'name' => $customerName,
+      'created_at' => $createdAt
+    ]);
+
+    return $this->pdo->lastInsertId();
+  }
+
 }
+
