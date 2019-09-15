@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\StudioController;
+use App\Controllers\CustomerController;
 
 use function src\slimConfiguration;
 
@@ -12,9 +13,9 @@ $app->put('/studio/updatestudio', StudioController::class . ':updateStudio');
 $app->delete('/studio/deletestudio', StudioController::class . ':deleteStudio');
 // ============================================================
 
-$app->get('/customer/getallcustomer', StudioController::class . ':getAllCustomer');
-$app->post('/customer/insertcustomer', StudioController::class . ':insertCustomer');
-$app->put('/customer/updatecustomer', StudioController::class . ':updateCustomer');
-$app->delete('/customer/deletecustomer', StudioController::class . ':deleteCustomer');
+$app->get('/customer/getallcustomers', CustomerController::class . ':getAllCustomers');
+$app->post('/customer/insertcustomer', CustomerController::class . ':insertCustomer');
+$app->put('/customer/updatecustomer', CustomerController::class . ':updateCustomer');
+$app->delete('/customer/deletecustomer', CustomerController::class . ':deleteCustomer');
 
 $app->run();
