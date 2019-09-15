@@ -49,6 +49,7 @@ final class CustomerController{
   
       return $response;
     }
+
     public function updateCustomer(Request $request, Response $response, array $args): Response
     {
 
@@ -93,10 +94,9 @@ final class CustomerController{
     $customerDAO = new CustomersDAO();
     $userDAO = new UsersDAO();
 
+    $userDAO->deleteUserCustomer($idCustomer);
     $customerDAO->deleteCustomer($idCustomer);
     
-    $userDAO->deleteUserCustomer($idCustomer);
-
     $response = $response->withJson([
       "message" => "Estúdio excluído com sucesso!"
     ]);

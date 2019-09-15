@@ -99,8 +99,8 @@ final class StudioController
     $studioDAO = new StudiosDAO();
     $userDAO = new UsersDAO();
 
-    $studioDAO->deleteStudio($idStudio);
     $userDAO->deleteUserStudio($idStudio);
+    $studioDAO->deleteStudio($idStudio);
 
     $response = $response->withJson([
       "message" => "Estúdio excluído com sucesso!"
