@@ -14,13 +14,26 @@ final class StudioController
 {
   public function getAllStudios(Request $request, Response $response, array $args): Response 
   {
-    $studioDao = new StudiosDAO();
-    $studios = $studioDao->getAllStudios();
+    $studioDAO = new StudiosDAO();
+    $studios = $studioDAO->getAllStudios();
     
     $response = $response->withJson($studios);
 
     return $response;
   }
+
+  public function getStudiosByCityIdCustomer(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $studioDAO = new StudiosDAO();
+    $idCustomer = intval($data['id']);
+
+    $studios = $studioDAO->getStudiosByCityIdCustomer($idCustomer);
+
+    $response = $response->withJson($studios);
+
+    return $response;
+  } 
 
   public function insertStudio(Request $request, Response $response, array $args): Response
   {

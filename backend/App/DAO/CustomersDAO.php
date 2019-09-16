@@ -72,7 +72,6 @@ class CustomersDAO extends ConnectionDataBase
     $statement->execute([
       'id' => $idCustomer
     ]);
-
   }
 
 }

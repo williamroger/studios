@@ -36,6 +36,36 @@ class StudiosDAO extends ConnectionDataBase
     return $studios;
   }
 
+  public function getStudiosByCityIdCustomer(int $idCustomer): array
+  {
+    $statement = $this->pdo
+      ->prepare("SELECT 
+                studios.id,
+                studios.name,
+                studios.address,
+                studios.phone,
+                studios.description,
+                studios.cnpj,
+                studios.telephone,
+                studios.created_at,
+                studios.updated_at,
+                studios.has_parking,
+                studios.is_24_hours,
+                studios.city_id,
+                studios.rate_cancellation,
+                studios.days_cancellation
+               FROM studios
+               INNER JOIN customers
+               on studios.city_id = customers.cities_id
+               WHERE customers.id = :id");
+
+    $statement->execute([
+      'id' => $idCustomer
+    ]);
+
+    return $statement->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
   public function insertStudio($studioName, $createdAt): string
   {
     $statement = $this->pdo
