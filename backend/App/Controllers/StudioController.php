@@ -147,4 +147,57 @@ final class StudioController
 
     return $response;
   }
+
+  public function getAllRooms(Request $request, Response $response, array $args): Response
+  {
+    $studioDAO = new StudiosDAO();
+
+    $rooms = $studioDAO->getAllRooms();
+
+    $response = $response->withJson($rooms);
+
+    return $response;
+  }
+
+  public function updateRoom(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+    $now = $date->format('Y-m-d H:i:s');
+
+    $studioDAO = new StudiosDAO();
+    $room = new RoomModel();
+
+    $room->setId(intval($data['id']))
+    ->setName($data['name'])
+    ->setDescription($data['description'])
+    ->setStudio_id(intval($data['studio_id']))
+    ->setMaximum_capacity(intval($data['maximum_capacity']))
+    ->setColor($data['color'])
+    ->setUpdated_at($now);
+
+    $studioDAO->updateRoom($room);
+
+    $response = $response->withJson([
+      "message" => "Sala de ensaio atualizada com sucesso!"
+    ]);
+
+    return $response;
+  }
+
+  public function deleteRoom(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $idRoom = intval($data['id']);
+
+    $studioDAO = new StudiosDAO();
+
+    $studioDAO->deleteRoom($idRoom);
+
+    $response = $response->withJson([
+      "message" => "Sala de Ensaio excluída com sucesso!"
+    ]);
+
+    return $response;
+  }
 }

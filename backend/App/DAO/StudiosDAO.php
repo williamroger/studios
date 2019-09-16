@@ -105,7 +105,7 @@ class StudiosDAO extends ConnectionDataBase
       'name'              => $studio->getName(),
       'address'           => $studio->getAddress(),
       'phone'             => $studio->getPhone(),
-      'description'        => $studio->getDescription(),
+      'description'       => $studio->getDescription(),
       'cnpj'              => $studio->getCnpj(),
       'telephone'         => $studio->getTelephone(),
       'updated_at'        => $studio->getUpdated_at(),
@@ -132,9 +132,20 @@ class StudiosDAO extends ConnectionDataBase
   {
     $statement = $this->pdo
       ->prepare('INSERT INTO rooms 
-                    (description, studio_id, name, maximum_capacity, color, created_at)
+                  (description, 
+                   studio_id, 
+                   name, 
+                   maximum_capacity, 
+                   color, 
+                   created_at)
                  VALUES
-                    (:description, :studio_id, :name, :maximum_capacity, :color, :created_at)');
+                    (:description, 
+                     :studio_id, 
+                     :name, 
+                     :maximum_capacity, 
+                     :color, 
+                     :created_at)');
+
     $statement->execute([
       'description' => $room->getDescription(), 
       'studio_id' => $room->getStudio_id(), 
@@ -142,6 +153,57 @@ class StudiosDAO extends ConnectionDataBase
       'maximum_capacity' => $room->getMaximum_capacity(), 
       'color' => $room->getColor(), 
       'created_at'=> $room->getCreated_at()
+    ]);
+  }
+
+  public function getAllRooms(): array 
+  {
+    $rooms = $this->pdo
+      ->query('SELECT 
+                id,
+                name,
+                studio_id,
+                description,
+                maximum_capacity,
+                color,
+                created_at,
+                updated_at
+               FROM 
+                rooms;')
+      ->fetchAll(\PDO::FETCH_ASSOC);
+
+    return $rooms;
+  }
+
+  public function updateRoom(RoomModel $room): void
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE rooms SET
+                    name = :name,
+                    description = :description,
+                    maximum_capacity = :maximum_capacity,
+                    color = :color,
+                    updated_at = :updated_at
+                 WHERE 
+                    id = :id;');
+
+    $statement->execute([
+      'name'             => $room->getName(),
+      'description'      => $room->getDescription(),
+      'maximum_capacity' => $room->getMaximum_capacity(),
+      'color'            => $room->getColor(),
+      'updated_at'       => $room->getUpdated_at(),
+      'id'               => $room->getId()
+    ]);
+  }
+
+  public function deleteRoom(int $idRoom): void
+  {
+    $statement = $this->pdo
+      ->prepare('DELETE FROM rooms WHERE id = :id');
+
+    $statement->execute([
+      'id' => $idRoom
     ]);
   }
 }
