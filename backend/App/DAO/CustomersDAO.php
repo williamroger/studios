@@ -11,7 +11,8 @@ class CustomersDAO extends ConnectionDataBase
     parent::__construct();
   }
 
-  public function getAllCustomers(): array{
+  public function getAllCustomers(): array 
+  {
     $customer = $this->pdo
       ->query('SELECT 
                   id,
@@ -20,7 +21,7 @@ class CustomersDAO extends ConnectionDataBase
                   created_at,
                   updated_at,
                   cpf,
-                  cities_id
+                  city_id
                FROM customers')
       ->fetchAll(\PDO::FETCH_ASSOC);
       
@@ -50,7 +51,7 @@ class CustomersDAO extends ConnectionDataBase
                     phone = :phone,
                     updated_at = :updated_at,
                     cpf = :cpf,
-                    cities_id = :cities_id
+                    city_id = :city_id
                  WHERE 
                     id = :id;');
 
@@ -59,7 +60,7 @@ class CustomersDAO extends ConnectionDataBase
       'phone'             => $customer->getPhone(),
       'updated_at'        => $customer->getUpdated_at(),
       'cpf'               => $customer->getCpf(),
-      'cities_id'         => $customer->getCities_id(),
+      'city_id'         => $customer->getCity_id(),
       'id'                => $customer->getId() 
     ]);
   }
@@ -73,6 +74,5 @@ class CustomersDAO extends ConnectionDataBase
       'id' => $idCustomer
     ]);
   }
-
 }
 

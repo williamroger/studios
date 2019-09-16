@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\DAO\StudiosDAO;
 use App\DAO\UsersDAO;
+use App\Models\RoomModel;
 use App\Models\StudioModel;
 use App\Models\UserModel;
 use DateTimeZone;
@@ -117,6 +118,31 @@ final class StudioController
 
     $response = $response->withJson([
       "message" => "Estúdio excluído com sucesso!"
+    ]);
+
+    return $response;
+  }
+
+  public function insertRoom(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+    $now = $date->format('Y-m-d H:i:s');
+    
+    $studioDAO = new StudiosDAO();
+    $room = new RoomModel();
+
+    $room->setName($data['name'])
+    ->setDescription($data['description'])
+    ->setStudio_id(intval($data['studio_id']))
+    ->setMaximum_capacity(intval($data['maximum_capacity']))
+    ->setColor($data['color'])
+    ->setCreated_at($now);
+
+    $studioDAO->insertRoom($room);
+
+    $response = $response->withJson([
+      "message" => "Sala de Ensaio cadastrada com sucesso!"
     ]);
 
     return $response;

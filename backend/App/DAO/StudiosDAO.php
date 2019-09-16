@@ -2,6 +2,7 @@
 
 namespace App\DAO;
 
+use App\Models\RoomModel;
 use App\Models\StudioModel;
 
 class StudiosDAO extends ConnectionDataBase 
@@ -56,7 +57,7 @@ class StudiosDAO extends ConnectionDataBase
                 studios.days_cancellation
                FROM studios
                INNER JOIN customers
-               on studios.city_id = customers.cities_id
+               on studios.city_id = customers.city_id
                WHERE customers.id = :id");
 
     $statement->execute([
@@ -124,6 +125,23 @@ class StudiosDAO extends ConnectionDataBase
 
     $statement->execute([
       'id' => $idStudio
+    ]);
+  }
+
+  public function insertRoom(RoomModel $room): void
+  {
+    $statement = $this->pdo
+      ->prepare('INSERT INTO rooms 
+                    (description, studio_id, name, maximum_capacity, color, created_at)
+                 VALUES
+                    (:description, :studio_id, :name, :maximum_capacity, :color, :created_at)');
+    $statement->execute([
+      'description' => $room->getDescription(), 
+      'studio_id' => $room->getStudio_id(), 
+      'name' => $room->getName(), 
+      'maximum_capacity' => $room->getMaximum_capacity(), 
+      'color' => $room->getColor(), 
+      'created_at'=> $room->getCreated_at()
     ]);
   }
 }

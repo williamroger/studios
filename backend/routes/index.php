@@ -10,6 +10,7 @@ $app = new \Slim\App(slimConfiguration());
 // STUDIO =============================================================
 $app->get('/studio/getallstudios', StudioController::class . ':getAllStudios');
 $app->post('/studio/insertstudio', StudioController::class . ':insertStudio');
+$app->post('/studio/insertroom', StudioController::class . ':insertRoom');
 $app->put('/studio/updatestudio', StudioController::class . ':updateStudio');
 $app->delete('/studio/deletestudio', StudioController::class . ':deleteStudio');
 

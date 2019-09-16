@@ -44,7 +44,7 @@ final class CustomerController{
       $userDAO->insertUserCustomer($newUser);
   
       $response = $response->withJson([
-        'message' => 'Customizador cadastrado com sucesso!'
+        'message' => 'Cliente cadastrado com sucesso!'
       ]);
   
       return $response;
@@ -68,7 +68,7 @@ final class CustomerController{
       ->setPhone($data['phone'])
       ->setUpdated_at($now)
       ->setCpf($data['cpf'])
-      ->setCities_id(intval($data['cities_id']));
+      ->setCity_id(intval($data['city_id']));
 
       $user->setEmail($data['email'])
       ->setPassword($data['password'])
