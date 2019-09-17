@@ -25,84 +25,134 @@ final class StudioController
 
   public function getStudiosByCityIdCustomer(Request $request, Response $response, array $args): Response
   {
-    $data = $request->getParsedBody();
-    $studioDAO = new StudiosDAO();
-    $idCustomer = intval($data['id']);
+    try {
+      $data = $request->getParsedBody();
+      $studioDAO = new StudiosDAO();
+      $idCustomer = intval($data['id']);
+      
+      if (!$idCustomer) 
+        throw new \Exception("Informe o ID do cliente.");
+        
+      $studios = $studioDAO->getStudiosByCityIdCustomer($idCustomer);
 
-    $studios = $studioDAO->getStudiosByCityIdCustomer($idCustomer);
+      $response = $response->withJson([
+        'error' => false,
+        'data' => $studios,
+        'status' => 200
+      ], 200);
 
-    $response = $response->withJson($studios);
+      return $response;
 
-    return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'error' => true,
+        'status' => 500,
+        'message' => 'Erro na aplicação, tente novamente.',
+        'devMessage' => $ex->getMessage()
+      ], 500);
+    }
   } 
 
   public function insertStudio(Request $request, Response $response, array $args): Response
   {
-    $data = $request->getParsedBody();
-    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
-    $now = $date->format('Y-m-d H:i:s');
-    
-    $studioDAO = new StudiosDAO();
-    $userDAO = new UsersDAO();
-    $newUser = new UserModel();
-    
-    $idNewStudio = $studioDAO->insertStudio($data['name'], $now);
-   
-    $newUser->setEmail($data['email'])
-      ->setPassword($data['password'])
-      ->setCreated_at($now)
-      ->setStudio_id(intval($idNewStudio))
-      ->setIs_studio(1)
-      ->setIs_customer(0);
-    
-    $userDAO->insertUserStudio($newUser);
+    try {
+      $data = $request->getParsedBody();
+      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+      $now = $date->format('Y-m-d H:i:s');
 
-    $response = $response->withJson([
-      'message' => 'Estúdio cadastrado com sucesso!'
-    ]);
+      $studioDAO = new StudiosDAO();
+      $userDAO = new UsersDAO();
+      $newUser = new UserModel();
 
-    return $response;
+      if (!$data['name'] || $data['name'] === '')
+        throw new \Exception("O nome é obrigatório.");
+
+      if (!$data['email'] || $data['email'] === '')
+        throw new \Exception("O email é obrigatório.");
+
+      if (!$data['password'] || $data['password'] === '')
+        throw new \Exception("A senha é obrigatória.");
+
+      $idNewStudio = $studioDAO->insertStudio($data['name'], $now);
+
+      $newUser->setEmail($data['email'])
+        ->setPassword($data['password'])
+        ->setCreated_at($now)
+        ->setStudio_id(intval($idNewStudio))
+        ->setIs_studio(1)
+        ->setIs_customer(0);
+
+      $userDAO->insertUserStudio($newUser);
+
+      $response = $response->withJson([
+        'error' => false,
+        'message' => 'Estúdio cadastrado com sucesso!',
+        'status' => 200
+      ], 200);
+
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'error' => true,
+        'status' => 500,
+        'message' => 'Erro na aplicação, tente novamente.',
+        'devMessage' => $ex->getMessage()
+      ], 500);
+    }
   }
 
   public function updateStudio(Request $request, Response $response, array $args): Response
   {
-    $data = $request->getParsedBody();
-    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
-    $now = $date->format('Y-m-d H:i:s');
-    $studioID = intval($data['id']);
+    try {
+      $data = $request->getParsedBody();
+      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+      $now = $date->format('Y-m-d H:i:s');
+      $studioID = intval($data['id']);
 
-    $studioDAO = new StudiosDAO();
-    $userDAO = new UsersDAO();
-    $studio = new StudioModel();
-    $user = new UserModel();
+      $studioDAO = new StudiosDAO();
+      $userDAO = new UsersDAO();
+      $studio = new StudioModel();
+      $user = new UserModel();
 
-    $studio->setId($studioID)
-    ->setName($data['name'])
-    ->setAddress($data['address'])
-    ->setPhone($data['phone'])
-    ->setDescription($data['description'])
-    ->setCnpj($data['cnpj'])
-    ->setTelephone($data['telephone'])
-    ->setUpdated_at($now)
-    ->setHasParking(intval($data['has_parking']))
-    ->setIs24Hours(intval($data['is_24_hours']))
-    ->setCityId(intval($data['city_id']))
-    ->setRateCancellation(intval($data['rate_cancellation']))
-    ->setDaysCancellation(intval($data['days_cancellation']));
+      $studio->setId($studioID)
+        ->setName($data['name'])
+        ->setAddress($data['address'])
+        ->setPhone($data['phone'])
+        ->setDescription($data['description'])
+        ->setCnpj($data['cnpj'])
+        ->setTelephone($data['telephone'])
+        ->setUpdated_at($now)
+        ->setHasParking(intval($data['has_parking']))
+        ->setIs24Hours(intval($data['is_24_hours']))
+        ->setCityId(intval($data['city_id']))
+        ->setRateCancellation(intval($data['rate_cancellation']))
+        ->setDaysCancellation(intval($data['days_cancellation']));
 
-    $user->setEmail($data['email'])
-    ->setPassword($data['password'])
-    ->setUpdated_at($now)
-    ->setStudio_id($studioID);
+      $user->setEmail($data['email'])
+        ->setPassword($data['password'])
+        ->setUpdated_at($now)
+        ->setStudio_id($studioID);
 
-    $studioDAO->updateStudio($studio);
-    $userDAO->updateUserStudio($user);
+      $studioDAO->updateStudio($studio);
+      $userDAO->updateUserStudio($user);
 
-    $response = $response->withJson([
-      'message' => 'Estúdio alterado com sucesso!'
-    ]);
+      $response = $response->withJson([
+        'error' => false,
+        'message' => 'Estúdio alterado com sucesso!',
+        'status' => 200
+      ], 200);
 
-    return $response;
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'error' => true,
+        'status' => 500,
+        'message' => 'Erro na aplicação, tente novamente.',
+        'devMessage' => $ex->getMessage()
+      ], 500);
+    }
   }
 
   public function deleteStudio(Request $request, Response $response, array $args): Response
