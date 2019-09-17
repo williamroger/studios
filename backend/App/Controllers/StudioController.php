@@ -200,4 +200,17 @@ final class StudioController
 
     return $response;
   }
+
+  public function getRoomsByStudioId(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $idStudio = intval($data['id']);
+
+    $studioDAO = new StudiosDAO();
+    $rooms = $studioDAO->getRoomsByStudioId($idStudio);
+
+    $response = $response->withJson($rooms);
+
+    return $response;
+  }
 }

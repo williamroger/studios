@@ -12,81 +12,80 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class CustomerController{
 
-    public function getAllCustomers(Request $request, Response $response, array $args): Response
-    {
-        $customerDAO = new CustomersDAO();
-        $customer = $customerDAO->getAllCustomers();
-
-        $response = $response->withJson($customer);
-
-        return $response;
-    }
-
-    public function insertCustomer(Request $request, Response $response, array $args): Response
-    {
-      $data = $request->getParsedBody();
-      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
-      $now = $date->format('Y-m-d H:i:s');
-      
-      $customersDAO = new CustomersDAO();
-      $userDAO = new UsersDAO();
-      $newUser = new UserModel();
-      
-      $idNewCustomer = $customersDAO->insertCustomer($data['name'], $now);
-      
-      $newUser->setEmail($data['email'])
-        ->setPassword($data['password'])
-        ->setCreated_at($now)
-        ->setCustomer_id(intval($idNewCustomer))
-        ->setIs_studio(0)
-        ->setIs_customer(1);
-      
-      $userDAO->insertUserCustomer($newUser);
-  
-      $response = $response->withJson([
-        'message' => 'Cliente cadastrado com sucesso!'
-      ]);
-  
-      return $response;
-    }
-
-    public function updateCustomer(Request $request, Response $response, array $args): Response
-    {
-
-      $data = $request->getParsedBody();
-      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
-      $now = $date->format('Y-m-d H:i:s');
-      $customerID = intval($data['id']);
-
+  public function getAllCustomers(Request $request, Response $response, array $args): Response
+  {
       $customerDAO = new CustomersDAO();
-      $userDAO = new UsersDAO();
-      $customer = new CustomerModel();
-      $user = new UserModel();
+      $customer = $customerDAO->getAllCustomers();
 
-      $customer->setId($customerID)
-      ->setName($data['name'])
-      ->setPhone($data['phone'])
-      ->setUpdated_at($now)
-      ->setCpf($data['cpf'])
-      ->setCity_id(intval($data['city_id']));
+      $response = $response->withJson($customer);
 
-      $user->setEmail($data['email'])
-      ->setPassword($data['password'])
-      ->setUpdated_at($now)
-      ->setCustomer_id($customerID);
-      
-      $customerDAO->updateCustomer($customer);
-
-      $userDAO->updateUserCustomer($user);
-
-      $response = $response->withJson([
-        'message' => 'Cliente alterado com sucesso!'
-      ]);
-  
       return $response;
-    }
+  }
+
+  public function insertCustomer(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+    $now = $date->format('Y-m-d H:i:s');
+    
+    $customersDAO = new CustomersDAO();
+    $userDAO = new UsersDAO();
+    $newUser = new UserModel();
+    
+    $idNewCustomer = $customersDAO->insertCustomer($data['name'], $now);
+    
+    $newUser->setEmail($data['email'])
+      ->setPassword($data['password'])
+      ->setCreated_at($now)
+      ->setCustomer_id(intval($idNewCustomer))
+      ->setIs_studio(0)
+      ->setIs_customer(1);
+    
+    $userDAO->insertUserCustomer($newUser);
+
+    $response = $response->withJson([
+      'message' => 'Cliente cadastrado com sucesso!'
+    ]);
+
+    return $response;
+  }
+
+  public function updateCustomer(Request $request, Response $response, array $args): Response
+  {
+    $data = $request->getParsedBody();
+    $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+    $now = $date->format('Y-m-d H:i:s');
+    $customerID = intval($data['id']);
+
+    $customerDAO = new CustomersDAO();
+    $userDAO = new UsersDAO();
+    $customer = new CustomerModel();
+    $user = new UserModel();
+
+    $customer->setId($customerID)
+    ->setName($data['name'])
+    ->setPhone($data['phone'])
+    ->setUpdated_at($now)
+    ->setCpf($data['cpf'])
+    ->setCity_id(intval($data['city_id']));
+
+    $user->setEmail($data['email'])
+    ->setPassword($data['password'])
+    ->setUpdated_at($now)
+    ->setCustomer_id($customerID);
+    
+    $customerDAO->updateCustomer($customer);
+
+    $userDAO->updateUserCustomer($user);
+
+    $response = $response->withJson([
+      'message' => 'Cliente alterado com sucesso!'
+    ]);
+
+    return $response;
+  }
   
-    public function deleteCustomer(Request $request, Response $response, array $args): Response
+  public function deleteCustomer(Request $request, Response $response, array $args): Response
   {
     $data = $request->getParsedBody();
     $idCustomer = intval($data['id']);

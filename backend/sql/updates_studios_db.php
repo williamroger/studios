@@ -63,3 +63,6 @@ DROP INDEX `fk_rooms_equipments_rooms1_idx` ;
 
 ALTER TABLE `db_dev_studios`.`equipments_rooms`
 ADD COLUMN `room_id` VARCHAR(45) NOT NULL AFTER `name`;
+
+ALTER TABLE `db_dev_studios`.`equipments_rooms` 
+ADD COLUMN `description` VARCHAR(150) NULL AFTER `room_id`;

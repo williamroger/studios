@@ -12,6 +12,7 @@ $app->get('/studio/getallstudios', StudioController::class . ':getAllStudios');
 $app->post('/studio/insertstudio', StudioController::class . ':insertStudio');
 $app->post('/studio/insertroom', StudioController::class . ':insertRoom');
 $app->get('/studio/getallrooms', StudioController::class . ':getAllRooms');
+$app->get('/studio/getroomsbystudioid', StudioController::class . ':getRoomsByStudioId');
 $app->put('/studio/updateroom', StudioController::class . ':updateRoom');
 $app->delete('/studio/deleteroom', StudioController::class . ':deleteRoom');
 $app->put('/studio/updatestudio', StudioController::class . ':updateStudio');
