@@ -1,3 +1,30 @@
-<h1>Cadastrar Estúdio</h1>
-
-<a routerLink="/">Voltar para o login</a>
+<div class="container">
+    <br>
+    <h2>Cadastrar Estúdio</h2>
+    <br>
+    <form>
+        <div class="form-row">
+            <div class="col-md-4">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Nome do estúdio" required>
+            </div>
+            <div class="col-md-4">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="nome@exemplo.com" required>
+            </div>
+            <div class="col-md-4">
+                <label for="telefone">Telefone</label>
+                <input type="text" class="form-control" id="telefone" placeholder="(00) 0000-0000" required>
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-xm-3">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
+            <div class="col-xm-3">
+                <button class="btn btn-primary" routerLink="/">Voltar</button>
+            </div>
+        </div>
+    </form>
+</div>

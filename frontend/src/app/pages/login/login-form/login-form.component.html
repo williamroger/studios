@@ -1,3 +1,26 @@
-<h1>Form Login</h1>
-
-<a routerLink="/cadastro">Cadastre-se</a>
+<div class="container">
+    <br>
+    <h2>Fazer Login</h2>
+    <br>
+    <form>
+        <div class="form-row">
+            <div class="col-md-4">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="nome@exemplo.com" required>
+            </div>
+            <div class="col-md-4">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+            </div>
+        </div>
+        <br>
+        <div class="form-row">
+            <div class="col-xm-3">
+                <button class="btn btn-primary" type="submit">Logar</button>
+            </div>
+            <div class="col-xm-3">
+                <button class="btn btn-primary" routerLink="/cadastro">Cadastrar-se</button>
+            </div>
+        </div>
+    </form>
+</div>
