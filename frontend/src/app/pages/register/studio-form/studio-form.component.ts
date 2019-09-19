@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { StudioModel } from '../shared/studio.model';
 import { RegisterService } from '../shared/register.service';
 
+import toastr from 'toastr';
+
 @Component({
   selector: 'app-studio-form',
   templateUrl: './studio-form.component.html',
@@ -12,6 +14,7 @@ import { RegisterService } from '../shared/register.service';
 export class StudioFormComponent implements OnInit {
 
   studioForm: FormGroup;
+  serverErrorMessage: string[] = null;
   submittingForm: boolean = false;
   studio: StudioModel = new StudioModel();
 
@@ -24,6 +27,18 @@ export class StudioFormComponent implements OnInit {
     this.buildStudioForm();
   }
 
+  submitForm() {
+    this.submittingForm = true;
+
+    const studio: StudioModel = Object.assign(new StudioModel(), this.studioForm.value);
+
+    this.registerService.createStudio(studio)
+      .subscribe(
+        studio => this.actionsForSuccess(studio),
+        error => this.actionsForError(error)
+      )
+  }
+
   // Private Methods
   buildStudioForm() {
     this.studioForm = this.formBuilder.group({
@@ -31,5 +46,13 @@ export class StudioFormComponent implements OnInit {
       email: [null, [Validators.required, Validators.minLength(10)]],
       password: [null, [Validators.required, Validators.minLength(6)]]
     })
+  }
+
+  actionsForSuccess(studio: StudioModel) {
+    toastr.success('Cadastro realizado com sucesso!');
+  }
+
+  actionsForError(error) {
+    toastr.error('Ocorreu um erro, tente novamente!');
   }
 }
