@@ -11,12 +11,10 @@ import { StudioModel } from './studio.model';
 })
 export class RegisterService {
 
-  private apiPath: string = 'http://localhost:8080';
-
   constructor(public http: HttpClient) { }
 
   createStudio(studio: StudioModel): Observable<StudioModel> {
-    return this.http.post(`${this.apiPath}/studio/insertstudio` , studio).pipe(
+    return this.http.post('api/studio/insertstudio' , studio).pipe(
       catchError(this.handleError),
       map(this.jsonDataToStudio)
     );

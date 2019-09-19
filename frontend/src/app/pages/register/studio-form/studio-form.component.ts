@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { StudioModel } from '../shared/studio.model';
 import { RegisterService } from '../shared/register.service';
@@ -20,7 +21,8 @@ export class StudioFormComponent implements OnInit {
 
   constructor(
     private registerService: RegisterService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,10 @@ export class StudioFormComponent implements OnInit {
 
   actionsForSuccess(studio: StudioModel) {
     toastr.success('Cadastro realizado com sucesso!');
+
+    setTimeout(() => {
+      this.router.navigateByUrl('/');
+    }, 3000);
   }
 
   actionsForError(error) {
