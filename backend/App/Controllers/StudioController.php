@@ -157,20 +157,30 @@ final class StudioController
 
   public function deleteStudio(Request $request, Response $response, array $args): Response
   {
-    $data = $request->getParsedBody();
-    $idStudio = intval($data['id']);
-
-    $studioDAO = new StudiosDAO();
-    $userDAO = new UsersDAO();
-
-    $userDAO->deleteUserStudio($idStudio);
-    $studioDAO->deleteStudio($idStudio);
-
-    $response = $response->withJson([
-      "message" => "Estúdio excluído com sucesso!"
-    ]);
-
-    return $response;
+    try{
+      $data = $request->getParsedBody();
+      $idStudio = intval($data['id']);
+  
+      $studioDAO = new StudiosDAO();
+      $userDAO = new UsersDAO();
+  
+      $userDAO->deleteUserStudio($idStudio);
+      $studioDAO->deleteStudio($idStudio);
+  
+      $response = $response->withJson([
+        "message" => "Estúdio excluído com sucesso!"
+      ]);
+  
+      return $response;
+    }
+    catch(\Exception $ex){
+      return $response->withJson([
+        'error' => true,
+        'status' => 500,
+        'message' => 'Erro na aplicação, tente novamente.',
+        'devMessage' => $ex->getMessage()
+      ], 500);
+    }
   }
 
   public function insertRoom(Request $request, Response $response, array $args): Response
@@ -200,13 +210,22 @@ final class StudioController
 
   public function getAllRooms(Request $request, Response $response, array $args): Response
   {
-    $studioDAO = new StudiosDAO();
-
-    $rooms = $studioDAO->getAllRooms();
-
-    $response = $response->withJson($rooms);
-
-    return $response;
+    try{
+      $studioDAO = new StudiosDAO();
+  
+      $rooms = $studioDAO->getAllRooms();
+  
+      $response = $response->withJson($rooms);
+  
+      return $response;
+    }catch(\Exception $ex){
+      return $response->withJson([
+        'error' => true,
+        'status' => 500,
+        'message' => 'Erro na aplicação, tente novamente.',
+        'devMessage' => $ex->getMessage()
+      ], 500);
+    }
   }
 
   public function updateRoom(Request $request, Response $response, array $args): Response
