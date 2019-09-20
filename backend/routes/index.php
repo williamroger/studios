@@ -25,13 +25,12 @@ $app->group('', function() use ($app) {
   $app->post('/customer/insertcustomer', CustomerController::class . ':insertCustomer');
   $app->put('/customer/updatecustomer', CustomerController::class . ':updateCustomer');
   $app->delete('/customer/deletecustomer', CustomerController::class . ':deleteCustomer');
-})->add(new Tuupola\Middleware\CorsMiddleware([
-  "origin" => ["*"],
-  "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  "headers.allow" => [],
-  "headers.expose" => [],
-  "credentials" => false,
-  "cache" => 0,
-]));
+})->add(function ($req, $res, $next) {
+  $response = $next($req, $res);
+  return $response
+    ->withHeader('Access-Control-Allow-Origin', '*')
+    ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+    ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+});
 
 $app->run();
