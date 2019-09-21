@@ -1,26 +1,35 @@
-<div class="container">
-    <br>
-    <h2>Fazer Login</h2>
-    <br>
-    <form>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-6 col-md-3">
+      <form class="form-login">
         <div class="form-row">
-            <div class="col-md-4">
-                <label for="email">E-mail</label>
-                <input type="email" class="form-control" id="email" placeholder="nome@exemplo.com" required>
-            </div>
-            <div class="col-md-4">
-                <label for="senha">Senha</label>
-                <input type="password" class="form-control" id="senha" placeholder="Senha" required>
-            </div>
+          <div class="col-12 text-center mb-5">
+            <img class="form-login__logo" src="../../../../assets/images/logo-studios_2x.png" alt="logo-studios">
+          </div>
         </div>
-        <br>
         <div class="form-row">
-            <div class="col-xm-3">
-                <button class="btn btn-primary" type="submit">Logar</button>
-            </div>
-            <div class="col-xm-3">
-                <button class="btn btn-primary" routerLink="/cadastro">Cadastrar-se</button>
-            </div>
+          <div class="col-12 text-center mb-5">
+            <h1>Entrar</h1>
+            <small>Informe seu email e senha para entrar.</small>
+          </div>
+          <div class="col-12 mb-4">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email">
+          </div>
+          <div class="col-12 mb-3">
+            <label for="password">Senha</label>
+            <input type="password" class="form-control" id="password">
+          </div>
         </div>
-    </form>
+        <div class="form-row">
+          <div class="col-12 mb-5">
+            <button class="btn btn-primary w-100 text-uppercase" type="submit">Entrar</button>
+          </div>
+          <div class="col-12 text-center">
+            <p>Ainda não tem uma conta? <a routerLink="/cadastro" class="text-primary">Cadastre-se</a></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
