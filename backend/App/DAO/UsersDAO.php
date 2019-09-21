@@ -38,14 +38,12 @@ class UsersDAO extends ConnectionDataBase
     $statement = $this->pdo
       ->prepare('UPDATE users SET
                     email = :email,
-                    password = :password,
                     updated_at = :updated_at
                  WHERE
                     studio_id = :studio_id;');
     
     $statement->execute([
       'email' => $user->getEmail(),
-      'password' => $user->getPassword(),
       'updated_at' => $user->getUpdated_at(),
       'studio_id' => $user->getStudio_id()
     ]);
