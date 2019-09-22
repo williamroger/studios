@@ -1,0 +1,28 @@
+.containerIcon{
+    width: 100%;
+    margin-top: 40%;
+    .icon{
+        height: 90px;
+        width: 170px;
+        margin-left: auto;
+        margin-right: auto;
+    } 
+}
+
+
+.formContainer{
+    height: 100%;
+    position: absolute;
+        left: 0;
+        right: 0;
+        width: 75%;
+        margin: 0 auto;
+        &.top{
+            top:10%;
+        }
+        &.bottom{
+            bottom:30%;
+            color:#fff;
+        }
+}
+
