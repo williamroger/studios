@@ -28,7 +28,7 @@
               <span *ngIf="studioForm.get('email').errors.minlength">deve ter no mínimo 10 caracteres!</span>
             </div>
           </div>
-          <div class="col-12 mb-4">
+          <div class="col-12 mb-3">
             <label for="password">Senha</label>
             <input type="password" class="form-control" id="password" formControlName="password">
             <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
@@ -43,7 +43,7 @@
             <button class="btn btn-primary w-100 text-uppercase" type="submit" [disabled]="submittingForm || studioForm.invalid">Cadastrar</button>
           </div>
           <div class="col-12 text-center mb-5">
-            <a routerLink="/cadastro" class="text-primary">Voltar para o login</a>
+            <a routerLink="/" class="text-primary">Voltar para o login</a>
           </div>
         </div>
       </form>
