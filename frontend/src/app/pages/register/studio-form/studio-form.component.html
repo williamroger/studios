@@ -16,8 +16,8 @@
             <label for="name">Nome do Estúdio</label>
             <input type="text" class="form-control" id="name" formControlName="name">
             <div class="text-danger" *ngIf="studioForm.get('name').invalid && studioForm.get('name').touched">
-              <span *ngIf="studioForm.get('name').errors.required">este campo é obrigatório!</span>
-              <span *ngIf="studioForm.get('name').errors.minlength">deve ter no mínimo 4 caracteres!</span>
+              <span *ngIf="studioForm.get('name').errors.required">Este campo é obrigatório!</span>
+              <span *ngIf="studioForm.get('name').errors.minlength">Deve ter no mínimo 4 caracteres!</span>
             </div>
           </div>
           <div class="col-12 mb-4">
@@ -33,8 +33,8 @@
             <label for="password">Senha</label>
             <input type="password" class="form-control" id="password" formControlName="password">
             <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
-              <span *ngIf="studioForm.get('password').errors.required">este campo é obrigatório!</span>
-              <span *ngIf="studioForm.get('password').errors.minlength">deve ter no mínimo 6 caracteres!</span>
+              <span *ngIf="studioForm.get('password').errors.required">Este campo é obrigatório!</span>
+              <span *ngIf="studioForm.get('password').errors.minlength">Deve ter no mínimo 6 caracteres!</span>
             </div>
           </div>
         </div>
