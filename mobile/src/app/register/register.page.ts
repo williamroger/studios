@@ -4,7 +4,6 @@ import { CustomerModel } from '../register/shared/customer';
 import { RegisterService } from '../register/shared/register.service';
 import { ToastController } from '@ionic/angular';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -53,46 +52,51 @@ export class RegisterPage implements OnInit {
       )
   }
 
-    // Private Methods
-    buildCustomerForm() {
-      this.customerForm = this.formBuilder.group({
-        name: new FormControl(null, Validators.compose([
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(150)
-        ])),
-        email: new FormControl(null, Validators.compose([
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(100)
-        ])),
-        password: new FormControl(null, Validators.compose([
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(30)
-        ]))
-      })
-    }
+  // Private Methods
+  buildCustomerForm() {
+    this.customerForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(150)
+      ])),
+      email: new FormControl(null, Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(100)
+      ])),
+      password: new FormControl(null, Validators.compose([
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(30)
+      ]))
+    })
+  }
 
-    actionsForSuccess(customer: CustomerModel) {
-      this.presentToast('Cadastro realizado com sucesso!');
-  
-      // setTimeout(() => {
-      //   this.router.navigateByUrl('/');
-      // }, 3000);
-    }
+  actionsForSuccess(customer: CustomerModel) {
+    this.presentToast('Cadastro realizado com sucesso!');
 
-    actionsForError(error) {
-      this.presentToast('Ocorreu um erro, tente novamente!');
-    }
+    // setTimeout(() => {
+    //   this.router.navigateByUrl('/');
+    // }, 3000);
+  }
 
-    async presentToast(message: string) {
-      const toast = await this.toastCtrl.create({
-        message,
-        duration: 2000,
-        color: 'primary'
-      });
-      toast.present();
-    }
+  actionsForError(error) {
+    this.presentToast('Ocorreu um erro, tente novamente!');
+  }
 
+  // register() {
+  //   console.log('name: ', this.registerForm.value.name);
+  //   console.log('email: ', this.registerForm.value.email);
+  //   console.log('password: ', this.registerForm.value.password);
+  // }
+
+  async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      color: 'primary'
+    });
+    toast.present();
+  }
 }
