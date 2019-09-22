@@ -5,9 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudioFormUpdateModule } from './pages/register/studio-form-update/studio-form-update.module';
-
-
 
 @NgModule({
   declarations: [
@@ -16,8 +13,7 @@ import { StudioFormUpdateModule } from './pages/register/studio-form-update/stud
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    StudioFormUpdateModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
