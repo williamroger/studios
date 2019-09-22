@@ -111,9 +111,6 @@ final class CustomerController{
       if (!$data['email'] || $data['email'] === '')
         throw new Exception("O email é obrigatório");
 
-      if (!$data['password'] || $data['password'] === '')
-        throw new Exception("O senha é obrigatório");
-
       $customerDAO = new CustomersDAO();
       $userDAO = new UsersDAO();
       $customer = new CustomerModel();
