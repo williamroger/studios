@@ -1,62 +1,74 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>account</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content ion-padding>
-  <form [formGroup]="customerForm">
-    <ion-item>
-      <ion-label>Nome</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
-    </ion-item>
-    <div class="error-messages">
-      <ng-container *ngFor="let error of error_messages.name">
-        <div class="error-message" *ngIf="customerForm.get('name').hasError(error.type) && (customerForm.get('name').dirty || customerForm.get('name').touched)">
-          {{ error.message }}
-        </div>
-      </ng-container>
-    </div>
-    <ion-item>
-      <ion-label>Phone</ion-label>
-      <ion-input type="tel" formControlName="phone"></ion-input>
-    </ion-item>
-    <div class="error-messages">
-      <ng-container *ngFor="let error of error_messages.phone">
-        <div class="error-message"
-          *ngIf="customerForm.get('phone').hasError(error.type) && (customerForm.get('phone').dirty || customerForm.get('phone').touched)">
-          {{ error.message }}
-        </div>
-      </ng-container>
-    </div>
-    <ion-item>
-      <ion-label>Cpf</ion-label>
-      <ion-input type="number" formControlName="cpf"></ion-input>
-    </ion-item>
-    <div class="error-messages">
-      <ng-container *ngFor="let error of error_messages.cpf">
-        <div class="error-message"
-          *ngIf="customerForm.get('cpf').hasError(error.type) && (customerForm.get('cpf').dirty || customerForm.get('cpf').touched)">
-          {{ error.message }}
-        </div>
-      </ng-container>
-    </div>
-    <ion-item>
-      <ion-label>Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-    <div class="error-messages">
-      <ng-container *ngFor="let error of error_messages.email">
-        <div class="error-message"
-          *ngIf="customerForm.get('email').hasError(error.type) && (customerForm.get('email').dirty || customerForm.get('email').touched)">
-          {{ error.message }}
-        </div>
-      </ng-container>
-    </div>
-
-    <ion-button (click)="submitForm()" color="success" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
-      Atualizar
-    </ion-button>
-    <ion-button color="warning" size="default" expand="block">Cancelar</ion-button>
-  </form>
+<ion-content class="profile">
+  <ion-card no-margin>
+    <ion-card-content class="bg-profile">
+      <img src="./assets/person-icon.jpg">
+      <h1 class="fw500">Nome do Cliente</h1>
+      <h2 color="light" margin-bottom>Customer</h2>
+    </ion-card-content>
+    
+  <ion-grid fixed no-padding>
+    <ion-row>
+      <ion-col size="12" padding>
+        <form [formGroup]="customerForm">
+          <ion-item>
+            <ion-label color="dark" position="stacked">Nome</ion-label>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.name">
+            <div class="error-message" *ngIf="customerForm.get('name').hasError(error.type) && (customerForm.get('name').dirty || customerForm.get('name').touched)">
+              {{ error.message }}
+            </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label color="dark" position="stacked">Phone</ion-label>
+            <ion-input type="tel" formControlName="phone"></ion-input>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.phone">
+            <div class="error-message" *ngIf="customerForm.get('phone').hasError(error.type) && (customerForm.get('phone').dirty || customerForm.get('phone').touched)">
+              {{ error.message }}
+            </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label color="dark" position="stacked">Cpf</ion-label>
+            <ion-input type="number" formControlName="cpf"></ion-input>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.cpf">
+            <div class="error-message" *ngIf="customerForm.get('cpf').hasError(error.type) && (customerForm.get('cpf').dirty || customerForm.get('cpf').touched)">
+              {{ error.message }}
+            </div>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label color="dark" position="stacked">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.email">
+            <div class="error-message" *ngIf="customerForm.get('email').hasError(error.type) && (customerForm.get('email').dirty || customerForm.get('email').touched)">
+              {{ error.message }}
+            </div>
+            </ng-container>
+          </div>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid> <br>
+  <ion-button (click)="updateForm()" color="primary" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
+    Edit
+  </ion-button>
+  </ion-card>
 </ion-content>

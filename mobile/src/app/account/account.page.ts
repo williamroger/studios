@@ -22,17 +22,17 @@ export class AccountPage implements OnInit {
     ],
     'phone': [
       { type: 'required', message: 'informe o seu phone!'},
-      { type: 'minlength', message: 'deve ter no mínimo 4 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 150 caracteres' }
+      { type: 'minlength', message: 'deve ter no mínimo 8 caracteres' },
+      { type: 'maxlength', message: 'deve ter no máximo 12 caracteres' }
     ],
     'cpf': [
       { type: 'required', message: 'informe o seu cpf!'},
-      { type: 'minlength', message: 'deve ter no mínimo 4 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 150 caracteres' }
+      { type: 'minlength', message: 'deve ter no mínimo 11 caracteres' },
+      { type: 'maxlength', message: 'deve ter no máximo 11 caracteres' }
     ],
     'email': [
       { type: 'required', message: 'informe o seu email!' },
-      { type: 'minlength', message: 'deve ter no mínimo 6 caracteres' },
+      { type: 'minlength', message: 'deve ter no mínimo 10 caracteres' },
       { type: 'maxlength', message: 'deve ter no máximo 100 caracteres' }
     ]
   }
@@ -43,7 +43,7 @@ export class AccountPage implements OnInit {
     this.buildCustomerForm();
   }
 
-  submitForm() {
+  updateForm() {
     const customer: CustomerModel = Object.assign(new CustomerModel(), this.customerForm.value);
 
     this.accountService.updateCustomer(customer).subscribe(
@@ -55,6 +55,7 @@ export class AccountPage implements OnInit {
   // Private Methods
   buildCustomerForm() {
     this.customerForm = this.formBuilder.group({
+      id: new FormControl(4),
       name: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(4),
@@ -73,10 +74,9 @@ export class AccountPage implements OnInit {
       city_id: new FormControl(1),
       email: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(10),
         Validators.maxLength(100)
-      ])),
-      id: new FormControl(4)
+      ]))
     })
   }
 
