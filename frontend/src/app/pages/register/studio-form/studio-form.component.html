@@ -1,42 +1,52 @@
-<div class="container">
-  <br>
-  <h2>Cadastrar Estúdio</h2>
-  <br>
-  <form [formGroup]="studioForm" (submit)="submitForm()">
-    <div class="form-row">
-      <div class="col-md-4">
-        <label for="name">Nome do Estúdio</label>
-        <input type="text" class="form-control" id="name" formControlName="name">
-        <div class="text-danger" *ngIf="studioForm.get('name').invalid && studioForm.get('name').touched">
-          <span *ngIf="studioForm.get('name').errors.required">este campo é obrigatório!</span>
-          <span *ngIf="studioForm.get('name').errors.minlength">deve ter no mínimo 4 caracteres!</span>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-6 col-md-3">
+      <form class="form-register" [formGroup]="studioForm" (submit)="submitForm()">
+        <div class="form-row">
+          <div class="col-12 text-center mb-5">
+            <img class="form-register__logo" src="../../../../assets/images/logo-studios_2x.png" alt="logo-studios">
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <label for="email">E-mail</label>
-        <input type="email" class="form-control" id="email" formControlName="email">
-        <div class="text-danger" *ngIf="studioForm.get('email').invalid && studioForm.get('email').touched">
-          <span *ngIf="studioForm.get('email').errors.required">este campo é obrigatório!</span>
-          <span *ngIf="studioForm.get('email').errors.minlength">deve ter no mínimo 10 caracteres!</span>
+        <div class="form-row">
+          <div class="col-12 text-center mb-5">
+            <h1>Cadastre seu Estúdio</h1>
+            <small>Para aproveitar todos os nossos recursos.</small>
+          </div>
+          <div class="col-12 mb-4">
+            <label for="name">Nome do Estúdio</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+            <div class="text-danger" *ngIf="studioForm.get('name').invalid && studioForm.get('name').touched">
+              <span *ngIf="studioForm.get('name').errors.required">este campo é obrigatório!</span>
+              <span *ngIf="studioForm.get('name').errors.minlength">deve ter no mínimo 4 caracteres!</span>
+            </div>
+          </div>
+          <div class="col-12 mb-4">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <div class="text-danger" *ngIf="studioForm.get('email').invalid && studioForm.get('email').touched">
+              <span *ngIf="studioForm.get('email').errors.required">este campo é obrigatório!</span>
+              <span *ngIf="studioForm.get('email').errors.minlength">deve ter no mínimo 10 caracteres!</span>
+            </div>
+          </div>
+          <div class="col-12 mb-4">
+            <label for="password">Senha</label>
+            <input type="password" class="form-control" id="password" formControlName="password">
+            <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
+              <span *ngIf="studioForm.get('password').errors.required">este campo é obrigatório!</span>
+              <span *ngIf="studioForm.get('password').errors.minlength">deve ter no mínimo 6 caracteres!</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-4">
-        <label for="password">Senha</label>
-        <input type="password" class="form-control" id="password" formControlName="password">
-        <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
-          <span *ngIf="studioForm.get('password').errors.required">este campo é obrigatório!</span>
-          <span *ngIf="studioForm.get('password').errors.minlength">deve ter no mínimo 6 caracteres!</span>
+        <br>
+        <div class="form-row">
+          <div class="col-12 mb-5">
+            <button class="btn btn-primary w-100 text-uppercase" type="submit" [disabled]="submittingForm || studioForm.invalid">Cadastrar</button>
+          </div>
+          <div class="col-12 text-center mb-5">
+            <a routerLink="/cadastro" class="text-primary">Voltar para o login</a>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
-    <br>
-    <div class="form-row">
-      <div class="col-xm-3">
-        <button class="btn btn-primary" routerLink="/">Voltar</button>
-      </div>
-      <div class="col-xm-3">
-        <button class="btn btn-primary" type="submit" [disabled]="submittingForm || studioForm.invalid">Cadastrar</button>
-      </div>
-    </div>
-  </form>
+  </div>
 </div>
