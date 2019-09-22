@@ -2,12 +2,19 @@
 
 use App\Controllers\StudioController;
 use App\Controllers\CustomerController;
+use App\Controllers\UserController;
 
 use function src\slimConfiguration;
 
 $app = new \Slim\App(slimConfiguration());
 
 $app->group('', function() use ($app) {
+
+  // USER ===============================================================
+  $app->get('/user/getallstates', UserController::class . 'getAllStates');
+  $app->get('/user/getallcities', UserController::class . 'getAllCities');
+  $app->get('/user/getcitybystateid', UserController::class . 'getCityByStateId');
+
   // STUDIO =============================================================
   $app->get('/studio/getallstudios', StudioController::class . ':getAllStudios');
   $app->post('/studio/insertstudio', StudioController::class . ':insertStudio');
