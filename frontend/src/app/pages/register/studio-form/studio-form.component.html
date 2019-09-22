@@ -24,8 +24,9 @@
             <label for="email">E-mail</label>
             <input type="email" class="form-control" id="email" formControlName="email">
             <div class="text-danger" *ngIf="studioForm.get('email').invalid && studioForm.get('email').touched">
-              <span *ngIf="studioForm.get('email').errors.required">este campo é obrigatório!</span>
-              <span *ngIf="studioForm.get('email').errors.minlength">deve ter no mínimo 10 caracteres!</span>
+              <div *ngIf="studioForm.get('email').errors.required">Este campo é obrigatório!</div>
+              <div *ngIf="studioForm.get('email').errors.minlength">Deve ter no mínimo 10 caracteres!</div>
+              <div *ngIf="studioForm.get('email').errors.email">Endereço de e-mail inválidoo!</div>
             </div>
           </div>
           <div class="col-12 mb-3">

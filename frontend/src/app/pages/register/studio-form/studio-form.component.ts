@@ -45,7 +45,7 @@ export class StudioFormComponent implements OnInit {
   buildStudioForm() {
     this.studioForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.minLength(4)]],
-      email: [null, [Validators.required, Validators.minLength(10)]],
+      email: [null, [Validators.required, Validators.email, Validators.minLength(10)]],
       password: [null, [Validators.required, Validators.minLength(6)]]
     })
   }
