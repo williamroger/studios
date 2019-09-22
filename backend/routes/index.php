@@ -2,18 +2,17 @@
 
 use App\Controllers\StudioController;
 use App\Controllers\CustomerController;
-use App\Controllers\UserController;
+use App\Controllers\UtilController;
 
 use function src\slimConfiguration;
 
 $app = new \Slim\App(slimConfiguration());
 
 $app->group('', function() use ($app) {
-
-  // USER ===============================================================
-  $app->get('/user/getallstates', UserController::class . 'getAllStates');
-  $app->get('/user/getallcities', UserController::class . 'getAllCities');
-  $app->get('/user/getcitybystateid', UserController::class . 'getCityByStateId');
+  // Util ===============================================================
+  $app->get('/getallstates', UtilController::class . ':getAllStates');
+  $app->get('/getallcities', UtilController::class . ':getAllCities');
+  $app->get('/getcitybystateid', UtilController::class . ':getCityByStateId');
 
   // STUDIO =============================================================
   $app->get('/studio/getallstudios', StudioController::class . ':getAllStudios');
@@ -32,6 +31,7 @@ $app->group('', function() use ($app) {
   $app->post('/customer/insertcustomer', CustomerController::class . ':insertCustomer');
   $app->put('/customer/updatecustomer', CustomerController::class . ':updateCustomer');
   $app->delete('/customer/deletecustomer', CustomerController::class . ':deleteCustomer');
+
 })->add(function ($req, $res, $next) {
   $response = $next($req, $res);
   return $response
