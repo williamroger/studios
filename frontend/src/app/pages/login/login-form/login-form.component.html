@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-12 col-sm-6 col-md-3">
-      <form class="form-login">
+      <form class="form-login" [formGroup]="studioForm" (submit)="submitForm()">
         <div class="form-row">
           <div class="col-12 text-center mb-5">
             <img class="form-login__logo" src="../../../../assets/images/logo-studios_2x.png" alt="logo-studios">
@@ -14,16 +14,24 @@
           </div>
           <div class="col-12 mb-4">
             <label for="email">E-mail</label>
-            <input type="email" class="form-control" id="email">
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <div class="text-danger" *ngIf="studioForm.get('email').invalid && studioForm.get('email').touched">
+              <div *ngIf="studioForm.get('email').errors.required">Este campo é obrigatório!</div>
+              <div *ngIf="studioForm.get('email').errors.email">Endereço de e-mail inválido!</div>
+            </div>
           </div>
           <div class="col-12 mb-3">
             <label for="password">Senha</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" formControlName="password">
+            <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
+              <div *ngIf="studioForm.get('password').errors.required">Este campo é obrigatório!</div>
+              <div *ngIf="studioForm.get('password').errors.minlength">Senha inválida!</div>
+            </div>
           </div>
         </div>
         <div class="form-row">
           <div class="col-12 mb-5">
-            <button class="btn btn-primary w-100 text-uppercase" type="submit">Entrar</button>
+            <button class="btn btn-primary w-100 text-uppercase" type="submit" [disabled]="submittingForm || studioForm.invalid">Entrar</button>
           </div>
           <div class="col-12 text-center">
             <p>Ainda não tem uma conta? <a routerLink="/cadastro" class="text-primary">Cadastre-se</a></p>
