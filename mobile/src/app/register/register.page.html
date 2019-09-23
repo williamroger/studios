@@ -1,10 +1,16 @@
 <ion-header>
   <ion-toolbar>
-    <div class="containerIcon">
+    <span>Cadastrar</span>
+    <!--<ion-buttons slot="start">
+        <ion-button>
+            <ion-icon name="arrow-back">Cadastrar</ion-icon>
+          </ion-button>
+    </ion-buttons>-->
+    <!--<div class="containerIcon">
       <div class="icon">
           <img src="/assets/icon/logo-studios_2x.png">
       </div>
-    </div>
+    </div>-->
   </ion-toolbar>
 </ion-header>
 
@@ -51,9 +57,11 @@
             </ng-container>
           </div>
       
-          <ion-button class="button" (click)="submitForm()" color="dark" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
+          <ion-button class="button" (click)="submitForm()" color="light" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
             Cadastrar
           </ion-button>
+          <ion-button class="botao-voltar" color="medium" shape="round" size="small" (click)="rotaLogin()">Voltar</ion-button>
+
       
         </form>
 
