@@ -19,9 +19,10 @@ $app->group('', function() use ($app) {
   $app->post('/studio/insertstudio', StudioController::class . ':insertStudio');
   $app->post('/studio/insertroom', StudioController::class . ':insertRoom');
   $app->get('/studio/getallrooms', StudioController::class . ':getAllRooms');
+  $app->get('/studio/getroombyid/{id}', StudioController::class . ':getRoomById');
   $app->get('/studio/getroomsbystudioid', StudioController::class . ':getRoomsByStudioId');
   $app->put('/studio/updateroom', StudioController::class . ':updateRoom');
-  $app->delete('/studio/deleteroom', StudioController::class . ':deleteRoom');
+  $app->delete('/studio/deleteroom/{id}', StudioController::class . ':deleteRoom');
   $app->put('/studio/updatestudio', StudioController::class . ':updateStudio');
   $app->delete('/studio/deletestudio', StudioController::class . ':deleteStudio');
 

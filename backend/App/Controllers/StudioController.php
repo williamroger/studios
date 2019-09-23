@@ -346,8 +346,7 @@ final class StudioController
   public function deleteRoom(Request $request, Response $response, array $args): Response
   {
     try {
-      $data = $request->getParsedBody();
-      $idRoom = intval($data['id']);
+      $idRoom = intval($args['id']);
 
       if (!$idRoom)
         throw new \Exception("Erro na aplicação, tente novamente.");
@@ -394,6 +393,43 @@ final class StudioController
 
       return $response;
       
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'error' => true,
+        'status' => 500,
+        'msg' => 'Erro na aplicação, tente novamente.',
+        'msgDev' => $ex->getMessage()
+      ], 500);
+    }
+  }
+
+  public function getRoomById(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $idRoom = intval($args['id']);
+
+      $studioDAO = new StudiosDAO();
+      $roomModel = new RoomModel();
+
+      $data = $studioDAO->getRoomById($idRoom);
+     
+      $roomModel->setId(intval($data[0]['id']))
+      ->setDescription($data[0]["description"])
+      ->setStudio_id($data[0]['studio_id'])
+      ->setName($data[0]['name'])
+      ->setMaximum_capacity($data[0]['maximum_capacity'])
+      ->setColor($data[0]['color'])
+      ->setCreated_at($data[0]['created_at'])
+      ->setUpdated_at($data[0]['updated_at']);
+   
+      $response = $response->withJson([
+        'error' => false,
+        'data' => $data,
+        'status' => 200
+      ], 200);
+
+      return $response;
+
     } catch (\Exception $ex) {
       return $response->withJson([
         'error' => true,

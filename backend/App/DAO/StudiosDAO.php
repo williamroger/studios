@@ -229,4 +229,26 @@ class StudiosDAO extends ConnectionDataBase
 
     return $statement->fetchAll(\PDO::FETCH_ASSOC);
   }
+
+  public function getRoomById(int $idRoom)
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id,
+                    description,
+                    studio_id,
+                    name,
+                    maximum_capacity,
+                    color,
+                    created_at,
+                    updated_at
+                 FROM
+                    rooms
+                 WHERE id = :id');
+    $statement->execute([
+      'id' => $idRoom
+    ]);
+
+    return $statement->fetchAll(\PDO::FETCH_ASSOC);
+  }
 }

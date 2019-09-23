@@ -54,7 +54,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setId(int $id)
+  public function setId(?int $id)
   {
     $this->id = $id;
 
@@ -78,7 +78,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setDescription(string $description)
+  public function setDescription(?string $description)
   {
     $this->description = $description;
 
@@ -102,7 +102,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setStudio_id(int $studio_id)
+  public function setStudio_id(?int $studio_id)
   {
     $this->studio_id = $studio_id;
 
@@ -126,7 +126,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setName(string $name)
+  public function setName(?string $name)
   {
     $this->name = $name;
 
@@ -150,7 +150,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setMaximum_capacity(int $maximum_capacity)
+  public function setMaximum_capacity(?int $maximum_capacity)
   {
     $this->maximum_capacity = $maximum_capacity;
 
@@ -174,7 +174,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setColor(string $color)
+  public function setColor(?string $color)
   {
     $this->color = $color;
 
@@ -198,7 +198,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setCreated_at(string $created_at)
+  public function setCreated_at(?string $created_at)
   {
     $this->created_at = $created_at;
 
@@ -222,7 +222,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setUpdated_at(string $updated_at)
+  public function setUpdated_at(?string $updated_at)
   {
     $this->updated_at = $updated_at;
 
