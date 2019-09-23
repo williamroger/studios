@@ -1,48 +1,62 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <div class="containerIcon">
+      <div class="icon">
+          <img src="/assets/icon/logo-studios_2x.png">
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content ion-padding>
-  <form [formGroup]="customerForm">
-    <ion-item>
-      <ion-label>Nome</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
-    </ion-item>
-    <div class="error-messages">
-      <ng-container *ngFor="let error of error_messages.name">
-        <div class="error-message" *ngIf="customerForm.get('name').hasError(error.type) && (customerForm.get('name').dirty || customerForm.get('name').touched)">
-          {{ error.message }}
-        </div>
-      </ng-container>
-    </div>
-    <ion-item>
-      <ion-label>Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-    <div class="error-messages">
-      <ng-container *ngFor="let error of error_messages.email">
-        <div class="error-message"
-          *ngIf="customerForm.get('email').hasError(error.type) && (customerForm.get('email').dirty || customerForm.get('email').touched)">
-          {{ error.message }}
-        </div>
-      </ng-container>
-    </div>
-    <ion-item>
-      <ion-label>Senha</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    <div class="error-messages">
-      <ng-container *ngFor="let error of error_messages.password">
-        <div class="error-message"
-          *ngIf="customerForm.get('password').hasError(error.type) && (customerForm.get('password').dirty || customerForm.get('password').touched)">
-          {{ error.message }}
-        </div>
-      </ng-container>
-    </div>
-    <ion-button (click)="submitForm()" color="primary" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
-      Cadastrar
-    </ion-button>
-  </form>
+
+  <div class="formContainer">
+
+      <form [formGroup]="customerForm">
+          <ion-item class="ion-margin-top">
+            <ion-input type="text" formControlName="name" placeholder="Nome"></ion-input>
+          </ion-item>
+      
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.name">
+              <div class="error-message" *ngIf="customerForm.get('name').hasError(error.type) && (customerForm.get('name').dirty || customerForm.get('name').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+      
+          <ion-item class="ion-margin-top">
+            <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
+          </ion-item>
+      
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.email">
+              <div class="error-message"
+                *ngIf="customerForm.get('email').hasError(error.type) && (customerForm.get('email').dirty || customerForm.get('email').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+      
+          <ion-item class="ion-margin-top">
+            <ion-input type="password" formControlName="password" placeholder="Senha"></ion-input>
+          </ion-item>
+      
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.password">
+              <div class="error-message"
+                *ngIf="customerForm.get('password').hasError(error.type) && (customerForm.get('password').dirty || customerForm.get('password').touched)">
+                {{ error.message }}
+              </div>
+            </ng-container>
+          </div>
+      
+          <ion-button class="button" (click)="submitForm()" color="dark" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
+            Cadastrar
+          </ion-button>
+      
+        </form>
+
+  </div>
+  
 </ion-content>
