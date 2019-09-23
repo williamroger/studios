@@ -26,10 +26,15 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12">
+      <ul>
+        <li *ngFor="let state of states">
+          {{ state }}
+        </li>
+      </ul>
       <form class="form-configuration">
         <div class="form-row">
           <div class="col-12 mb-5">
-            <h2> Atualizar dados </h2>
+            <h2>Atualizar dados</h2>
             <small>Mantenha as informações do seu estúdio sempre atualizadas.</small>
           </div>
         </div>
