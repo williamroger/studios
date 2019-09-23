@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CustomerModel } from '../register/shared/customer';
 import { RegisterService } from '../register/shared/register.service';
 import { ToastController } from '@ionic/angular';
+import { NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +36,8 @@ export class RegisterPage implements OnInit {
   constructor(
     public registerService: RegisterService,
     public formBuilder: FormBuilder,
-    private toastCtrl: ToastController 
+    private toastCtrl: ToastController,
+    public navCtrl: NavController 
   ) { }
 
   ngOnInit() {
@@ -99,4 +101,9 @@ export class RegisterPage implements OnInit {
     });
     toast.present();
   }
+
+  rotaLogin(){
+    this.navCtrl.navigateRoot('');
+  }
+
 }

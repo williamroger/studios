@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController} from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  rotaEntrar(){
+    this.navCtrl.navigateRoot('tabs/tabs/home');
+  }
+
+  rotaCadastro(){
+    this.navCtrl.navigateRoot('register');
   }
 
 }
