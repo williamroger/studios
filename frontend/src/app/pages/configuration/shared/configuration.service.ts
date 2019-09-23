@@ -16,7 +16,8 @@ export class ConfigurationService {
 
   getAllStates(): Observable<StateModel[]> {
     return this.http.get('api/getallstates').pipe(
-      catchError(this.handleError)
+      catchError(this.handleError),
+      map(this.jsonDataToState)
     );
   }
 
