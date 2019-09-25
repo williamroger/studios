@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 final class CustomerController{
-
+  
   public function getAllCustomers(Request $request, Response $response, array $args): Response
   {
     try {
@@ -34,7 +34,7 @@ final class CustomerController{
       ], 500);
     }
   }
-  
+ 
   public function insertCustomer(Request $request, Response $response, array $args): Response
   {
     try {
@@ -65,10 +65,10 @@ final class CustomerController{
 
       $newUser->setEmail($data['email'])
         ->setPassword($data['password'])
-        ->setCreated_at($now)
-        ->setCustomer_id(intval($idNewCustomer))
-        ->setIs_studio(0)
-        ->setIs_customer(1);
+        ->setCreatedAt($now)
+        ->setCustomerId(intval($idNewCustomer))
+        ->setIsStudio(0)
+        ->setIsCustomer(1);
 
       $userDAO->insertUserCustomer($newUser);
 
@@ -87,7 +87,7 @@ final class CustomerController{
       ], 500);
     }
   }
-
+ 
   public function updateCustomer(Request $request, Response $response, array $args): Response
   {
     try {
@@ -134,8 +134,8 @@ final class CustomerController{
         ->setImage($data['image']);
 
       $user->setEmail($data['email'])
-        ->setUpdated_at($now)
-        ->setCustomer_id($customerID);
+        ->setUpdatedAt($now)
+        ->setCustomerId($customerID);
 
       $customerDAO->updateCustomer($customer);
 

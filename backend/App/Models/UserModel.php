@@ -19,27 +19,27 @@ final class UserModel
   /**
    * @var string
    */
-  private $created_at;
+  private $createdAt;
   /**
    * @var string
    */
-  private $updated_at;
+  private $updatedAt;
   /**
    * @var int
    */
-  private $customer_id;
+  private $customerId;
   /**
    * @var int
    */
-  private $studio_id;
+  private $studioId;
   /**
    * @var int
    */
-  private $is_studio;
+  private $isStudio;
   /**
    * @var int
    */
-  private $is_customer;
+  private $isCustomer;
 
   /**
    * Get the value of id
@@ -108,133 +108,133 @@ final class UserModel
   }
 
   /**
-   * Get the value of created_at
+   * Get the value of createdAt
    * @return  string
    */ 
-  public function getCreated_at(): string
+  public function getCreatedAt(): string
   {
-    return $this->created_at;
+    return $this->createdAt;
   }
 
   /**
-   * Set the value of created_at
-   * @param  string  $created_at
+   * Set the value of createdAt
+   * @param  string  $createdAt
    *
    * @return  self
    */ 
-  public function setCreated_at(string $created_at): self
+  public function setCreatedAt(string $createdAt): self
   {
-    $this->created_at = $created_at;
+    $this->createdAt = $createdAt;
 
     return $this;
   }
 
   /**
-   * Get the value of updated_at
+   * Get the value of updatedAt
    * @return  string
    */ 
-  public function getUpdated_at(): string
+  public function getUpdatedAt(): string
   {
-    return $this->updated_at;
+    return $this->updatedAt;
   }
 
   /**
-   * Set the value of updated_at
-   * @param  string  $updated_at
+   * Set the value of updatedAt
+   * @param  string  $updatedAt
    *
    * @return  self
    */ 
-  public function setUpdated_at(string $updated_at): self
+  public function setUpdatedAt(string $updatedAt): self
   {
-    $this->updated_at = $updated_at;
+    $this->updatedAt = $updatedAt;
 
     return $this;
   }
 
   /**
-   * Get the value of customer_id
+   * Get the value of customerId
    * @return  int
    */ 
-  public function getCustomer_id(): int
+  public function getCustomerId(): int
   {
-    return $this->customer_id;
+    return $this->customerId;
   }
 
   /**
-   * Set the value of customer_id
-   * @param  int  $customer_id
+   * Set the value of customerId
+   * @param  int  $customerId
    *
    * @return  self
    */ 
-  public function setCustomer_id(int $customer_id): self
+  public function setCustomerId(int $customerId): self
   {
-    $this->customer_id = $customer_id;
+    $this->customerId = $customerId;
 
     return $this;
   }
 
   /**
-   * Get the value of studio_id
+   * Get the value of studioId
    * @return  int
    */ 
-  public function getStudio_id(): int
+  public function getStudioId(): int
   {
-    return $this->studio_id;
+    return $this->studioId;
   }
 
   /**
-   * Set the value of studio_id
-   * @param  int  $studio_id
+   * Set the value of studioId
+   * @param  int  $studioId
    *
    * @return  self
    */ 
-  public function setStudio_id(int $studio_id): self
+  public function setStudioId(int $studioId): self
   {
-    $this->studio_id = $studio_id;
+    $this->studioId = $studioId;
 
     return $this;
   }
 
   /**
-   * Get the value of is_studio
+   * Get the value of isStudio
    * @return  int
    */ 
-  public function getIs_studio(): int
+  public function getIsStudio(): int
   {
-    return $this->is_studio;
+    return $this->isStudio;
   }
 
   /**
-   * Set the value of is_studio
-   * @param  int  $is_studio
+   * Set the value of isStudio
+   * @param  int  $isStudio
    *
    * @return  self
    */ 
-  public function setIs_studio(int $is_studio): self
+  public function setIsStudio(int $isStudio): self
   {
-    $this->is_studio = $is_studio;
+    $this->isStudio = $isStudio;
 
     return $this;
   }
 
   /**
-   * Get the value of is_customer
+   * Get the value of isCustomer
    * @return  int
    */ 
-  public function getIs_customer(): int
+  public function getIsCustomer(): int
   {
-    return $this->is_customer;
+    return $this->isCustomer;
   }
 
   /**
-   * Set the value of is_customer
-   * @param  int  $is_customer
+   * Set the value of isCustomer
+   * @param  int  $isCustomer
    *
    * @return  self
    */ 
-  public function setIs_customer(int $is_customer): self
+  public function setIsCustomer(int $isCustomer): self
   {
-    $this->is_customer = $is_customer;
+    $this->isCustomer = $isCustomer;
 
     return $this;
   }

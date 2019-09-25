@@ -75,9 +75,9 @@ class UsersDAO extends ConnectionDataBase
     $statement->execute([
       'email' => $user->getEmail(),
       'password' => $user->getPassword(),
-      'created_at' => $user->getCreated_at(),
-      'customer_id' => $user->getCustomer_id(),
-      'is_customer' => $user->getIs_customer()
+      'created_at' => $user->getCreatedAt(),
+      'customer_id' => $user->getCustomerId(),
+      'is_customer' => $user->getIsCustomer()
     ]);
   }
 
@@ -92,8 +92,8 @@ class UsersDAO extends ConnectionDataBase
     
     $statement->execute([
       'email' => $user->getEmail(),
-      'updated_at' => $user->getUpdated_at(),
-      'customer_id' => $user->getCustomer_id()
+      'updated_at' => $user->getUpdatedAt(),
+      'customer_id' => $user->getCustomerId()
     ]);
   }
 
