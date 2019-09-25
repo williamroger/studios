@@ -66,3 +66,7 @@ ADD COLUMN `room_id` VARCHAR(45) NOT NULL AFTER `name`;
 
 ALTER TABLE `db_dev_studios`.`equipments_rooms` 
 ADD COLUMN `description` VARCHAR(150) NULL AFTER `room_id`;
+===================================================================
+ALTER TABLE `db_dev_studios`.`rooms` 
+ADD COLUMN `created_at` TIMESTAMP NULL AFTER `color`,
+ADD COLUMN `updated_at` TIMESTAMP NULL AFTER `created_at`;

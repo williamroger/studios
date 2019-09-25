@@ -16,7 +16,7 @@ export class AccountService {
   constructor(public http: HttpClient) { }
 
   updateCustomer(customer: CustomerModel): Observable<CustomerModel> {
-    return this.http.put('api/customer/updatecustomer' + customer.id, customer).pipe(
+    return this.http.put('api/customer/updatecustomer', customer).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCustomer)
     )

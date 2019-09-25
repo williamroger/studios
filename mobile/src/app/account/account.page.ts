@@ -3,6 +3,7 @@ import { CustomerModel } from './../register/shared/customer';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-account',
@@ -37,7 +38,7 @@ export class AccountPage implements OnInit {
     ]
   }
 
-  constructor(public accountService: AccountService, public formBuilder: FormBuilder, private toastCtrl: ToastController ) { }
+  constructor(public accountService: AccountService, public formBuilder: FormBuilder, private toastCtrl: ToastController, public navCtrl: NavController ) { }
 
   ngOnInit() {
     this.buildCustomerForm();
@@ -105,5 +106,8 @@ export class AccountPage implements OnInit {
       color: 'primary'
     });
     toast.present();
+  }
+  logout(){
+    this.navCtrl.navigateRoot('');
   }
 }

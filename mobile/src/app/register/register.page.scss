@@ -13,9 +13,9 @@
     position: absolute;
         left: 0;
         right: 0;
+        margin: 0 auto;
         top: 50px;
         width: 85%;
-        margin: 0 auto;
 }
 
 .ion-margin-top{
@@ -24,11 +24,16 @@
 
 .button{
     margin-top: 30%;
+    color: #FE2E64;
 }
 
-.botao-voltar{
-    margin-left: 30%;
-    margin-top: 5%;
+.voltar{
+    margin-top: 15%;
+    margin-left: 23%;
+    .linkVoltar{
+        color:#0431B4;
+        text-decoration: none;
+    }
 }
 
 span{

@@ -57,11 +57,12 @@
             </ng-container>
           </div>
       
-          <ion-button class="button" (click)="submitForm()" color="light" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
+          <ion-button class="button" (click)="submitForm()" color="padrao" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
             Cadastrar
           </ion-button>
-          <ion-button class="botao-voltar" color="medium" shape="round" size="small" (click)="rotaLogin()">Voltar</ion-button>
-
+          <div class="voltar">
+            <a routerLink="" class="linkVoltar">Voltar para o login</a>
+          </div>
       
         </form>
 

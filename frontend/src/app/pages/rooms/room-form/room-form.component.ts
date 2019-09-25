@@ -62,7 +62,7 @@ export class RoomFormComponent implements OnInit {
       id: [null],
       name: [null, [Validators.required, Validators.minLength(4)]],
       description: [null, [Validators.required, Validators.minLength(20)]],
-      studio_id: [11],
+      studio_id: [1],
       maximum_capacity: [null, [Validators.required, Validators.minLength(1)]],
       color: [null, [Validators.required, Validators.minLength(3)]]
     });
