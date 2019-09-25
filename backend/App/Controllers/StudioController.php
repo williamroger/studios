@@ -34,7 +34,7 @@ final class StudioController
       ], 500);
     }
   }
-
+  
   public function getStudioById(Request $request, Response $response, array $args): Response 
   {
     try {
@@ -65,7 +65,7 @@ final class StudioController
       ], 500);
     }
   }
-
+  // falta conferir
   public function getStudiosByCityIdCustomer(Request $request, Response $response, array $args): Response
   {
     try {
@@ -93,7 +93,7 @@ final class StudioController
       ], 500);
     }
   } 
-
+  
   public function insertStudio(Request $request, Response $response, array $args): Response
   {
     try {
@@ -142,7 +142,7 @@ final class StudioController
       ], 500);
     }
   }
-
+  
   public function updateStudio(Request $request, Response $response, array $args): Response
   {
     try {
@@ -224,7 +224,7 @@ final class StudioController
       ], 500);
     }
   }
-
+  
   public function deleteStudio(Request $request, Response $response, array $args): Response
   {
     try {
@@ -257,7 +257,7 @@ final class StudioController
       ], 500);
     }
   }
-
+  
   public function insertRoom(Request $request, Response $response, array $args): Response
   {
     try {
@@ -282,31 +282,30 @@ final class StudioController
 
       $room->setName($data['name'])
         ->setDescription($data['description'])
-        ->setStudio_id(intval($data['studio_id']))
-        ->setMaximum_capacity(intval($data['maximum_capacity']))
+        ->setStudioId(intval($data['studio_id']))
+        ->setMaximumCapacity(intval($data['maximum_capacity']))
         ->setColor($data['color'])
-        ->setCreated_at($now);
+        ->setCreatedAt($now)
+        ->setImages($data['images']);
 
       $studioDAO->insertRoom($room);
 
       $response = $response->withJson([
-        'error' => false,
+        'success' => true,
         'msg' => 'Sala de Ensaio cadastrada com sucesso!',
-        'status' => 200
       ]);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
     }
   }
-
+  
   public function getAllRooms(Request $request, Response $response, array $args): Response
   {
     try {
@@ -338,9 +337,16 @@ final class StudioController
       $data = $request->getParsedBody();
       $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
       $now = $date->format('Y-m-d H:i:s');
+      $idRoom = intval($data['id']);
 
       $studioDAO = new StudiosDAO();
       $room = new RoomModel();
+
+      if (!$idRoom)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      if ($studioDAO->roomExists($idRoom) == 0)
+        throw new \Exception("Não encontramos essa sala em nossa base de dados.");
 
       if (!$data['name'] || $data['name'] === "")
         throw new \Exception("O nome da sala de ensaio é obriatório.");
@@ -354,34 +360,33 @@ final class StudioController
       if (!$data['color'] || $data['color'] === "")
         throw new \Exception("A cor identificadora da sala é obrigatória.");
 
-      $room->setId(intval($data['id']))
+      $room->setId($idRoom)
         ->setName($data['name'])
         ->setDescription($data['description'])
-        ->setStudio_id(intval($data['studio_id']))
-        ->setMaximum_capacity(intval($data['maximum_capacity']))
+        ->setStudioId(intval($data['studio_id']))
+        ->setMaximumCapacity(intval($data['maximum_capacity']))
         ->setColor($data['color'])
-        ->setUpdated_at($now);
+        ->setUpdatedAt($now)
+        ->setImages($data['images']);
 
       $studioDAO->updateRoom($room);
 
       $response = $response->withJson([
-        'error' => false,
-        'msg' => 'Sala de ensaio atualizada com sucesso!',
-        'status' => 200
+        'success' => true,
+        'msg' => 'Sala de ensaio atualizada com sucesso!'
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
     }
   }
-
+  
   public function deleteRoom(Request $request, Response $response, array $args): Response
   {
     try {
@@ -395,75 +400,75 @@ final class StudioController
       $studioDAO->deleteRoom($idRoom);
 
       $response = $response->withJson([
-        'error' => false,
-        'message' => 'Sala de Ensaio excluída com sucesso!',
-        'status' => 200
+        'success' => true,
+        'message' => 'Sala de Ensaio excluída com sucesso!'
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
     }
   }
-
+ 
   public function getRoomsByStudioId(Request $request, Response $response, array $args): Response
   {
     try {
-      $data = $request->getParsedBody();
-      $idStudio = intval($data['id']);
+      $idStudio = intval($args['id']);;
+      $studioDAO = new StudiosDAO();
 
       if (!$idStudio)
         throw new \Exception("Erro na aplicação, tente novamente.");
-        
-      $studioDAO = new StudiosDAO();
+
+      if ($studioDAO->studioExists($idStudio) == 0)
+        throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
+      
       $rooms = $studioDAO->getRoomsByStudioId($idStudio);
 
       $response = $response->withJson([
-        'error' => false,
-        'data' => $rooms,
-        'status' => 200
+        'success' => true,
+        'rooms' => $rooms
       ], 200);
 
       return $response;
       
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
     }
   }
-
+  
   public function getRoomById(Request $request, Response $response, array $args): Response
   {
     try {
       $idRoom = intval($args['id']);
-
       $studioDAO = new StudiosDAO();
-      $roomModel = new RoomModel();
+
+      if (!$idRoom)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      if ($studioDAO->roomExists($idRoom) == 0)
+        throw new \Exception("Não encontramos essa sala em nossa base de dados.");
 
       $room = $studioDAO->getRoomById($idRoom);
    
       $response = $response->withJson([
-        'error' => false,
+        'success' => true,
         'room' => $room,
-        'status' => 200
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);

@@ -90,7 +90,7 @@ class StudiosDAO extends ConnectionDataBase
   
     return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
-
+  // falta conferir
   public function getStudiosByCityIdCustomer(int $idCustomer): array
   {
     $statement = $this->pdo
@@ -206,22 +206,25 @@ class StudiosDAO extends ConnectionDataBase
                    name, 
                    maximum_capacity, 
                    color, 
-                   created_at)
+                   created_at,
+                   images)
                  VALUES
                     (:description, 
                      :studio_id, 
                      :name, 
                      :maximum_capacity, 
                      :color, 
-                     :created_at)');
+                     :created_at,
+                     :images)');
 
     $statement->execute([
-      'description' => $room->getDescription(), 
-      'studio_id' => $room->getStudio_id(), 
-      'name' => $room->getName(), 
-      'maximum_capacity' => $room->getMaximum_capacity(), 
-      'color' => $room->getColor(), 
-      'created_at'=> $room->getCreated_at()
+      'description'      => $room->getDescription(), 
+      'studio_id'        => $room->getStudioId(), 
+      'name'             => $room->getName(), 
+      'maximum_capacity' => $room->getMaximumCapacity(), 
+      'color'            => $room->getColor(), 
+      'created_at'       => $room->getCreatedAt(),
+      'images'           => $room->getImages()
     ]);
   }
 
@@ -252,16 +255,18 @@ class StudiosDAO extends ConnectionDataBase
                     description = :description,
                     maximum_capacity = :maximum_capacity,
                     color = :color,
-                    updated_at = :updated_at
+                    updated_at = :updated_at,
+                    images = :images
                  WHERE 
                     id = :id;');
 
     $statement->execute([
       'name'             => $room->getName(),
       'description'      => $room->getDescription(),
-      'maximum_capacity' => $room->getMaximum_capacity(),
+      'maximum_capacity' => $room->getMaximumCapacity(),
       'color'            => $room->getColor(),
-      'updated_at'       => $room->getUpdated_at(),
+      'updated_at'       => $room->getUpdatedAt(),
+      'images'           => $room->getImages(),
       'id'               => $room->getId()
     ]);
   }
@@ -286,7 +291,8 @@ class StudiosDAO extends ConnectionDataBase
                    rooms.maximum_capacity,
                    rooms.color,
                    rooms.created_at,
-                   rooms.updated_at
+                   rooms.updated_at,
+                   rooms.images
                  FROM rooms
                  INNER JOIN studios
                  ON rooms.studio_id = studios.id
@@ -310,7 +316,8 @@ class StudiosDAO extends ConnectionDataBase
                     maximum_capacity,
                     color,
                     created_at,
-                    updated_at
+                    updated_at,
+                    images
                  FROM
                     rooms
                  WHERE id = :id');
@@ -319,5 +326,21 @@ class StudiosDAO extends ConnectionDataBase
     ]);
 
     return $statement->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  public function roomExists(int $idRoom): int
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id,
+                    name
+                 FROM
+                    rooms
+                 WHERE id = :id');
+    $statement->execute([
+      'id' => $idRoom
+    ]);
+
+    return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
 }

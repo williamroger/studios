@@ -15,7 +15,7 @@ final class RoomModel
   /**
    * @var int
    */
-  private $studio_id;
+  private $studioId;
   /**
    * @var string
    */
@@ -23,7 +23,7 @@ final class RoomModel
   /**
    * @var int
    */
-  private $maximum_capacity;
+  private $maximumCapacity;
   /**
    * @var string
    */
@@ -31,11 +31,15 @@ final class RoomModel
   /**
    * @var string
    */
-  private $created_at;
+  private $createdAt;
   /**
    * @var string
    */
-  private $updated_at;
+  private $updatedAt;
+  /**
+   * @var string
+   */
+  private $images;
 
   /**
    * Get the value of id
@@ -86,25 +90,25 @@ final class RoomModel
   }
 
   /**
-   * Get the value of studio_id
+   * Get the value of $studioId
    *
    * @return  int
    */ 
-  public function getStudio_id()
+  public function getStudioId(): int
   {
-    return $this->studio_id;
+    return $this->studioId;
   }
 
   /**
-   * Set the value of studio_id
+   * Set the value of $studioId
    *
-   * @param  int  $studio_id
+   * @param  int  $$studioId
    *
    * @return  self
    */ 
-  public function setStudio_id(?int $studio_id)
+  public function setStudioId(?int $studioId): self
   {
-    $this->studio_id = $studio_id;
+    $this->studioId = $studioId;
 
     return $this;
   }
@@ -114,7 +118,7 @@ final class RoomModel
    *
    * @return  string
    */ 
-  public function getName()
+  public function getName(): string
   {
     return $this->name;
   }
@@ -126,7 +130,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setName(?string $name)
+  public function setName(?string $name): self
   {
     $this->name = $name;
 
@@ -134,25 +138,25 @@ final class RoomModel
   }
 
   /**
-   * Get the value of maximum_capacity
+   * Get the value of maximumCapacity
    *
    * @return  int
    */ 
-  public function getMaximum_capacity()
+  public function getMaximumCapacity(): int
   {
-    return $this->maximum_capacity;
+    return $this->maximumCapacity;
   }
 
   /**
-   * Set the value of maximum_capacity
+   * Set the value of maximumCapacity
    *
-   * @param  int  $maximum_capacity
+   * @param  int  $maximumCapacity
    *
    * @return  self
    */ 
-  public function setMaximum_capacity(?int $maximum_capacity)
+  public function setMaximumCapacity(?int $maximumCapacity): self
   {
-    $this->maximum_capacity = $maximum_capacity;
+    $this->maximumCapacity = $maximumCapacity;
 
     return $this;
   }
@@ -162,7 +166,7 @@ final class RoomModel
    *
    * @return  string
    */ 
-  public function getColor()
+  public function getColor(): string
   {
     return $this->color;
   }
@@ -174,7 +178,7 @@ final class RoomModel
    *
    * @return  self
    */ 
-  public function setColor(?string $color)
+  public function setColor(?string $color): self
   {
     $this->color = $color;
 
@@ -182,49 +186,73 @@ final class RoomModel
   }
 
   /**
-   * Get the value of created_at
+   * Get the value of createdAt
    *
    * @return  string
    */ 
-  public function getCreated_at()
+  public function getCreatedAt(): string
   {
-    return $this->created_at;
+    return $this->createdAt;
   }
 
   /**
-   * Set the value of created_at
+   * Set the value of createdAt
    *
-   * @param  string  $created_at
+   * @param  string  $createdAt
    *
    * @return  self
    */ 
-  public function setCreated_at(?string $created_at)
+  public function setCreatedAt(?string $createdAt): self
   {
-    $this->created_at = $created_at;
+    $this->createdAt = $createdAt;
 
     return $this;
   }
 
   /**
-   * Get the value of updated_at
+   * Get the value of updatedAt
    *
    * @return  string
    */ 
-  public function getUpdated_at()
+  public function getUpdatedAt(): string
   {
-    return $this->updated_at;
+    return $this->updatedAt;
   }
 
   /**
-   * Set the value of updated_at
+   * Set the value of updatedAt
    *
-   * @param  string  $updated_at
+   * @param  string  $updatedAt
    *
    * @return  self
    */ 
-  public function setUpdated_at(?string $updated_at)
+  public function setUpdatedAt(?string $updatedAt): self
   {
-    $this->updated_at = $updated_at;
+    $this->updatedAt = $updatedAt;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of images
+   *
+   * @return  string
+   */ 
+  public function getImages(): string
+  {
+    return $this->images;
+  }
+
+  /**
+   * Set the value of images
+   *
+   * @param  string  $images
+   *
+   * @return  self
+   */ 
+  public function setImages(string $images): self
+  {
+    $this->images = $images;
 
     return $this;
   }
