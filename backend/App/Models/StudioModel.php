@@ -15,10 +15,6 @@ final class StudioModel
   /**
    * @var string
    */
-  private $address;
-  /**
-   * @var string
-   */
   private $phone;
   /**
    * @var string
@@ -35,11 +31,11 @@ final class StudioModel
   /**
    * @var string
    */
-  private $created_at;
+  private $createdAt;
   /**
    * @var string
    */
-  private $updated_at;
+  private $updatedAt;
   /**
    * @var int
    */
@@ -60,6 +56,31 @@ final class StudioModel
    * @var int
    */
   private $daysCancellation;
+  /**
+   * @var string
+   */
+  private $zipCode;
+  /**
+   * @var string
+   */
+  private $street;
+  /**
+   * @var string
+   */
+  private $complement;
+  /**
+   * @var string
+   */
+  private $district;
+  /**
+   * @var string
+   */
+  private $number;
+  /**
+   * @var string
+   */
+  private $image;
+
 
   /**
    * Get the value of id
@@ -76,7 +97,7 @@ final class StudioModel
    * 
    * @return  self
    */ 
-  public function setId(int $id): self
+  public function setId(?int $id): self
   {
     $this->id = $id;
 
@@ -98,31 +119,9 @@ final class StudioModel
    * 
    * @return  self
    */ 
-  public function setName(string $name): self
+  public function setName(?string $name): self
   {
     $this->name = $name;
-
-    return $this;
-  }
-
-  /**
-   * Get the value of address
-   * @return  string
-   */ 
-  public function getAddress(): string
-  {
-    return $this->address;
-  }
-
-  /**
-   * Set the value of address
-   * @param  string  $address
-   *
-   * @return  self
-   */ 
-  public function setAddress(string $address): self
-  {
-    $this->address = $address;
 
     return $this;
   }
@@ -142,7 +141,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setPhone(string $phone): self
+  public function setPhone(?string $phone): self
   {
     $this->phone = $phone;
 
@@ -164,7 +163,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setDescription(string $description): self
+  public function setDescription(?string $description): self
   {
     $this->description = $description;
 
@@ -186,7 +185,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setCnpj(string $cnpj): self
+  public function setCnpj(?string $cnpj): self
   {
     $this->cnpj = $cnpj;
 
@@ -208,7 +207,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setTelephone(string $telephone): self
+  public function setTelephone(?string $telephone): self
   {
     $this->telephone = $telephone;
 
@@ -216,45 +215,45 @@ final class StudioModel
   }
 
   /**
-   * Get the value of created_at
+   * Get the value of createdAt
    * @return  string
    */ 
-  public function getCreated_at(): string
+  public function getCreatedAt(): string
   {
-    return $this->created_at;
+    return $this->createdAt;
   }
 
   /**
-   * Set the value of created_at
-   * @param  string  $created_at
+   * Set the value of createdAt
+   * @param  string  $createdAt
    *
    * @return  self
    */ 
-  public function setCreated_at(string $created_at): self
+  public function setCreatedAt(?string $createdAt): self
   {
-    $this->created_at = $created_at;
+    $this->createdAt = $createdAt;
 
     return $this;
   }
 
   /**
-   * Get the value of updated_at
+   * Get the value of updatedAt
    * @return  string
    */ 
-  public function getUpdated_at(): string
+  public function getUpdatedAt(): string
   {
-    return $this->updated_at;
+    return $this->updatedAt;
   }
 
   /**
-   * Set the value of updated_at
-   * @param  string  $updated_at
+   * Set the value of updatedAt
+   * @param  string  $updatedAt
    *
    * @return  self
    */ 
-  public function setUpdated_at(string $updated_at): self
+  public function setUpdatedAt(?string $updatedAt): self
   {
-    $this->updated_at = $updated_at;
+    $this->updatedAt = $updatedAt;
 
     return $this;
   }
@@ -274,7 +273,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setHasParking(int $hasParking): self
+  public function setHasParking(?int $hasParking): self
   {
     $this->hasParking = $hasParking;
 
@@ -296,7 +295,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setIs24Hours(int $is24Hours): self
+  public function setIs24Hours(?int $is24Hours): self
   {
     $this->is24Hours = $is24Hours;
 
@@ -318,7 +317,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setCityId(int $cityId): self
+  public function setCityId(?int $cityId): self
   {
     $this->cityId = $cityId;
 
@@ -340,7 +339,7 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setRateCancellation(int $rateCancellation): self
+  public function setRateCancellation(?int $rateCancellation): self
   {
     $this->rateCancellation = $rateCancellation;
 
@@ -362,9 +361,153 @@ final class StudioModel
    *
    * @return  self
    */ 
-  public function setDaysCancellation(int $daysCancellation): self
+  public function setDaysCancellation(?int $daysCancellation): self
   {
     $this->daysCancellation = $daysCancellation;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of zipCode
+   *
+   * @return  string
+   */ 
+  public function getZipCode(): string
+  {
+    return $this->zipCode;
+  }
+
+  /**
+   * Set the value of zipCode
+   *
+   * @param  string  $zipCode
+   *
+   * @return  self
+   */ 
+  public function setZipCode(?string $zipCode): self
+  {
+    $this->zipCode = $zipCode;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of street
+   *
+   * @return  string
+   */ 
+  public function getStreet(): string
+  {
+    return $this->street;
+  }
+
+  /**
+   * Set the value of street
+   *
+   * @param  string  $street
+   *
+   * @return  self
+   */ 
+  public function setStreet(?string $street): self
+  {
+    $this->street = $street;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of complement
+   *
+   * @return  string
+   */ 
+  public function getComplement(): string
+  {
+    return $this->complement;
+  }
+
+  /**
+   * Set the value of complement
+   *
+   * @param  string  $complement
+   *
+   * @return  self
+   */ 
+  public function setComplement(?string $complement): self
+  {
+    $this->complement = $complement;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of district
+   *
+   * @return  string
+   */ 
+  public function getDistrict(): string
+  {
+    return $this->district;
+  }
+
+  /**
+   * Set the value of district
+   *
+   * @param  string  $district
+   *
+   * @return  self
+   */ 
+  public function setDistrict(?string $district): self
+  {
+    $this->district = $district;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of number
+   *
+   * @return  string
+   */ 
+  public function getNumber(): string
+  {
+    return $this->number;
+  }
+
+  /**
+   * Set the value of number
+   *
+   * @param  string  $number
+   *
+   * @return  self
+   */ 
+  public function setNumber(?string $number): self
+  {
+    $this->number = $number;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of image
+   *
+   * @return  string
+   */ 
+  public function getImage(): string
+  {
+    return $this->image;
+  }
+
+  /**
+   * Set the value of image
+   *
+   * @param  string  $image
+   *
+   * @return  self
+   */ 
+  public function setImage(?string $image): self
+  {
+    $this->image = $image;
 
     return $this;
   }

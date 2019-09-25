@@ -16,6 +16,7 @@ $app->group('', function() use ($app) {
 
   // STUDIO =============================================================
   $app->get('/studio/getallstudios', StudioController::class . ':getAllStudios');
+  $app->get('/studio/getstudiobyid/{id}', StudioController::class . ':getStudioById');
   $app->post('/studio/insertstudio', StudioController::class . ':insertStudio');
   $app->post('/studio/insertroom', StudioController::class . ':insertRoom');
   $app->get('/studio/getallrooms', StudioController::class . ':getAllRooms');

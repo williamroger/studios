@@ -20,19 +20,48 @@ final class StudioController
       $studios = $studioDAO->getAllStudios();
 
       $response = $response->withJson([
-        'error' => false,
-        'data' => $studios,
-        'status' => 200
+        'success' => true,
+        'studios' => $studios
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage() 
+      ], 500);
+    }
+  }
+
+  public function getStudioById(Request $request, Response $response, array $args): Response 
+  {
+    try {
+      $idStudio = intval($args['id']);
+      
+      $studioDAO = new StudiosDAO();
+      $studio = new StudioModel();
+
+      if (!$idStudio)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      if ($studioDAO->studioExists($idStudio) == 0)
+        throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
+
+      $studio = $studioDAO->getStudioById($idStudio);
+      
+      $response = $response->withJson([
+        'success' => true,
+        'studio' => $studio,
+      ], 200);
+
+      return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => 'Erro na aplicação, tente novamente.',
+        'msgDev' => $ex->getMessage()
       ], 500);
     }
   }
@@ -50,17 +79,15 @@ final class StudioController
       $studios = $studioDAO->getStudiosByCityIdCustomer($idCustomer);
 
       $response = $response->withJson([
-        'error' => false,
-        'data' => $studios,
-        'status' => 200
+        'success' => true,
+        'studios' => $studios
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
@@ -128,35 +155,49 @@ final class StudioController
       $userDAO = new UsersDAO();
       $studio = new StudioModel();
       $user = new UserModel();
-      
+
       if (!$studioID)
         throw new \Exception("Erro na aplicação, tente novamente.");
       
       if (!$data['name'] || $data['name'] === '')
         throw new \Exception("O nome do estúdio é obrigatório.");
 
-      if (!$data['address'] || $data['address'] === '')
+      if (!$data['zip_code'] || $data['zip_code'] === '')
+        throw new \Exception("O CEP do estúdio é obrigatório.");
+
+      if (!$data['street'] || $data['street'] === '')
         throw new \Exception("O endereço do estúdio é obrigatório.");
+
+      if (!$data['district'] || $data['district'] === '')
+        throw new \Exception("O bairro do estúdio é obrigatório.");
 
       if (!$data['description'] || $data['description'] === '')
         throw new \Exception("A descrição do estúdio é obrigatória.");
       
       if (!$data['city_id'] || $data['city_id'] === '')
         throw new \Exception("A cidade e estado do estúdo são obrigatórios.");
+      
+      if ($studioDAO->studioExists($studioID) == 0)
+        throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
 
       $studio->setId($studioID)
         ->setName($data['name'])
-        ->setAddress($data['address'])
         ->setPhone($data['phone'])
         ->setDescription($data['description'])
         ->setCnpj($data['cnpj'])
         ->setTelephone($data['telephone'])
-        ->setUpdated_at($now)
+        ->setUpdatedAt($now)
         ->setHasParking(intval($data['has_parking']))
         ->setIs24Hours(intval($data['is_24_hours']))
         ->setCityId(intval($data['city_id']))
         ->setRateCancellation(intval($data['rate_cancellation']))
-        ->setDaysCancellation(intval($data['days_cancellation']));
+        ->setDaysCancellation(intval($data['days_cancellation']))
+        ->setZipCode($data['zip_code'])
+        ->setStreet($data['street'])
+        ->setComplement($data['complement'])
+        ->setDistrict($data['district'])
+        ->setNumber($data['number'])
+        ->setImage($data['image']);
 
       if (!$data['email'] || $data['email'] === '')
         throw new \Exception("O email é obriatório.");
@@ -169,17 +210,15 @@ final class StudioController
       $userDAO->updateUserStudio($user);
 
       $response = $response->withJson([
-        'error' => false,
-        'msg' => 'Estúdio atualizado com sucesso!',
-        'status' => 200
+        'success' => true,
+        'msg' => 'Dados do estúdio atualizado com sucesso!'
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
@@ -411,20 +450,11 @@ final class StudioController
       $studioDAO = new StudiosDAO();
       $roomModel = new RoomModel();
 
-      $data = $studioDAO->getRoomById($idRoom);
-     
-      $roomModel->setId(intval($data[0]['id']))
-      ->setDescription($data[0]["description"])
-      ->setStudio_id($data[0]['studio_id'])
-      ->setName($data[0]['name'])
-      ->setMaximum_capacity($data[0]['maximum_capacity'])
-      ->setColor($data[0]['color'])
-      ->setCreated_at($data[0]['created_at'])
-      ->setUpdated_at($data[0]['updated_at']);
+      $room = $studioDAO->getRoomById($idRoom);
    
       $response = $response->withJson([
         'error' => false,
-        'data' => $data,
+        'room' => $room,
         'status' => 200
       ], 200);
 

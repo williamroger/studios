@@ -18,7 +18,6 @@ class StudiosDAO extends ConnectionDataBase
       ->query(' SELECT 
                   id,
                   name,
-                  address,
                   phone,
                   description,
                   cnpj,
@@ -29,12 +28,67 @@ class StudiosDAO extends ConnectionDataBase
                   is_24_hours,
                   city_id,
                   rate_cancellation,
-                  days_cancellation
+                  days_cancellation,
+                  zip_code,
+                  street,
+                  complement,
+                  district,
+                  number,
+                  image
                 FROM 
                   studios')
       ->fetchAll(\PDO::FETCH_ASSOC);
 
     return $studios;
+  }
+
+  public function getStudioById(int $idStudio)
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id,
+                    name,
+                    phone,
+                    description,
+                    cnpj,
+                    telephone,
+                    created_at,
+                    updated_at,
+                    has_parking,
+                    is_24_hours,
+                    city_id,
+                    rate_cancellation,
+                    days_cancellation,
+                    zip_code,
+                    street,
+                    complement,
+                    district,
+                    number,
+                    image
+                 FROM
+                    studios
+                 WHERE id = :id');
+    $statement->execute([
+      'id' => $idStudio
+    ]);
+
+    return $statement->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  public function studioExists(int $idStudio): int
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id,
+                    name
+                 FROM
+                    studios
+                 WHERE id = :id');
+    $statement->execute([
+      'id' => $idStudio
+    ]);
+  
+    return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
 
   public function getStudiosByCityIdCustomer(int $idCustomer): array
@@ -43,7 +97,6 @@ class StudiosDAO extends ConnectionDataBase
       ->prepare("SELECT 
                 studios.id,
                 studios.name,
-                studios.address,
                 studios.phone,
                 studios.description,
                 studios.cnpj,
@@ -54,7 +107,13 @@ class StudiosDAO extends ConnectionDataBase
                 studios.is_24_hours,
                 studios.city_id,
                 studios.rate_cancellation,
-                studios.days_cancellation
+                studios.days_cancellation,
+                studios.zip_code,
+                studios.street,
+                studios.complement,
+                studios.district,
+                studios.number,
+                studios.image,
                FROM studios
                INNER JOIN customers
                on studios.city_id = customers.city_id
@@ -87,7 +146,6 @@ class StudiosDAO extends ConnectionDataBase
     $statement = $this->pdo
       ->prepare('UPDATE studios SET 
                     name = :name,
-                    address = :address,
                     phone = :phone,
                     description = :description,
                     cnpj = :cnpj,
@@ -97,23 +155,34 @@ class StudiosDAO extends ConnectionDataBase
                     is_24_hours = :is_24_hours,
                     city_id = :city_id,
                     rate_cancellation = :rate_cancellation,
-                    days_cancellation = :days_cancellation
+                    days_cancellation = :days_cancellation,
+                    zip_code = :zip_code,
+                    street = :street,
+                    complement = :complement,
+                    district = :district,
+                    number = :number,
+                    image = :image
                  WHERE 
                     id = :id;');
 
     $statement->execute([
       'name'              => $studio->getName(),
-      'address'           => $studio->getAddress(),
       'phone'             => $studio->getPhone(),
       'description'       => $studio->getDescription(),
       'cnpj'              => $studio->getCnpj(),
       'telephone'         => $studio->getTelephone(),
-      'updated_at'        => $studio->getUpdated_at(),
+      'updated_at'        => $studio->getUpdatedAt(),
       'has_parking'       => $studio->getHasParking(),
       'is_24_hours'       => $studio->getIs24Hours(),
       'city_id'           => $studio->getCityId(),
       'rate_cancellation' => $studio->getRateCancellation(),
       'days_cancellation' => $studio->getDaysCancellation(),
+      'zip_code'          => $studio->getZipCode(),
+      'street'            => $studio->getStreet(),
+      'complement'        => $studio->getComplement(),
+      'district'          => $studio->getDistrict(),
+      'number'            => $studio->getNumber(),
+      'image'             => $studio->getImage(),
       'id'                => $studio->getId() 
     ]);
   }
