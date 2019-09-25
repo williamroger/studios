@@ -8,12 +8,14 @@ final class CustomerModel
    * @var int
    */
   private $id;
-
   /**
    * @var string
    */
-  private $name;
-
+  private $firstname;
+  /**
+   * @var string
+   */
+  private $lastname;
   /**
    * @var string
    */
@@ -22,12 +24,12 @@ final class CustomerModel
   /**
    * @var string
    */
-  private $created_at;
+  private $createdAt;
 
   /**
    * @var string
    */
-  private $updated_at;
+  private $updatedAt;
   
   /**
    * @var string
@@ -37,7 +39,11 @@ final class CustomerModel
   /**
    * @var int
    */
-  private $city_id;
+  private $cityId;
+  /**
+   * @var string
+   */
+  private $image;
 
   /**
    * Get the value of id
@@ -56,7 +62,7 @@ final class CustomerModel
    *
    * @return  self
    */ 
-  public function setId(int $id): self
+  public function setId(?int $id): self
   {
       $this->id = $id;
 
@@ -64,27 +70,51 @@ final class CustomerModel
   }
 
   /**
-   * Get the value of name
+   * Get the value of firstname
    *
    * @return  string
-   */ 
-  public function getName(): string
+   */
+  public function getFirstname(): string
   {
-      return $this->name;
+    return $this->firstname;
   }
 
   /**
-   * Set the value of name
+   * Set the value of firstname
    *
-   * @param  string  $name
+   * @param  string  $firstname
    *
    * @return  self
-   */ 
-  public function setName(string $name): self
+   */
+  public function setFirstname(?string $firstname): self
   {
-      $this->name = $name;
+    $this->firstname = $firstname;
 
-      return $this;
+    return $this;
+  }
+
+  /**
+   * Get the value of lastname
+   *
+   * @return  string
+   */
+  public function getLastname()
+  {
+    return $this->lastname;
+  }
+
+  /**
+   * Set the value of lastname
+   *
+   * @param  string  $lastname
+   *
+   * @return  self
+   */
+  public function setLastname(?string $lastname): self
+  {
+    $this->lastname = $lastname;
+
+    return $this;
   }
 
   /**
@@ -104,7 +134,7 @@ final class CustomerModel
    *
    * @return  self
    */ 
-  public function setPhone(string $phone): self
+  public function setPhone(?string $phone): self
   {
       $this->phone = $phone;
 
@@ -112,49 +142,49 @@ final class CustomerModel
   }
 
   /**
-   * Get the value of created_at
+   * Get the value of createdAt
    *
    * @return  string
    */ 
-  public function getCreated_at(): string
+  public function getCreatedAt(): string
   {
-      return $this->created_at;
+      return $this->createdAt;
   }
 
   /**
-   * Set the value of created_at
+   * Set the value of createdAt
    *
-   * @param  string  $created_at
+   * @param  string  $createdAt
    *
    * @return  self
    */ 
-  public function setCreated_at(string $created_at): self
+  public function setCreatedAt(?string $createdAt): self
   {
-      $this->created_at = $created_at;
+      $this->createdAt = $createdAt;
 
       return $this;
   }
 
   /**
-   * Get the value of updated_at
+   * Get the value of updatedAt
    *
    * @return  string
    */ 
-  public function getUpdated_at(): string
+  public function getUpdatedAt(): string
   {
-      return $this->updated_at;
+      return $this->updatedAt;
   }
 
   /**
-   * Set the value of updated_at
+   * Set the value of updatedAt
    *
-   * @param  string  $updated_at
+   * @param  string  $updatedAt
    *
    * @return  self
    */ 
-  public function setUpdated_at(string $updated_at): self
+  public function setUpdatedAt(?string $updatedAt): self
   {
-      $this->updated_at = $updated_at;
+      $this->updatedAt = $updatedAt;
 
       return $this;
   }
@@ -176,7 +206,7 @@ final class CustomerModel
    *
    * @return  self
    */ 
-  public function setCpf(string $cpf): self
+  public function setCpf(?string $cpf): self
   {
       $this->cpf = $cpf;
 
@@ -184,26 +214,50 @@ final class CustomerModel
   }
 
   /**
-   * Get the value of city_id
+   * Get the value of cityId
    *
    * @return  int
    */ 
-  public function getCity_id(): int
+  public function getCityId(): int
   {
-      return $this->city_id;
+      return $this->cityId;
   }
 
   /**
-   * Set the value of city_id
+   * Set the value of cityId
    *
-   * @param  int  $city_id
+   * @param  int  $cityId
    *
    * @return  self
    */ 
-  public function setCity_id(int $city_id): self
+  public function setCityId(?int $cityId): self
   {
-      $this->city_id = $city_id;
+      $this->cityId = $cityId;
 
       return $this;
+  }
+
+  /**
+   * Get the value of image
+   *
+   * @return  string
+   */ 
+  public function getImage(): string
+  {
+    return $this->image;
+  }
+
+  /**
+   * Set the value of image
+   *
+   * @param  string  $image
+   *
+   * @return  self
+   */ 
+  public function setImage(?string $image): self
+  {
+    $this->image = $image;
+
+    return $this;
   }
 }

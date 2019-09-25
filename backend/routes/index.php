@@ -29,10 +29,11 @@ $app->group('', function() use ($app) {
 
   // CUSTOMER ============================================================
   $app->get('/customer/getallcustomers', CustomerController::class . ':getAllCustomers');
+  $app->get('/studio/getcustomerbyid/{id}', StudioController::class . ':getCustomerById');
   $app->get('/customer/getstudiosbycityidcustomer', StudioController::class . ':getStudiosByCityIdCustomer');
   $app->post('/customer/insertcustomer', CustomerController::class . ':insertCustomer');
   $app->put('/customer/updatecustomer', CustomerController::class . ':updateCustomer');
-  $app->delete('/customer/deletecustomer', CustomerController::class . ':deleteCustomer');
+  $app->delete('/customer/deletecustomer/{id}', CustomerController::class . ':deleteCustomer');
 
 })->add(function ($req, $res, $next) {
   $response = $next($req, $res);

@@ -7,6 +7,7 @@ use App\DAO\UsersDAO;
 use App\Models\CustomerModel;
 use App\Models\UserModel;
 use DateTimeZone;
+use Exception;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -19,23 +20,21 @@ final class CustomerController{
       $customers = $customerDAO->getAllCustomers();
 
       $response = $response->withJson([
-        'error' => false,
-        'data' => $customers,
-        'status' => 200
+        'success' => true,
+        'customers' => $customers,
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
     }
   }
-
+  
   public function insertCustomer(Request $request, Response $response, array $args): Response
   {
     try {
@@ -47,8 +46,11 @@ final class CustomerController{
       $userDAO = new UsersDAO();
       $newUser = new UserModel();
 
-      if (!$data['name'] || $data['name'] === '')
+      if (!$data['firstname'] || $data['firstname'] === '')
         throw new Exception("O nome é obrigatório");
+
+      if (!$data['lastname'] || $data['lastname'] === '')
+        throw new Exception("O sobrenome é obrigatório");
 
       if (!$data['email'] || $data['email'] === '')
         throw new Exception("O email é obrigatório");
@@ -56,7 +58,10 @@ final class CustomerController{
       if (!$data['password'] || $data['password'] === '')
         throw new Exception("O senha é obrigatório");
 
-      $idNewCustomer = $customersDAO->insertCustomer($data['name'], $now);
+      if ($userDAO->emailExists($data['email']) > 0)
+        throw new Exception('Este email já está cadastrado.');
+
+      $idNewCustomer = $customersDAO->insertCustomer($data['firstname'], $data['lastname'], $now);
 
       $newUser->setEmail($data['email'])
         ->setPassword($data['password'])
@@ -68,17 +73,15 @@ final class CustomerController{
       $userDAO->insertUserCustomer($newUser);
 
       $response = $response->withJson([
-        'error' => false,
-        'msg' => 'Cliente cadastrado com sucesso!',
-        'status' => 200
+        'success' => true,
+        'msg' => 'Cliente cadastrado com sucesso!'
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
@@ -93,11 +96,18 @@ final class CustomerController{
       $now = $date->format('Y-m-d H:i:s');
       $customerID = intval($data['id']);
 
+      $customerDAO = new CustomersDAO();
+      $userDAO = new UsersDAO();
+      $customer = new CustomerModel();
+      $user = new UserModel();
+
       if (!$customerID)
         throw new Exception("Erro na aplicação, tente novamente.");
-
-      if (!$data['name'] || $data['name'] === '')
+      if (!$data['firstname'] || $data['firstname'] === '')
         throw new Exception("O nome é obrigatório");
+
+      if (!$data['lastname'] || $data['lastname'] === '')
+        throw new Exception("O sobrenome é obrigatório");
 
       if (!$data['phone'] || $data['phone'] === '')
         throw new Exception("O telefone é obrigatório");
@@ -111,17 +121,17 @@ final class CustomerController{
       if (!$data['email'] || $data['email'] === '')
         throw new Exception("O email é obrigatório");
 
-      $customerDAO = new CustomersDAO();
-      $userDAO = new UsersDAO();
-      $customer = new CustomerModel();
-      $user = new UserModel();
+      if ($customerDAO->customerExists($customerID) == 0)
+        throw new \Exception("Não encontramos esse usuário em nossa base de dados.");
 
       $customer->setId($customerID)
-        ->setName($data['name'])
+        ->setFirstName($data['firstname'])
+        ->setLastName($data['lastname'])
         ->setPhone($data['phone'])
-        ->setUpdated_at($now)
+        ->setUpdatedAt($now)
         ->setCpf($data['cpf'])
-        ->setCity_id(intval($data['city_id']));
+        ->setCityId(intval($data['city_id']))
+        ->setImage($data['image']);
 
       $user->setEmail($data['email'])
         ->setUpdated_at($now)
@@ -132,29 +142,26 @@ final class CustomerController{
       $userDAO->updateUserCustomer($user);
 
       $response = $response->withJson([
-        'error' => false,
+        'success' => true,
         'msg' => 'Dados atualizado com sucesso!',
-        'status' => 200
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
     }
   }
-  
+ 
   public function deleteCustomer(Request $request, Response $response, array $args): Response
   {
     try {
-      $data = $request->getParsedBody();
-      $idCustomer = intval($data['id']);
-
+      $idCustomer = intval($args['id']);
+     
       if (!$idCustomer)
         throw new \Exception("Erro na aplicação, tente novamente.");
 

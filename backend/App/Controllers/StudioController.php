@@ -114,6 +114,9 @@ final class StudioController
       if (!$data['password'] || $data['password'] === '')
         throw new \Exception("A senha é obrigatória.");
 
+      if ($userDAO->emailExists($data['email']) > 0)
+        throw new Exception('Este email já está cadastrado.');
+        
       $idNewStudio = $studioDAO->insertStudio($data['name'], $now);
 
       $newUser->setEmail($data['email'])

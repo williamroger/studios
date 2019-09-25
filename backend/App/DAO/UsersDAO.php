@@ -106,4 +106,19 @@ class UsersDAO extends ConnectionDataBase
       'customer_id' => $idCustomer
     ]);
   }
+
+  public function emailExists(string $email): int
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id
+                 FROM
+                    users
+                 WHERE email = :email');
+    $statement->execute([
+      'email' => $email
+    ]);
+
+    return $statement->rowCount(\PDO::FETCH_ASSOC);
+  }
 }
