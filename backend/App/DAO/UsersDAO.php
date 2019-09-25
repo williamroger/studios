@@ -27,9 +27,9 @@ class UsersDAO extends ConnectionDataBase
     $statement->execute([
       'email' => $user->getEmail(),
       'password' => $user->getPassword(),
-      'created_at' => $user->getCreated_at(),
-      'studio_id' => $user->getStudio_id(),
-      'is_studio' => $user->getIs_studio()
+      'created_at' => $user->getCreatedAt(),
+      'studio_id' => $user->getStudioId(),
+      'is_studio' => $user->getIsStudio()
     ]);
   }
 
@@ -44,8 +44,8 @@ class UsersDAO extends ConnectionDataBase
     
     $statement->execute([
       'email' => $user->getEmail(),
-      'updated_at' => $user->getUpdated_at(),
-      'studio_id' => $user->getStudio_id()
+      'updated_at' => $user->getUpdatedAt(),
+      'studio_id' => $user->getStudioId()
     ]);
   }
 

@@ -65,13 +65,12 @@ final class StudioController
       ], 500);
     }
   }
-  // falta conferir
+
   public function getStudiosByCityIdCustomer(Request $request, Response $response, array $args): Response
   {
     try {
-      $data = $request->getParsedBody();
+      $idCustomer = intval($args['id']);
       $studioDAO = new StudiosDAO();
-      $idCustomer = intval($data['id']);
       
       if (!$idCustomer) 
         throw new \Exception("Você precisa informar o ID do cliente.");
@@ -114,32 +113,33 @@ final class StudioController
       if (!$data['password'] || $data['password'] === '')
         throw new \Exception("A senha é obrigatória.");
 
+      if ($studioDAO->studioNameExists($data['name']) > 0)
+        throw new \Exception('Já existe um estúdio com esse nome cadastrado.');
+
       if ($userDAO->emailExists($data['email']) > 0)
         throw new Exception('Este email já está cadastrado.');
-        
+      
       $idNewStudio = $studioDAO->insertStudio($data['name'], $now);
 
       $newUser->setEmail($data['email'])
         ->setPassword($data['password'])
-        ->setCreated_at($now)
-        ->setStudio_id(intval($idNewStudio))
-        ->setIs_studio(1)
-        ->setIs_customer(0);
+        ->setCreatedAt($now)
+        ->setStudioId(intval($idNewStudio))
+        ->setIsStudio(1)
+        ->setIsCustomer(0);
 
       $userDAO->insertUserStudio($newUser);
 
       $response = $response->withJson([
-        'error' => false,
+        'success' => true,
         'msg' => 'Estúdio cadastrado com sucesso!',
-        'status' => 200
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => false,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
@@ -183,6 +183,9 @@ final class StudioController
       if ($studioDAO->studioExists($studioID) == 0)
         throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
 
+      if ($studioDAO->studioCNPJExists($data['cnpj']) > 0)
+        throw new \Exception('Já existe um estúdio com esse CNPJ cadastrado.');
+
       $studio->setId($studioID)
         ->setName($data['name'])
         ->setPhone($data['phone'])
@@ -206,8 +209,8 @@ final class StudioController
         throw new \Exception("O email é obriatório.");
 
       $user->setEmail($data['email'])
-        ->setUpdated_at($now)
-        ->setStudio_id($studioID);
+        ->setUpdatedAt($now)
+        ->setStudioId($studioID);
 
       $studioDAO->updateStudio($studio);
       $userDAO->updateUserStudio($user);
@@ -231,8 +234,7 @@ final class StudioController
   public function deleteStudio(Request $request, Response $response, array $args): Response
   {
     try {
-      $data = $request->getParsedBody();
-      $idStudio = intval($data['id']);
+      $idStudio = intval($args['id']);
       
       if (!$idStudio)
         throw new \Exception("Erro na aplicação, tente novamente.");

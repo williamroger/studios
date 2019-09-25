@@ -90,7 +90,37 @@ class StudiosDAO extends ConnectionDataBase
   
     return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
-  // falta conferir
+
+  public function studioNameExists(string $nameStudio): int
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    name
+                 FROM
+                    studios
+                 WHERE name = :name');
+    $statement->execute([
+      'name' => $nameStudio
+    ]);
+
+    return $statement->rowCount(\PDO::FETCH_ASSOC);
+  }
+
+  public function studioCNPJExists(string $studioCNPJ): int
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    cnpj
+                 FROM
+                    studios
+                 WHERE cnpj = :cnpj');
+    $statement->execute([
+      'cnpj' => $studioCNPJ
+    ]);
+
+    return $statement->rowCount(\PDO::FETCH_ASSOC);
+  }
+
   public function getStudiosByCityIdCustomer(int $idCustomer): array
   {
     $statement = $this->pdo
@@ -113,7 +143,7 @@ class StudiosDAO extends ConnectionDataBase
                 studios.complement,
                 studios.district,
                 studios.number,
-                studios.image,
+                studios.image
                FROM studios
                INNER JOIN customers
                on studios.city_id = customers.city_id

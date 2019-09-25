@@ -25,12 +25,12 @@ $app->group('', function() use ($app) {
   $app->put('/studio/updateroom', StudioController::class . ':updateRoom');
   $app->delete('/studio/deleteroom/{id}', StudioController::class . ':deleteRoom');
   $app->put('/studio/updatestudio', StudioController::class . ':updateStudio');
-  $app->delete('/studio/deletestudio', StudioController::class . ':deleteStudio');
+  $app->delete('/studio/deletestudio/{id}', StudioController::class . ':deleteStudio');
 
   // CUSTOMER ============================================================
   $app->get('/customer/getallcustomers', CustomerController::class . ':getAllCustomers');
   $app->get('/studio/getcustomerbyid/{id}', StudioController::class . ':getCustomerById');
-  $app->get('/customer/getstudiosbycityidcustomer', StudioController::class . ':getStudiosByCityIdCustomer');
+  $app->get('/customer/getstudiosbycityidcustomer/{id}', StudioController::class . ':getStudiosByCityIdCustomer');
   $app->post('/customer/insertcustomer', CustomerController::class . ':insertCustomer');
   $app->put('/customer/updatecustomer', CustomerController::class . ':updateCustomer');
   $app->delete('/customer/deletecustomer/{id}', CustomerController::class . ':deleteCustomer');
