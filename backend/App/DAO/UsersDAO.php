@@ -121,4 +121,38 @@ class UsersDAO extends ConnectionDataBase
 
     return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
+
+  public function getUserByEmail(string $email): ?UserModel {
+    $statement = $this->pdo
+      ->prepare('SELECT
+                    id,
+                    email,
+                    password,
+                    studio_id,
+                    customer_id,
+                    is_studio,
+                    is_customer
+                 FROM 
+                    users
+                 WHERE email = :email');
+    
+    $statement->bindParam('email', $email);
+    $statement->execute();
+
+    $users = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    if (count($users) === 0) 
+      return null;
+
+    $user = new UserModel();
+    $user->setId($users[0]['id'])
+      ->setEmail($users[0]['email'])
+      ->setPassword($users[0]['password'])
+      ->setStudioId(intval($users[0]['studio_id']))
+      ->setCustomerId(intval($users[0]['customer_id']))
+      ->setIsStudio(intval($users[0]['is_studio']))
+      ->setIsCustomer(intval($users[0]['is_customer']));
+
+    return $user;
+  }
 }

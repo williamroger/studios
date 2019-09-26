@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\AuthController;
 use App\Controllers\StudioController;
 use App\Controllers\CustomerController;
 use App\Controllers\UtilController;
@@ -9,6 +10,9 @@ use function src\slimConfiguration;
 $app = new \Slim\App(slimConfiguration());
 
 $app->group('', function() use ($app) {
+  // Auth ===============================================================
+  $app->post('/login', AuthController::class . ':login');
+
   // Util ===============================================================
   $app->get('/getallstates', UtilController::class . ':getAllStates');
   $app->get('/getallcities', UtilController::class . ':getAllCities');

@@ -60,11 +60,13 @@ final class CustomerController{
 
       if ($userDAO->emailExists($data['email']) > 0)
         throw new Exception('Este email já está cadastrado.');
+      
+      $password = password_hash($data['password'], PASSWORD_ARGON2I);
 
       $idNewCustomer = $customersDAO->insertCustomer($data['firstname'], $data['lastname'], $now);
 
       $newUser->setEmail($data['email'])
-        ->setPassword($data['password'])
+        ->setPassword($password)
         ->setCreatedAt($now)
         ->setCustomerId(intval($idNewCustomer))
         ->setIsStudio(0)
