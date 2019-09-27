@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { AuthService } from '../../../auth.service';
+import { UserModel } from './../shared/user.model';
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
@@ -8,10 +11,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class LoginFormComponent implements OnInit {
 
-  studioForm: FormGroup;
+  formLogin: FormGroup;
   submittingForm: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.buildStudioForm();
@@ -20,16 +24,23 @@ export class LoginFormComponent implements OnInit {
   submitForm() {
     this.submittingForm = true;
 
+    const user: UserModel = Object.assign(new UserModel(), this.formLogin.value);
+
+    this.authService.login(user)
+      .subscribe(
+        data => console.log(data)
+      );
+
     // stop here if form is invalid
-    if (this.studioForm.invalid) {
+    if (this.formLogin.invalid) {
         return;
     }
   }
 
   buildStudioForm() {
-    this.studioForm = this.formBuilder.group({
+    this.formLogin = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email, Validators.minLength(10)]],
-      password: [null, [Validators.required, Validators.minLength(6)]]
+      password: [null, [Validators.required, Validators.minLength(8)]]
     })
   }
 
