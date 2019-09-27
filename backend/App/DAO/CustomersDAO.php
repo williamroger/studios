@@ -30,6 +30,31 @@ class CustomersDAO extends ConnectionDataBase
     return $customer;
   }
 
+  public function getCustomerById(int $customerId): ?array {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id,
+                    firstname,
+                    lastname,
+                    phone,
+                    cpf,
+                    city_id,
+                    image
+                 FROM
+                    customers
+                 WHERE id = :id;');
+
+    $statement->bindParam('id', $customerId);
+    $statement->execute();
+
+    $customers = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    if (count($customers) === 0)
+      return null;
+
+    return $customers[0];
+  }
+
   public function insertCustomer($firstName, $lastName, $createdAt): string
   {
     $statement = $this->pdo

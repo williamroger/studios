@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\DAO\CustomersDAO;
+use App\DAO\StudiosDAO;
 use App\DAO\TokensDAO;
 use App\DAO\UsersDAO;
 use App\Models\TokenModel;
@@ -21,7 +22,8 @@ final class AuthController
 
     $userDAO = new UsersDAO();
     $customerDAO = new CustomersDAO();
-  
+    $studioDAO = new StudiosDAO();
+
     $user = $userDAO->getUserByEmail($email);
 
     if (is_null($user)) {
@@ -39,20 +41,36 @@ final class AuthController
     }
     
     $expiredAt = (new \DateTime())->modify('+2 days')->format('Y-m-d H:i:s');
-
-    if ($user->getCustomerId() > 0) {
-      // montar payload customer aqui
+    
+    if ($user->getIsCustomer() == 1) {
+      $custumer = $customerDAO->getCustomerById(intval($user->getCustomerId()));
+      
+      $tokenPayload = array(
+        'id' => $user->getId(),
+        'customer_id' => $user->getCustomerId(),
+        'email' => $user->getEmail(),
+        'firstname' => $custumer['firstname'],
+        'lastname' => $custumer['lastname'],
+        'phone' => $custumer['phone'],
+        'cpf' => $custumer['cpf'],
+        'city_id' => $custumer['city_id'],
+        'expired_at' => $expiredAt
+      );
     } else {
-      // montar payload studio aqui
+      $studio = $studioDAO->getStudioById(intval($user->getStudioId()));
+     
+      $tokenPayload = array(
+        'id' => $user->getId(),
+        'studio_id' => $user->getStudioId(),
+        'email' => $user->getEmail(),
+        'name' => $studio['name'],
+        'city_id' => $studio['city_id'],
+        'expired_at' => $expiredAt
+      );
     }
-    // payload provisorio
-    $tokenPayload = array(
-      'id' => $user->getId(),
-      'email' => $user->getEmail(),
-      'expired_at' => $expiredAt
-    );
 
     $token = JWT::encode($tokenPayload, getenv('JWT_SECRET_KEY'));
+
     $refreshTokenPayload = array(
       'email' => $user->getEmail()
     );

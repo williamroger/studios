@@ -34,7 +34,42 @@ final class CustomerController{
       ], 500);
     }
   }
- 
+  
+  public function getCustomerById(Request $request, Response $response, array $args): Response 
+  {
+    try {
+      $customerId = intval($args['id']);
+
+      if (!$customerId)
+        throw new Exception("Erro na aplicação, tente novamente.");
+
+      $customerDAO = new CustomersDAO();
+
+      $customer = $customerDAO->getCustomerById($customerId);
+      
+      if (is_null($customer)) {
+        return $response->withJson([
+          'success' => false,
+          'msg' => 'Usuário não encontrado.'
+        ], 401);
+      }
+      
+      $response = $response->withJson([
+        'success' => true,
+        'customer' => $customer
+      ], 200);
+
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => 'Erro na aplicação, tente novamente.',
+        'msgDev' => $ex->getMessage()
+      ], 500);
+    }
+  }
+
   public function insertCustomer(Request $request, Response $response, array $args): Response
   {
     try {
@@ -105,6 +140,7 @@ final class CustomerController{
 
       if (!$customerID)
         throw new Exception("Erro na aplicação, tente novamente.");
+
       if (!$data['firstname'] || $data['firstname'] === '')
         throw new Exception("O nome é obrigatório");
 

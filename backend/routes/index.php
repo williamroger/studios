@@ -33,7 +33,7 @@ $app->group('', function() use ($app) {
 
   // CUSTOMER ============================================================
   $app->get('/customer/getallcustomers', CustomerController::class . ':getAllCustomers');
-  $app->get('/studio/getcustomerbyid/{id}', StudioController::class . ':getCustomerById');
+  $app->get('/customer/getcustomerbyid/{id}', CustomerController::class . ':getCustomerById');
   $app->get('/customer/getstudiosbycityidcustomer/{id}', StudioController::class . ':getStudiosByCityIdCustomer');
   $app->post('/customer/insertcustomer', CustomerController::class . ':insertCustomer');
   $app->put('/customer/updatecustomer', CustomerController::class . ':updateCustomer');

@@ -118,11 +118,13 @@ final class StudioController
 
       if ($userDAO->emailExists($data['email']) > 0)
         throw new Exception('Este email já está cadastrado.');
-      
+
+      $password = password_hash($data['password'], PASSWORD_ARGON2I);
+
       $idNewStudio = $studioDAO->insertStudio($data['name'], $now);
 
       $newUser->setEmail($data['email'])
-        ->setPassword($data['password'])
+        ->setPassword($password)
         ->setCreatedAt($now)
         ->setStudioId(intval($idNewStudio))
         ->setIsStudio(1)

@@ -42,7 +42,7 @@ class StudiosDAO extends ConnectionDataBase
     return $studios;
   }
 
-  public function getStudioById(int $idStudio)
+  public function getStudioById(int $idStudio): ?array
   {
     $statement = $this->pdo
       ->prepare('SELECT 
@@ -72,7 +72,12 @@ class StudiosDAO extends ConnectionDataBase
       'id' => $idStudio
     ]);
 
-    return $statement->fetchAll(\PDO::FETCH_ASSOC);
+    $studios = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    if (count($studios) === 0)
+      return null;
+    
+    return $studios[0];
   }
 
   public function studioExists(int $idStudio): int
