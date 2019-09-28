@@ -27,8 +27,9 @@ export class AuthService {
   // }
 
   private handleError(error: any): Observable<any> {
+    // provisório
     console.log('Erro na Requisição => ', error);
 
-    return throwError(error);
+    return throwError(error.error);
   }
 }

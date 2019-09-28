@@ -59,6 +59,7 @@ export class StudioFormComponent implements OnInit {
   }
 
   actionsForError(error) {
+    this.submittingForm = false;
     toastr.error('Ocorreu um erro, tente novamente!');
   }
 }
