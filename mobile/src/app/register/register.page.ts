@@ -19,12 +19,14 @@ export class RegisterPage implements OnInit {
     'name': [
       { type: 'required', message: 'este campo é obrigatório'},
       { type: 'minlength', message: 'deve ter no mínimo 4 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 150 caracteres' }
+      { type: 'maxlength', message: 'deve ter no máximo 150 caracteres' },
+      //{ type: 'pattern', message: 'Informe um nome válido' }
     ],
     'email': [
       { type: 'required', message: 'este campo é obrigatório' },
       { type: 'minlength', message: 'deve ter no mínimo 6 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 100 caracteres' }
+      { type: 'maxlength', message: 'deve ter no máximo 40 caracteres' },
+      //{ type: 'pattern', message: 'Informe um email válido' }
     ],
     'password': [
       { type: 'required', message: 'este campo é obrigatório' },
@@ -60,12 +62,14 @@ export class RegisterPage implements OnInit {
       name: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(150)
+        Validators.maxLength(150),
+        //Validators.pattern("^[^0-9]$")
       ])),
       email: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(100)
+        Validators.maxLength(100),
+        //Validators.pattern("[^0-9]+[a-zA-Z0-9]+(@[A-Za-z])+(\.[a-zA]),g")
       ])),
       password: new FormControl(null, Validators.compose([
         Validators.required,
