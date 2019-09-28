@@ -9,12 +9,24 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-searchbar placeholder="Buscar"></ion-searchbar>
   
-  <ion-toolbar>
-    <ion-searchbar placeholder="Buscar"></ion-searchbar>
-  </ion-toolbar>
+
+  <ion-list>
+    <ion-item *ngFor="let studio of studios">
+      <ion-avatar item-start>
+        <img src="./assets/estudios2.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{studio.name}}</h2>
+        <h3>I'm a big deal</h3>
+        <p>Listen, I've had a pretty messed up day...</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
   
-    <ion-card>
+    <!--<ion-card>
       <img src="./assets/estudio1.jpeg"/>
       <ion-card-header>
         <ion-card-title>Nome do Estúdio</ion-card-title>
@@ -40,5 +52,5 @@
       <ion-card-content>
         Rua Brejo da Madre de Deus, 32, Janga, Paulista, PE - CEP 53437-040.
       </ion-card-content>
-    </ion-card>
+    </ion-card>-->
 </ion-content>

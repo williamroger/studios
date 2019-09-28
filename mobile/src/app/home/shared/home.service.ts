@@ -22,10 +22,10 @@ export class HomeService {
   constructor(public http: HttpClient) { }
 
   public getAllStudios(): Observable<StudioModel>{
-    return this.http.get('api/customer/updatecustomer');
+    return this.http.get('api/studio/getallstudios');
   }
 
   public getById(id: number): Observable<StudioModel> {
-    return this.http.get(`api/studio/getroombyid/${id}`);
+    return this.http.get(`api/studio/getById/${id}`);
   }
 }
