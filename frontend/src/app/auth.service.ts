@@ -11,12 +11,23 @@ import { UserModel } from './pages/login/shared/user.model';
 })
 export class AuthService {
 
+  private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn') || 'false');
+
   constructor(private http: HttpClient) { }
 
   login(user: UserModel): Observable<any> {
     return this.http.post('api/login', user).pipe(
       catchError(this.handleError)
     )
+  }
+
+  setLoggedIn(value: boolean) {
+    this.loggedInStatus = value;
+    localStorage.setItem('loggedIn', 'true');
+  }
+
+  get isLoggedIn() {
+    return JSON.parse(localStorage.getItem('loggedIn') || this.loggedInStatus.toString());
   }
 
   /**

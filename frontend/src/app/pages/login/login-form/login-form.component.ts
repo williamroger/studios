@@ -33,10 +33,13 @@ export class LoginFormComponent implements OnInit {
     this.authService.login(user)
       .subscribe(
         data => {
-          if (data.success && data.userPayload.is_studio == 1)
+          if (data.success && data.userPayload.is_studio == 1) {
             this.actionsForSuccess(data.msg);
-          else
+            this.authService.setLoggedIn(true);
+            localStorage.setItem('userLoggedIn', JSON.stringify(data.userPayload));
+          } else {
             this.actionsForError(userError);
+          }
         },
         error => this.actionsForError(error)
       );
