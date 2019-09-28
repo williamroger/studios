@@ -44,6 +44,7 @@ final class AuthController
     
       $userPayload = array(
         'id' => $user->getId(),
+        'is_customer' => $user->getIsCustomer(),
         'customer_id' => $user->getCustomerId(),
         'email' => $user->getEmail(),
         'firstname' => $custumer['firstname'],
@@ -57,6 +58,7 @@ final class AuthController
 
       $userPayload = array(
         'id' => $user->getId(),
+        'is_studio' => $user->getIsStudio(),
         'studio_id' => $user->getStudioId(),
         'email' => $user->getEmail(),
         'name' => $studio['name'],
@@ -66,6 +68,7 @@ final class AuthController
 
     $response = $response->withJson([
       'success' => true,
+      'msg' => 'Login realizado com sucesso!',
       'userPayload' => $userPayload
     ], 200);
     
