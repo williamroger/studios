@@ -18,8 +18,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'cadastro',
-    loadChildren: './pages/register/register.module#RegisterModule',
-    canActivate: [AuthGuard]
+    loadChildren: './pages/register/register.module#RegisterModule'
   },
   { path: 'configuracoes',
     loadChildren: './pages/configuration/configuration.module#ConfigurationModule',
