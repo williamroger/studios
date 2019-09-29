@@ -4,10 +4,7 @@ namespace App\Controllers;
 
 use App\DAO\CustomersDAO;
 use App\DAO\StudiosDAO;
-use App\DAO\TokensDAO;
 use App\DAO\UsersDAO;
-use App\Models\TokenModel;
-use DateTime;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
