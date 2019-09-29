@@ -16,7 +16,7 @@ $app->group('', function() use ($app) {
   // Util ===============================================================
   $app->get('/getallstates', UtilController::class . ':getAllStates');
   $app->get('/getallcities', UtilController::class . ':getAllCities');
-  $app->get('/getcitybystateid', UtilController::class . ':getCityByStateId');
+  $app->get('/getcitiesbystateid/{id}', UtilController::class . ':getCitiesByStateId');
 
   // STUDIO =============================================================
   $app->get('/studio/getallstudios', StudioController::class . ':getAllStudios');

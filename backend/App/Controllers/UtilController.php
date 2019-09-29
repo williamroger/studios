@@ -57,33 +57,30 @@ final class UtilController
     }
   }
 
-  public function getCityByStateId(Request $request, Response $response, array $args): Response
+  public function getCitiesByStateId(Request $request, Response $response, array $args): Response
   {
     try {
-      $data = $request->getParsedBody();
-      $idState = intval($data['id']);
-
+      $idState = intval($args['id']);
+     
       if (!$idState)
-        throw new \Exception('Você precisa informar o ID do cliente.');
+        throw new \Exception('Erro na aplicação, tente novamente.');
 
       $utilDAO = new UtilDAO();
       $cities = $utilDAO->getCityByStateId($idState);
-      
+
       if (!$cities)
         throw new \Exception('Nenhuma cidade encontrada.');
 
       $response = $response->withJson([
-        'error' => false,
-        'data' => $cities,
-        'status' => 200
+        'success' => true,
+        'cities' => $cities,
       ], 200);
 
       return $response;
 
     } catch (\Exception $ex) {
       return $response->withJson([
-        'error' => true,
-        'status' => 500,
+        'success' => true,
         'msg' => 'Erro na aplicação, tente novamente.',
         'msgDev' => $ex->getMessage()
       ], 500);
