@@ -27,11 +27,6 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12">
-      <ul>
-        <li *ngFor="let state of states">
-          {{ state }}
-        </li>
-      </ul>
       <form class="form-configuration">
         <div class="form-row">
           <div class="col-12 mb-5">
@@ -45,18 +40,22 @@
             <input type="text" class="form-control" id="name" formControlName="name">
           </div>
           <div class="col-12 col-md-3">
-            <label for="name">Estado</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
+            <label for="state">Estado</label>
+            <select name="state" id="state" class="form-control">
+              <option value="PE">Pernambuco</option>
+            </select>
           </div>
           <div class="col-12 col-md-3">
-            <label for="name">Cidade</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
+            <label for="city_id">Cidade</label>
+            <select name="city_id" id="city_id" class="form-control">
+              <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+            </select>
           </div>
         </div>
         <div class="form-row mb-4">
           <div class="col-12 col-md-6">
             <label for="prependedtext">Endereço</label>
-            <input type="text" class="form-control" id="endereco" formControlName="endereco">
+            <input type="text" class="form-control" id="endereco" formControlName="address">
           </div>
           <div class="col-12 col-md-3">
             <label for="name">Telefone</label>
@@ -79,7 +78,7 @@
         </div>
         <div class="form-row mb-4">
           <div class="col-6 col-md-2 d-flex">
-            <input type="checkbox" class="form-control" id="estacionamento" >
+            <input type="checkbox" class="form-control" id="estacionamento">
             <label for="estacionamento">Possui Estacionamento</label>
           </div>
           <div class="col-6 col-md-2 d-flex">
@@ -106,4 +105,5 @@
       </form>
     </div>
   </div>
+  <pre></pre>
 </div>

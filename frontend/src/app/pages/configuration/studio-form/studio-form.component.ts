@@ -1,7 +1,9 @@
-import { ConfigurationService } from './../shared/configuration.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { StateModel } from '../shared/state.model';
+import { ConfigurationService } from './../shared/configuration.service';
+import { CityModel } from '../shared/city.mode';
 
 @Component({
   selector: 'app-studio-form',
@@ -10,13 +12,23 @@ import { StateModel } from '../shared/state.model';
 })
 export class StudioFormComponent implements OnInit {
 
-  states: StateModel[] = [];
+  configForm: FormGroup;
+  cities: Array<CityModel>;
 
   constructor(private configService: ConfigurationService) { }
 
   ngOnInit() {
-    this.configService.getAllStates()
-      .subscribe(data => this.states = data['data']);
+    this.loadCities();
   }
 
+  // Methods Private
+  private loadCities() {
+    this.configService.getCitiesByStateId()
+      .subscribe(
+        cities => {
+          console.log('cities ', cities);
+          this.cities = cities
+        }
+      );
+  }
 }

@@ -5,7 +5,8 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError, flatMap} from 'rxjs/operators';
 
 import { StudioModel } from './studio.model';
-import { StateModel } from './state.model';
+import { CityModel } from './city.mode';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +15,20 @@ export class ConfigurationService {
 
   constructor(public http: HttpClient) { }
 
-  getAllStates(): Observable<StateModel[]> {
-    return this.http.get('api/getallstates').pipe(
+  getCitiesByStateId(): Observable<CityModel[]> {
+    return this.http.get('api/getcitiesbystateid/17').pipe(
       catchError(this.handleError),
-      map(this.jsonDataToState)
+      map(this.jsonDataToCities)
     );
   }
 
   /**
    * Private Methods
    */
-  private jsonDataToState(jsonData: any[]): StateModel[] {
-    const states: StateModel[] = [];
-    jsonData.forEach(element => states.push(element as StateModel));
-    return states;
+  private jsonDataToCities(jsonData: any[]): CityModel[] {
+    const cities: CityModel[] = [];
+    jsonData['cities'].forEach(element => cities.push(element as CityModel));
+    return cities;
   }
 
   private handleError(error: any): Observable<any> {
