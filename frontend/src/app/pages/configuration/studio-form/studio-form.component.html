@@ -34,7 +34,7 @@
         </div>
         <p>Mantenha as informações do seu estúdio sempre atualizadas.</p>
       </div>
-      <form class="form-configuration">
+      <form [formGroup]="configForm" class="form-configuration">
         <div class="card">
           <div class="card-header">
             Informações sobre o Estúdio
@@ -104,10 +104,10 @@
               <div class="form-group col-6 col-md-3">
                 <label for="estacionamento">*Possui Estacionamento</label>
                 <div class="btn-group">
-                  <label class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('has_parking').setValue(1)" [class.active]="configForm.get('has_parking') == 1" class="btn btn-outline-info px-4">
                     Sim
                   </label>
-                  <label class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('has_parking').setValue(0)" [class.active]="configForm.get('has_parking') == 0" class="btn btn-outline-info px-4">
                     Não
                   </label>
                 </div>
@@ -115,10 +115,10 @@
               <div class="form-group col-6 col-md-3">
                 <label for="24horas">*Funciona 24 horas</label>
                 <div class="btn-group">
-                  <label class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('is_24_hours').setValue(1)" [class.active]="configForm.get('is_24_hours') == 1" class="btn btn-outline-info px-4">
                     Sim
                   </label>
-                  <label class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('is_24_hours').setValue(0)" [class.active]="configForm.get('is_24_hours') == 0"  class="btn btn-outline-info px-4">
                     Não
                   </label>
                 </div>
@@ -140,5 +140,5 @@
       </form>
     </div>
   </div>
-  <pre></pre>
+  <pre>{{ configForm.value | json }}</pre>
 </div>

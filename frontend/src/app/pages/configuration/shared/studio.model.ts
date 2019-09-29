@@ -6,6 +6,8 @@ export class StudioModel {
     public description?: string,
     public cnpj?: string,
     public telephone?: string,
+    public created_at?: string,
+    public updated_at?: string,
     public has_parking?: number,
     public is_24_hours?: number,
     public city_id?: number,
@@ -16,7 +18,6 @@ export class StudioModel {
     public complement?: string,
     public distrct?: string,
     public number?: string,
-    public image?: string,
-    public email?: string
+    public image?: string
   ) {}
 }

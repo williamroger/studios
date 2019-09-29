@@ -13,6 +13,8 @@ import { CityModel } from './city.mode';
 })
 export class ConfigurationService {
 
+  private userLocalStorage = JSON.parse(localStorage.getItem('userLoggedIn'));
+
   constructor(public http: HttpClient) { }
 
   getCitiesByStateId(): Observable<CityModel[]> {
@@ -22,13 +24,26 @@ export class ConfigurationService {
     );
   }
 
+  getStudioById(): Observable<StudioModel> {
+    const id = this.userLocalStorage['studio_id'];
+    return this.http.get(`api/studio/getstudiobyid/${id}`).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToStudio)
+    )
+  }
+
   /**
    * Private Methods
    */
   private jsonDataToCities(jsonData: any[]): CityModel[] {
+
     const cities: CityModel[] = [];
     jsonData['cities'].forEach(element => cities.push(element as CityModel));
     return cities;
+  }
+
+  private jsonDataToStudio(jsonData: any): StudioModel {
+    return jsonData as StudioModel;
   }
 
   private handleError(error: any): Observable<any> {
