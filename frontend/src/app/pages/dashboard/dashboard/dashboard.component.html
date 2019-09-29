@@ -21,10 +21,15 @@
         </li>
       </ul>
     </div>
+    <a routerLink="/logout" class="btn btn-danger">SAIR</a>
   </div>
 </nav>
 
 <div class="container">
   <h1>Agendamentos</h1>
-  <a routerLink="/logout" class="btn btn-primary">SAIR</a>
+  <div class="alert alert-warning" *ngIf="!studioHasCityId">
+    <p>Bem-vindo ao <strong><em>Studios</em></strong>,</p>
+    <p>Você precisa atualizar os dados do seu estúdio para ser vistos pelos usuários.</p>
+    <a routerLink="/configuracoes" class="btn btn-primary">Atualizar meus dados</a>
+  </div>
 </div>

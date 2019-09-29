@@ -12,6 +12,7 @@ import { UserModel } from './pages/login/shared/user.model';
 export class AuthService {
 
   private loggedInStatus = JSON.parse(localStorage.getItem('loggedIn') || 'false');
+  private userLocalStorage = JSON.parse(localStorage.getItem('userLoggedIn'));
 
   constructor(private http: HttpClient) { }
 
@@ -30,12 +31,13 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('loggedIn') || this.loggedInStatus.toString());
   }
 
+  get userLoggedIn() {
+    return this.userLocalStorage;
+  }
+
   /**
  * Private Methods
  */
-  // private jsonDataToStudio(jsonData: any): StudioModel {
-  //   return jsonData as StudioModel;
-  // }
 
   private handleError(error: any): Observable<any> {
     // provisório
