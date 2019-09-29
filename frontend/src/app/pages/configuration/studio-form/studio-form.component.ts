@@ -25,10 +25,7 @@ export class StudioFormComponent implements OnInit {
   private loadCities() {
     this.configService.getCitiesByStateId()
       .subscribe(
-        cities => {
-          console.log('cities ', cities);
-          this.cities = cities
-        }
+        cities => this.cities = cities
       );
   }
 }

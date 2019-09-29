@@ -13,7 +13,7 @@
             <small>Para aproveitar todos os nossos recursos.</small>
           </div>
           <div class="col-12 mb-4">
-            <label for="name">Nome do Estúdio</label>
+            <label for="name">*Nome do Estúdio</label>
             <input type="text" class="form-control" id="name" formControlName="name">
             <div class="text-danger" *ngIf="studioForm.get('name').invalid && studioForm.get('name').touched">
               <div *ngIf="studioForm.get('name').errors.required">Este campo é obrigatório!</div>
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="col-12 mb-4">
-            <label for="email">E-mail</label>
+            <label for="email">*E-mail</label>
             <input type="email" class="form-control" id="email" formControlName="email">
             <div class="text-danger" *ngIf="studioForm.get('email').invalid && studioForm.get('email').touched">
               <div *ngIf="studioForm.get('email').errors.required">Este campo é obrigatório!</div>
@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="col-12 mb-3">
-            <label for="password">Senha</label>
+            <label for="password">*Senha</label>
             <input type="password" class="form-control" id="password" formControlName="password">
             <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
               <div *ngIf="studioForm.get('password').errors.required">Este campo é obrigatório!</div>
