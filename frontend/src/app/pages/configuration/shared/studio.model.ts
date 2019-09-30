@@ -16,7 +16,7 @@ export class StudioModel {
     public zip_code?: string,
     public street?: string,
     public complement?: string,
-    public distrct?: string,
+    public district?: string,
     public number?: string,
     public image?: string
   ) {}

@@ -34,7 +34,8 @@
         </div>
         <p>Mantenha as informações do seu estúdio sempre atualizadas.</p>
       </div>
-      <form [formGroup]="configForm" class="form-configuration">
+
+      <form [formGroup]="configForm" class="form-configuration mb-5" (submit)="submitForm()">
         <div class="card">
           <div class="card-header">
             Informações sobre o Estúdio
@@ -44,6 +45,10 @@
               <div class="form-group col-12 col-md-6">
                 <label for="name">*Nome do Estúdio</label>
                 <input type="text" class="form-control" id="name" formControlName="name">
+                <div class="text-danger" *ngIf="configForm.get('name').invalid && configForm.get('name').touched">
+                  <div *ngIf="configForm.get('name').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="configForm.get('name').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
+                </div>
               </div>
               <div class="form-group col-12 col-md-3">
                 <label for="state">*Estado</label>
@@ -56,26 +61,45 @@
                 <select id="city_id" class="form-control" formControlName="city_id">
                   <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
                 </select>
+                <div class="text-danger" *ngIf="configForm.get('city_id').invalid && configForm.get('city_id').touched">
+                  <div *ngIf="configForm.get('city_id').errors.required">Este campo é obrigatório!</div>
+                </div>
               </div>
             </div>
             <div class="form-row mb-4">
               <div class="form-group col-12 col-md-2">
                 <label for="zip_code">*CEP</label>
                 <input type="text" class="form-control" id="zip_code" formControlName="zip_code">
+                <div class="text-danger" *ngIf="configForm.get('zip_code').invalid && configForm.get('zip_code').touched">
+                  <div *ngIf="configForm.get('zip_code').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="configForm.get('zip_code').errors.minlength">Deve ter no mínimo 9 caracteres!</div>
+                </div>
               </div>
               <div class="form-group col-12 col-md-8">
                 <label for="street">*Endereço</label>
                 <input type="text" class="form-control" id="street" formControlName="street">
+                <div class="text-danger" *ngIf="configForm.get('street').invalid && configForm.get('street').touched">
+                  <div *ngIf="configForm.get('street').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="configForm.get('street').errors.minlength">Deve ter no mínimo 10 caracteres!</div>
+                </div>
               </div>
               <div class="form-group col-12 col-md-2">
                 <label for="number">*Número</label>
                 <input type="text" class="form-control" id="number" formControlName="number">
+                <div class="text-danger" *ngIf="configForm.get('number').invalid && configForm.get('number').touched">
+                  <div *ngIf="configForm.get('number').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="configForm.get('number').errors.minlength">Deve ter no mínimo 2 caracteres!</div>
+                </div>
               </div>
             </div>
             <div class="form-row mb-4">
               <div class="form-group col-12 col-md-4">
                 <label for="district">*Bairro</label>
                 <input type="text" class="form-control" id="district" formControlName="district">
+                <div class="text-danger" *ngIf="configForm.get('district').invalid && configForm.get('district').touched">
+                  <div *ngIf="configForm.get('district').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="configForm.get('district').errors.minlength">Deve ter no mínimo 2 caracteres!</div>
+                </div>
               </div>
               <div class="form-group col-12 col-md-8">
                 <label for="complement">Complemento</label>
@@ -91,36 +115,38 @@
                 <label for="phone">Celular</label>
                 <input type="text" id="phone" class="form-control" formControlName="phone">
               </div>
-              <div class="col-12 col-md-6">
-                <label for="email">*E-mail</label>
-                <input type="email" id="email" class="form-control" formControlName="email">
-              </div>
-            </div>
-            <div class="form-row mb-4">
-              <div class="form-group col-12 col-md-3">
+              <div class="form-group col-12 col-md-6">
                 <label for="cnpj">CNPJ</label>
                 <input type="text" class="form-control" id="cnpj" formControlName="cnpj">
               </div>
+            </div>
+            <div class="form-row mb-4">
               <div class="form-group col-6 col-md-3">
                 <label for="estacionamento">*Possui Estacionamento</label>
                 <div class="btn-group">
-                  <label (click)="configForm.get('has_parking').setValue(1)" [class.active]="configForm.get('has_parking') == 1" class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('has_parking').setValue(1)" [class.active]="configForm.get('has_parking').value == 1" class="btn btn-outline-info cursor-pointer px-4">
                     Sim
                   </label>
-                  <label (click)="configForm.get('has_parking').setValue(0)" [class.active]="configForm.get('has_parking') == 0" class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('has_parking').setValue(0)" [class.active]="configForm.get('has_parking').value == 0" class="btn btn-outline-info cursor-pointer px-4">
                     Não
                   </label>
+                </div>
+                <div class="text-danger" *ngIf="configForm.get('has_parking').invalid && configForm.get('has_parking').touched">
+                  <div *ngIf="configForm.get('has_parking').errors.required">Este campo é obrigatório!</div>
                 </div>
               </div>
               <div class="form-group col-6 col-md-3">
                 <label for="24horas">*Funciona 24 horas</label>
                 <div class="btn-group">
-                  <label (click)="configForm.get('is_24_hours').setValue(1)" [class.active]="configForm.get('is_24_hours') == 1" class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('is_24_hours').setValue(1)" [class.active]="configForm.get('is_24_hours').value == 1" class="btn btn-outline-info cursor-pointer px-4">
                     Sim
                   </label>
-                  <label (click)="configForm.get('is_24_hours').setValue(0)" [class.active]="configForm.get('is_24_hours') == 0"  class="btn btn-outline-info px-4">
+                  <label (click)="configForm.get('is_24_hours').setValue(0)" [class.active]="configForm.get('is_24_hours').value == 0"  class="btn btn-outline-info cursor-pointer px-4">
                     Não
                   </label>
+                </div>
+                <div class="text-danger" *ngIf="configForm.get('is_24_hours').invalid && configForm.get('is_24_hours').touched">
+                  <div *ngIf="configForm.get('is_24_hours').errors.required">Este campo é obrigatório!</div>
                 </div>
               </div>
             </div>
@@ -128,11 +154,15 @@
               <div class="form-group col-12">
                 <label for="description">*Descrição</label>
                 <textarea id="description" formControlName="description" class="form-control" rows="5"></textarea>
+                <div class="text-danger" *ngIf="configForm.get('description').invalid && configForm.get('description').touched">
+                  <div *ngIf="configForm.get('description').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="configForm.get('description').errors.minlength">Deve ter no mínimo 100 caracteres!</div>
+                </div>
               </div>
             </div>
             <div class="form-row">
               <div class="col-xm-3">
-                <button class="btn btn-primary px-5" type="submit">Salvar</button>
+                <button class="btn btn-primary px-5" type="submit" [disabled]="submittingForm || configForm.invalid">Salvar</button>
               </div>
             </div>
           </div>
@@ -140,5 +170,5 @@
       </form>
     </div>
   </div>
-  <pre>{{ configForm.value | json }}</pre>
+  <!-- <pre>{{ configForm.value | json }}</pre> -->
 </div>

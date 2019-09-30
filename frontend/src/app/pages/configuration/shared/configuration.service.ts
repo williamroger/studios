@@ -32,23 +32,30 @@ export class ConfigurationService {
     )
   }
 
+  update(studio: StudioModel): Observable<any> {
+    return this.http.put('api/studio/updatestudio', studio).pipe(
+      catchError(this.handleError),
+      map(() => studio)
+    );
+  }
+
   /**
    * Private Methods
    */
   private jsonDataToCities(jsonData: any[]): CityModel[] {
-
     const cities: CityModel[] = [];
+
     jsonData['cities'].forEach(element => cities.push(element as CityModel));
     return cities;
   }
 
   private jsonDataToStudio(jsonData: any): StudioModel {
-    return jsonData as StudioModel;
+    return Object.assign(new StudioModel(), jsonData['studio']);
   }
 
   private handleError(error: any): Observable<any> {
     console.log('Erro na Requisição => ', error);
 
-    return throwError(error);
+    return throwError(error.error);
   }
 }
