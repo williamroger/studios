@@ -20,6 +20,27 @@ export class StudioFormComponent implements OnInit {
   studio: StudioModel = new StudioModel();
   submittingForm: boolean = false;
 
+  // iMasks
+  imaskCEP = {
+    mask: '00000-000'
+  }
+
+  imaskNumber = {
+    mask: Number
+  }
+
+  imaskTelephone = {
+    mask: '(00) 0000-0000'
+  }
+
+  imaskPhone = {
+    mask: '(00) 00000-0000'
+  }
+
+  imaskCNPJ = {
+    mask: '00.000.000/0000-00'
+  }
+
   constructor(private configService: ConfigurationService,
               private formBuilder: FormBuilder) { }
 
@@ -43,6 +64,9 @@ export class StudioFormComponent implements OnInit {
           userLoggedIn.city_id = data.city_id;
           localStorage.removeItem('userLoggedIn');
           localStorage.setItem('userLoggedIn', JSON.stringify(userLoggedIn));
+          setTimeout(() => {
+            this.refresh();
+          }, 3000);
         },
         error => {
           this.actionsForError(error.msgDev)
@@ -90,13 +114,17 @@ export class StudioFormComponent implements OnInit {
     });
   }
 
-  actionsForSuccess(message: string) {
+  private actionsForSuccess(message: string) {
     toastr.success(message);
     this.submittingForm = false;
   }
 
-  actionsForError(error) {
+  private actionsForError(error) {
     this.submittingForm = false;
     toastr.error(error);
+  }
+
+  private refresh() {
+    window.location.reload();
   }
 }
