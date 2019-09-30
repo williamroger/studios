@@ -157,9 +157,7 @@ final class StudioController
       $studioID = intval($data['id']);
 
       $studioDAO = new StudiosDAO();
-      $userDAO = new UsersDAO();
       $studio = new StudioModel();
-      $user = new UserModel();
 
       if (!$studioID)
         throw new \Exception("Erro na aplicação, tente novamente.");
@@ -185,7 +183,7 @@ final class StudioController
       if ($studioDAO->studioExists($studioID) == 0)
         throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
 
-      if ($studioDAO->studioCNPJExists($data['cnpj']) > 0)
+      if ($studioDAO->studioCNPJExists($data['cnpj'], $studioID) > 0)
         throw new \Exception('Já existe um estúdio com esse CNPJ cadastrado.');
 
       $studio->setId($studioID)
@@ -207,15 +205,7 @@ final class StudioController
         ->setNumber($data['number'])
         ->setImage($data['image']);
 
-      if (!$data['email'] || $data['email'] === '')
-        throw new \Exception("O email é obriatório.");
-
-      $user->setEmail($data['email'])
-        ->setUpdatedAt($now)
-        ->setStudioId($studioID);
-
       $studioDAO->updateStudio($studio);
-      $userDAO->updateUserStudio($user);
 
       $response = $response->withJson([
         'success' => true,

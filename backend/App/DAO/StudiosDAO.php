@@ -111,16 +111,17 @@ class StudiosDAO extends ConnectionDataBase
     return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
 
-  public function studioCNPJExists(string $studioCNPJ): int
+  public function studioCNPJExists(string $studioCNPJ, int $idStudio): int
   {
     $statement = $this->pdo
       ->prepare('SELECT 
                     cnpj
                  FROM
                     studios
-                 WHERE cnpj = :cnpj');
+                 WHERE cnpj = :cnpj AND id != :id');
     $statement->execute([
-      'cnpj' => $studioCNPJ
+      'cnpj' => $studioCNPJ,
+      'id' => $idStudio
     ]);
 
     return $statement->rowCount(\PDO::FETCH_ASSOC);
