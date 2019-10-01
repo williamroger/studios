@@ -238,7 +238,7 @@ final class RoomModel
    *
    * @return  string
    */ 
-  public function getImages(): string
+  public function getImages(): ?string
   {
     return $this->images;
   }

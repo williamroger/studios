@@ -322,6 +322,7 @@ class StudiosDAO extends ConnectionDataBase
     $statement = $this->pdo
       ->prepare("SELECT 
                    rooms.id,
+                   rooms.studio_id,
                    rooms.name,
                    rooms.description,
                    rooms.maximum_capacity,
