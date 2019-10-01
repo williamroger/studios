@@ -25,3 +25,8 @@ DROP INDEX `fk_Agendamentos_has_Horarios_Horarios1_idx` ;
 
 ALTER TABLE `db_dev_studios`.`time_periods`
 CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
+
+================================================================
+
+ALTER TABLE `db_dev_studios`.`time_periods`
+CHANGE COLUMN `price` `amount` DECIMAL(10,2) NOT NULL ;

@@ -23,13 +23,17 @@ $app->group('', function() use ($app) {
   $app->get('/studio/getstudiobyid/{id}', StudioController::class . ':getStudioById');
   $app->post('/studio/insertstudio', StudioController::class . ':insertStudio');
   $app->post('/studio/insertroom', StudioController::class . ':insertRoom');
+  $app->post('/studio/insertperiod', StudioController::class . ':insertPeriod');
   $app->get('/studio/getallrooms', StudioController::class . ':getAllRooms');
   $app->get('/studio/getroombyid/{id}', StudioController::class . ':getRoomById');
   $app->get('/studio/getroomsbystudioid/{id}', StudioController::class . ':getRoomsByStudioId');
-  $app->put('/studio/updateroom', StudioController::class . ':updateRoom');
-  $app->delete('/studio/deleteroom/{id}', StudioController::class . ':deleteRoom');
+  $app->get('/studio/getperiodsbyroomid/{id}', StudioController::class . ':getPeriodsByRoomId');
   $app->put('/studio/updatestudio', StudioController::class . ':updateStudio');
+  $app->put('/studio/updateroom', StudioController::class . ':updateRoom');
+  $app->put('/studio/updateperiod', StudioController::class . ':updatePeriod');
   $app->delete('/studio/deletestudio/{id}', StudioController::class . ':deleteStudio');
+  $app->delete('/studio/deleteroom/{id}', StudioController::class . ':deleteRoom');
+  $app->delete('/studio/deleteperiod/{id}', StudioController::class . ':deletePeriod');
 
   // CUSTOMER ============================================================
   $app->get('/customer/getallcustomers', CustomerController::class . ':getAllCustomers');
