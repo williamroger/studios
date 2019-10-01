@@ -25,8 +25,8 @@ export class ConfigurationService {
   }
 
   getStudioById(): Observable<StudioModel> {
-    const id = this.userLocalStorage['studio_id'];
-    return this.http.get(`api/studio/getstudiobyid/${id}`).pipe(
+    const idStudio = this.userLocalStorage['studio_id'];
+    return this.http.get(`api/studio/getstudiobyid/${idStudio}`).pipe(
       catchError(this.handleError),
       map(this.jsonDataToStudio)
     )

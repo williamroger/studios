@@ -11,10 +11,14 @@ import { RoomModel } from './room.model';
 })
 export class RoomsService {
 
+  private userLocalStorage = JSON.parse(localStorage.getItem('userLoggedIn'));
+
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<RoomModel[]> {
-    return this.http.get('api/studio/getallrooms').pipe(
+  getRoomsByStudioId(): Observable<RoomModel[]> {
+    const idStudio = this.userLocalStorage['studio_id'];
+
+    return this.http.get(`api/studio/getroomsbystudioid/${idStudio}`).pipe(
       catchError(this.handleError),
       map(this.jsonDataToRooms)
     )
@@ -53,7 +57,12 @@ export class RoomsService {
  */
   private jsonDataToRooms(jsonData: any[]): RoomModel[] {
     const rooms: RoomModel[] = [];
-    jsonData.forEach(element => rooms.push(element as RoomModel));
+
+    jsonData['rooms'].forEach(element => {
+      const room = Object.assign(new RoomModel(), element);
+      rooms.push(room);
+    });
+
     return rooms;
   }
 
