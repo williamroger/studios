@@ -124,7 +124,7 @@ final class TimePeriodModel
   /**
    * @return  string
    */ 
-  public function getPriceRate(): string
+  public function getPriceRate(): ?string
   {
     return $this->priceRate;
   }

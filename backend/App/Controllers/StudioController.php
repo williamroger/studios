@@ -466,8 +466,35 @@ final class StudioController
     } catch (\Exception $ex) {
       return $response->withJson([
         'success' => false,
-        'msg' => 'Erro na aplicação, tente novamente.',
-        'msgDev' => $ex->getMessage()
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
+  }
+
+  public function getPeriodsByRoomId(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $idRoom = intval($args['id']);
+      $studioDAO = new StudiosDAO();
+
+      if (!$idRoom)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      if ($studioDAO->roomExists($idRoom) == 0)
+        throw new \Exception("Não encontramos essa sala em nossa base de dados.");
+
+      $periods = $studioDAO->getPeriodsByRoomId($idRoom);
+      
+      $response = $response->withJson([
+        'success' => true,
+        'periods' => $periods
+      ], 200);
+
+      return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()  
       ], 500);
     }
   }
