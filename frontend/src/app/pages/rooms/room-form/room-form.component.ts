@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { RoomModel } from '../shared/room.model';
 import { RoomsService } from '../shared/rooms.service';
+import { AuthService } from 'src/app/auth.service';
 
 import { switchMap } from 'rxjs/operators';
 
@@ -23,11 +24,18 @@ export class RoomFormComponent implements OnInit {
   submittingForm: boolean = false;
   room: RoomModel = new RoomModel();
 
+  imaskNumber = {
+    mask: Number,
+    min: 1,
+    max: 50
+  }
+
   constructor(
     private roomService: RoomsService,
     private route: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -62,9 +70,10 @@ export class RoomFormComponent implements OnInit {
       id: [null],
       name: [null, [Validators.required, Validators.minLength(4)]],
       description: [null, [Validators.required, Validators.minLength(20)]],
-      studio_id: [1],
+      studio_id: [this.authService.userLoggedIn['studio_id']],
       maximum_capacity: [null, [Validators.required, Validators.minLength(1)]],
-      color: [null, [Validators.required, Validators.minLength(3)]]
+      color: [null, [Validators.required, Validators.minLength(4)]],
+      images: ['imagepath']
     });
   }
 
@@ -75,8 +84,8 @@ export class RoomFormComponent implements OnInit {
       )
       .subscribe(
         (room) => {
-          this.room = room;
-          this.roomForm.patchValue(room)
+          this.room = room[0];
+          this.roomForm.patchValue(room[0])
         },
         (error) => alert("Ocorreu um erro no servidor, tente mais tarde.")
       )
@@ -84,12 +93,12 @@ export class RoomFormComponent implements OnInit {
   }
 
   private setPageTitle() {
-    if (this.currentAction == 'new')
+    if (this.currentAction == 'new') {
       this.pageTitle = 'Cadastrar nova Sala de Ensaio';
-    else {
+    } else {
       const roomName = this.room.name || '';
 
-      this.pageTitle = `Editando Sala de Ensaio ${roomName}`;
+      this.pageTitle = `Editar Sala ${roomName}`;
     }
   }
 
@@ -98,7 +107,7 @@ export class RoomFormComponent implements OnInit {
 
     this.roomService.create(room)
       .subscribe(
-        room => this.actionsForSuccess(room),
+        room => this.actionsForSuccess(room, 'Nova sala criada com sucesso!'),
         error => this.actionsForError(error)
       )
   }
@@ -108,18 +117,25 @@ export class RoomFormComponent implements OnInit {
 
     this.roomService.update(room)
       .subscribe(
-        category => this.actionsForSuccess(room),
+        category => this.actionsForSuccess(room, 'Sala de ensaio atualizada com sucesso!'),
         error => this.actionsForError(error)
       );
   }
 
-  private actionsForSuccess(room: RoomModel) {
-    toastr.success('Nova sala criada com sucesso!');
+  private actionsForSuccess(room: RoomModel, message: string) {
+    toastr.success(message);
+    this.submittingForm = false;
 
     // redirect / reload / component page
-    this.router.navigateByUrl('salas', {skipLocationChange: true}).then(
-      () => this.router.navigate(['salas', room.id, 'edit'])
-    );
+    if (this.currentAction == 'new') {
+      setTimeout(() => {
+        this.router.navigateByUrl('/salas');
+      }, 3000);
+    } else {
+      this.router.navigateByUrl('salas', { skipLocationChange: true }).then(
+        () => this.router.navigate(['salas', room.id, 'edit'])
+      );
+    }
   }
 
   private actionsForError(error) {

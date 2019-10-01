@@ -27,7 +27,7 @@
 <div class="container">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Salas de Ensaio</h1>
-    <a routerLink="new" class="btn btn-primary">+ Nova</a>
+    <a routerLink="new" class="btn btn-primary">+ Nova Sala</a>
   </div>
   <table class="table">
     <thead class="thead-dark">
@@ -46,8 +46,8 @@
         <td>{{ room.color }}</td>
         <td>6</td>
         <td class="text-center">
-          <button type="button" class="btn btn-outline-info btn-sm mr-1">EDITAR</button>
-          <button type="button" class="btn btn-outline-danger btn-sm ml-1">EXCLUIR</button>
+          <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1">EDITAR</a>
+          <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1">EXCLUIR</button>
         </td>
       </tr>
     </tbody>

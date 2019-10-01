@@ -48,7 +48,7 @@ export class RoomsService {
   delete(id: number): Observable<any> {
     return this.http.delete(`api/studio/deleteroom/${id}`).pipe(
       catchError(this.handleError),
-      map(() => null)
+      map((data) => data)
     );
   }
 
@@ -67,7 +67,7 @@ export class RoomsService {
   }
 
   private jsonDataToRoom(jsonData: any): RoomModel {
-    return jsonData as RoomModel;
+    return Object.assign(new RoomModel(), jsonData['room']);
   }
 
   private handleError(error: any): Observable<any> {
