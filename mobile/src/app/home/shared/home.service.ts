@@ -1,31 +1,43 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable, throwError } from 'rxjs';
-import { map, catchError, flatMap } from 'rxjs/operators';
-
-import { IonApp, NavController, NavParams, ToastController, IonInfiniteScroll } from '@ionic/angular';
-import { ViewChild } from '@angular/core';
-
-const headers = new HttpHeaders({
- 
-});
-
+import { map, catchError } from 'rxjs/operators';
 import {StudioModel} from '../shared/StudioModel';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class HomeService {
+
+  public API_URL = 'http://localhost:8080/';
 
   constructor(public http: HttpClient) { }
 
-  public getAllStudios(): Observable<StudioModel>{
-    return this.http.get('api/studio/getallstudios');
+  getStudios(): Observable<StudioModel[]> {
+    return this.http.get(this.API_URL + 'studio/getallstudios').pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToStudios)
+    );
   }
 
-  public getById(id: number): Observable<StudioModel> {
-    return this.http.get(`api/studio/getById/${id}`);
+  /*getStudiosById(): Observable<StudioModel[]> {
+    return this.http.get(this.API_URL + 'studio/getstudiobyid/1').pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToStudios)
+    );
+  }*/
+
+  private jsonDataToStudios(jsonData: any[]): StudioModel[] {
+    const studios: StudioModel[] = [];
+    jsonData['studios'].forEach(element => studios.push(element as StudioModel));
+    return studios;
   }
+
+  private handleError(error: any): Observable<any> {
+    console.log('Erro na Requisição => ', error);
+    return throwError(error);
+  }
+
 }
