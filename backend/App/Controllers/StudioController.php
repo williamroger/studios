@@ -398,7 +398,7 @@ final class StudioController
 
       $response = $response->withJson([
         'success' => true,
-        'message' => 'Sala de Ensaio excluída com sucesso!'
+        'msg' => 'Sala de Ensaio excluída com sucesso!'
       ], 200);
 
       return $response;
