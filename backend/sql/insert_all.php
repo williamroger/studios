@@ -52,3 +52,9 @@ VALUES
 ('Ipojuca', 17);
 
 SELECT * FROM cities;
+
+///////////////////////---------------------------------------------%-------------------------------------------
+INSERT INTO time_periods
+(price, room_id, day, begin_period, end_period)
+VALUES
+('60.00', 1, 'Monday', '08:00:00', '11:00:00');
