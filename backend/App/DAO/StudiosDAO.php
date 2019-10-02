@@ -430,4 +430,38 @@ class StudiosDAO extends ConnectionDataBase
       'created_at'   => $period->getCreatedAt()
     ]);
   }
+
+  public function updatePeriod(TimePeriodModel $period): void
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE time_periods SET
+                    name = :name,
+                    description = :description,
+                    maximum_capacity = :maximum_capacity,
+                    color = :color,
+                    updated_at = :updated_at,
+                    images = :images
+                 WHERE 
+                    id = :id;');
+
+    $statement->execute([
+      'name'             => $room->getName(),
+      'description'      => $room->getDescription(),
+      'maximum_capacity' => $room->getMaximumCapacity(),
+      'color'            => $room->getColor(),
+      'updated_at'       => $room->getUpdatedAt(),
+      'images'           => $room->getImages(),
+      'id'               => $room->getId()
+    ]);
+  }
+
+  public function deletePeriod(int $idPeriod): void
+  {
+    $statement = $this->pdo
+      ->prepare('DELETE FROM rooms WHERE id = :id');
+
+    $statement->execute([
+      'id' => $idRoom
+    ]);
+  }
 }

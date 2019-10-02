@@ -551,4 +551,22 @@ final class StudioController
     }
 
   }
+
+  public function updatePeriod(Request $request, Response $response, array $args): Response
+  {
+    try {
+  
+      return $response;
+    } catch (\Throwable $th) {
+      
+    }
+  }
+
+  public function deletePeriod(Request $request, Response $response, array $args): Response
+  {
+    try {
+
+      return $response;
+    } catch (\Throwable $th) { }
+  }
 }
