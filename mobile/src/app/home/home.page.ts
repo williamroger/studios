@@ -1,14 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonApp, NavController, ToastController, IonInfiniteScroll } from '@ionic/angular';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit} from '@angular/core';
+import { Router, NavigationExtras } from '@angular/router';
+import { NavController, ToastController} from '@ionic/angular';
 import { HomeService } from './shared/home.service';
-
-import { Observable, throwError } from 'rxjs'; 
-
-export enum SearchType {
-  all = '',
-  studios = 'studios'
-}
+import {StudioModel} from './shared/StudioModel';
 
 @Component({
   selector: 'app-home',
@@ -17,29 +11,28 @@ export enum SearchType {
 })
 export class HomePage implements OnInit {
 
-  public studios: any[]; 
-  type: SearchType = SearchType.studios;
+  public studios: Array<StudioModel>;
 
-  constructor(public navCtrl: NavController, 
-    private toast: ToastController, 
-    public homeService:HomeService,
-    public http: HttpClient) { this.getAllStudios();}
+  constructor(public navCtrl: NavController,  
+    public service:HomeService,
+    private router: Router) { }
 
-  getAllStudios() {
-    /*this.studios = [
-      {name:"estudio1"},
-      {name:"estudio1"},
-      {name:"estudio1"},
-      {name:"estudio1"},
-    ]*/
-    let data: Observable<any>;
-    data = this.http.get('http://localhost:8080/studio/getallstudios');
-    data.subscribe(result=>{
-      this.studios = result;
-    })
+  getStudios() {
+    this.service.getStudios().subscribe(
+      studios => {
+        console.log('studios', studios);
+        this.studios = studios;
+      }
+    );
   }
 
   ngOnInit() {
+    this.getStudios();
   }
 
+  chamarSala(index){
+    this.navCtrl.navigateRoot('room');
+    console.log(index);
+  }
 }
+ 

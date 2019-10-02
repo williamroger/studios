@@ -11,7 +11,7 @@ export class RoomsPage implements OnInit {
 
   public rooms: Array<RoomModel>;
 
-  constructor(public service: RoomService) { }
+  constructor(public service: RoomService) {}
 
   ngOnInit() {
     this.getRooms();
@@ -20,15 +20,6 @@ export class RoomsPage implements OnInit {
 
   getRooms() {
     this.service.getRooms().subscribe(
-      rooms => {
-        console.log('rooms', rooms);
-        this.rooms = rooms;
-      }
-    );
-  }
-
-  getRoomsByStudio() {
-    this.service.getRoomsByStudio().subscribe(
       rooms => {
         console.log('rooms', rooms);
         this.rooms = rooms;
