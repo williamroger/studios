@@ -555,18 +555,75 @@ final class StudioController
   public function updatePeriod(Request $request, Response $response, array $args): Response
   {
     try {
-  
-      return $response;
-    } catch (\Throwable $th) {
+      $data = $request->getParsedBody();
+      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+      $now = $date->format('Y-m-d H:i:s');
+      $idPeriod = intval($data['id']);
+
+      if (!$idPeriod)
+        throw new Exception('Erro na aplicação, tente novamente.');
+
+      if (!$data['amount'] || $data['amount'] == '')
+        throw new Exception('Você precisa informar o valor do período');
+
+      if (!$data['day'] || $data['day'] == '')
+        throw new Exception('Você precisa informar um dia da semana');
+
+      if (!$data['begin_period'] || $data['begin_period'] == '')
+        throw new Exception('Você precisa infomar a hora incial do período');
+
+      if (!$data['end_period'] || $data['end_period'] == '')
+        throw new Exception('Você precisa informar a hora final do período');
+
+      $studioDAO = new StudiosDAO();
+      $period = new TimePeriodModel();
+
+      $period->setId($idPeriod)
+      ->setAmount($data['amount'])
+      ->setDay($data['day'])
+      ->setBeginPeriod($data['begin_period'])
+      ->setEndPeriod($data['end_period'])
+      ->setUpdatedAt($now);
       
+      $studioDAO->updatePeriod($period);
+      
+      $response = $response->withJson([
+        'success' => true,
+        'msg' => 'Período atualizado com sucesso!'
+      ]);
+
+      return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
     }
   }
 
   public function deletePeriod(Request $request, Response $response, array $args): Response
   {
     try {
+      $idPeriod = intval($args['id']);
+
+      if (!$idPeriod)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      $studioDAO = new StudiosDAO();
+
+      $studioDAO->deletePeriod($idPeriod);
+
+      $response = $response->withJson([
+        'success' => true,
+        'msg' => 'Período excluído com sucesso!'
+      ], 200);
 
       return $response;
-    } catch (\Throwable $th) { }
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
   }
 }
