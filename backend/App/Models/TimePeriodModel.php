@@ -134,7 +134,7 @@ final class TimePeriodModel
    *
    * @return  self
    */ 
-  public function setPriceRate(string $priceRate): self
+  public function setPriceRate(?string $priceRate): self
   {
     $this->priceRate = $priceRate;
 

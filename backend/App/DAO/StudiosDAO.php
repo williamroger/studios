@@ -4,6 +4,7 @@ namespace App\DAO;
 
 use App\Models\RoomModel;
 use App\Models\StudioModel;
+use App\Models\TimePeriodModel;
 
 class StudiosDAO extends ConnectionDataBase 
 {
@@ -401,5 +402,32 @@ class StudiosDAO extends ConnectionDataBase
     ]);
 
     return $statement->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  public function insertPeriod(TimePeriodModel $period): void
+  {
+    $statement = $this->pdo 
+      ->prepare('INSERT INTO time_periods
+                  (room_id, 
+                   amount, 
+                   day, 
+                   begin_period, 
+                   end_period,
+                   created_at)
+                VALUES
+                  (:room_id, 
+                   :amount, 
+                   :day, 
+                   :begin_period, 
+                   :end_period,
+                   :created_at);');
+    $statement->execute([
+      'room_id'      => $period->getRoomId(),
+      'amount'       => $period->getAmount(),
+      'day'          => $period->getDay(),
+      'begin_period' => $period->getBeginPeriod(),
+      'end_period'   => $period->getEndPeriod(),
+      'created_at'   => $period->getCreatedAt()
+    ]);
   }
 }

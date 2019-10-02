@@ -6,8 +6,11 @@ use App\DAO\StudiosDAO;
 use App\DAO\UsersDAO;
 use App\Models\RoomModel;
 use App\Models\StudioModel;
+use App\Models\TimePeriodModel;
 use App\Models\UserModel;
 use DateTimeZone;
+use Exception;
+use Firebase\JWT\ExpiredException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -290,7 +293,7 @@ final class StudioController
       $response = $response->withJson([
         'success' => true,
         'msg' => 'Sala de Ensaio cadastrada com sucesso!',
-      ]);
+      ], 200);
 
       return $response;
 
@@ -497,5 +500,55 @@ final class StudioController
         'msg' => $ex->getMessage()  
       ], 500);
     }
+  }
+
+  public function insertPeriod(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $data = $request->getParsedBody();
+      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+      $now = $date->format('Y-m-d H:i:s');
+      $idRoom = intval($data['room_id']);
+
+      if (!$idRoom)
+        throw new Exception('Erro na aplicação, tente novamente.');
+      
+      if (!$data['amount'] || $data['amount'] == '')
+        throw new Exception('Você precisa informar o valor do período');
+
+      if (!$data['day'] || $data['day'] == '')
+        throw new Exception('Você precisa informar um dia da semana');
+      
+      if (!$data['begin_period'] || $data['begin_period'] == '')
+        throw new Exception('Você precisa infomar a hora incial do período');
+
+      if (!$data['end_period'] || $data['end_period'] == '')
+        throw new Exception('Você precisa informar a hora final do período');
+
+      $period = new TimePeriodModel();
+      $studioDAO = new StudiosDAO();
+
+      $period->setRoomId($idRoom)
+      ->setAmount($data['amount'])
+      ->setDay($data['day'])
+      ->setBeginPeriod($data['begin_period'])
+      ->setEndPeriod($data['end_period'])
+      ->setCreatedAt($now);
+      
+      $studioDAO->insertPeriod($period);
+
+      $response = $response->withJson([
+        'success' => true,
+        'msg' => 'Período cadastrado com sucesso!',
+      ], 200);
+
+      return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
+
   }
 }
