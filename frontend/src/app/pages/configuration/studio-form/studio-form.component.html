@@ -1,6 +1,29 @@
-
-<!--Componente de menu-->
-<app-header-menu></app-header-menu>
+<!-- menu provisório -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-5">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/dashboard">
+      <img class="navbar__logo" src="../../../../assets/images/logo-studios_2x.png" alt="logo-studios">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard">Agendamentos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/salas">Salas de Ensaio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/configuracoes">Configurações</a>
+        </li>
+      </ul>
+    </div>
+    <a routerLink="/logout" class="btn btn-danger">SAIR</a>
+  </div>
+</nav>
 
 <div class="container">
   <div class="row justify-content-center">
