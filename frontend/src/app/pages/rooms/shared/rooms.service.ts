@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError, flatMap } from 'rxjs/operators';
 
 import { RoomModel } from './room.model';
+import { PeriodModel } from './period.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,9 +53,27 @@ export class RoomsService {
     );
   }
 
+  getPeriodsByRoomId(id: number): Observable<PeriodModel[]> {
+
+    return this.http.get(`api/studio/getperiodsbyroomid/${id}`).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToPeriods)
+    )
+  }
   /**
  * Private Methods
  */
+  private jsonDataToPeriods(jsonData: any[]): PeriodModel[] {
+    const periods: PeriodModel[] = [];
+
+    jsonData['periods'].forEach(element => {
+      const period = Object.assign(new RoomModel(), element);
+      periods.push(period);
+    });
+
+    return periods;
+  }
+
   private jsonDataToRooms(jsonData: any[]): RoomModel[] {
     const rooms: RoomModel[] = [];
 

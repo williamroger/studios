@@ -24,6 +24,7 @@ export class RoomListComponent implements OnInit {
       rooms => this.rooms = rooms
     )
   }
+
   deleteRoom(room) {
     const confirmDelete = confirm('Deseja realmente excluir esta sala?');
 

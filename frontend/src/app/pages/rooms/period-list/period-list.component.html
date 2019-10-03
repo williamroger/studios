@@ -27,27 +27,26 @@
 
 <div class="container">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Salas de Ensaio</h1>
-    <a routerLink="new" class="btn btn-primary">+ Nova Sala</a>
+    <h1>Períodos da Sala ???</h1>
+    <a routerLink="new" class="btn btn-primary">+ Novo Período</a>
   </div>
   <table class="table">
     <thead class="thead-dark">
-      <th scope="col">Sala</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Capac. Máxima</th>
-      <th scope="col">Cor</th>
+      <th scope="col">Dia</th>
+      <th scope="col">Hora Inicial</th>
+      <th scope="col">Hora Final</th>
+      <th scope="col">Valor</th>
       <th scope="col" class="text-center">Ações</th>
     </thead>
     <tbody>
-      <tr *ngFor="let room of rooms">
-        <td>{{ room.name }}</td>
-        <td>{{ room.description }}</td>
-        <td>{{ room.maximum_capacity }}</td>
-        <td>{{ room.color }}</td>
+      <tr *ngFor="let period of periods">
+        <td>{{ period.day }}</td>
+        <td>{{ period.begin_period }}</td>
+        <td>{{ period.end_period }}</td>
+        <td>{{ period.amount }}</td>
         <td class="text-center">
-          <a [routerLink]="[room.id, 'periods']" class="btn btn-outline-primary btn-sm mr-1 text-uppercase">Períodos</a>
-          <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
-          <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
+          <a [routerLink]="[period.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
+          <button (click)="deletePeriod(period)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
         </td>
       </tr>
     </tbody>
