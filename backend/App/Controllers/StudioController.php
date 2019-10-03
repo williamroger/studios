@@ -509,6 +509,15 @@ final class StudioController
       $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
       $now = $date->format('Y-m-d H:i:s');
       $idRoom = intval($data['room_id']);
+      $msgFeedback = 'Período cadastrado com sucesso!';
+      $mondayToSaturday = array(
+        "Monday", 
+        "Tuesday", 
+        "Wednesday", 
+        "Thursday", 
+        "Friday", 
+        "Saturday"
+      );
 
       if (!$idRoom)
         throw new Exception('Erro na aplicação, tente novamente.');
@@ -528,21 +537,37 @@ final class StudioController
       $period = new TimePeriodModel();
       $studioDAO = new StudiosDAO();
 
-      $period->setRoomId($idRoom)
-      ->setAmount($data['amount'])
-      ->setDay($data['day'])
-      ->setBeginPeriod($data['begin_period'])
-      ->setEndPeriod($data['end_period'])
-      ->setCreatedAt($now);
-      
-      $studioDAO->insertPeriod($period);
+      if ($data['day'] == 'MondayToSaturday') {
+        foreach($mondayToSaturday as $day) {
+          $msgFeedback = 'Períodos cadastrados com sucesso!';
+
+          $period->setRoomId($idRoom)
+            ->setAmount($data['amount'])
+            ->setDay($day)
+            ->setBeginPeriod($data['begin_period'])
+            ->setEndPeriod($data['end_period'])
+            ->setCreatedAt($now);
+
+          $studioDAO->insertPeriod($period);
+        }
+      } else {
+        $period->setRoomId($idRoom)
+          ->setAmount($data['amount'])
+          ->setDay($data['day'])
+          ->setBeginPeriod($data['begin_period'])
+          ->setEndPeriod($data['end_period'])
+          ->setCreatedAt($now);
+
+        $studioDAO->insertPeriod($period);
+      }
 
       $response = $response->withJson([
         'success' => true,
-        'msg' => 'Período cadastrado com sucesso!',
+        'msg' => $msgFeedback,
       ], 200);
 
       return $response;
+      
     } catch (\Exception $ex) {
       return $response->withJson([
         'success' => false,
