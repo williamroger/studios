@@ -11,7 +11,7 @@ import { RoomsService } from './../shared/rooms.service';
 })
 export class PeriodListComponent implements OnInit {
 
-  periods: Array<PeriodModel> = [];
+  periods: PeriodModel[] = [];
 
   constructor(private roomService: RoomsService,
               private route: ActivatedRoute) { }

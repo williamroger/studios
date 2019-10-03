@@ -8,6 +8,40 @@ export class PeriodModel {
     public begin_period?: string,
     public end_period?: string,
     public created_at?: string,
-    public updated_at?: string
+    public updated_at?: string,
   ) { }
+
+  get dayToPtBR() {
+    return this.day;
+  }
 }
+
+/*
+// let day = '';
+
+    switch(this.day) {
+      case 'Monday':
+        day = 'Segunda-feira';
+        console.log('tstes')
+        break;
+      case 'Tuesday':
+        day = 'Terça-feira';
+        break;
+      case 'Wednesday':
+        day ='Quarta-feira';
+        break;
+      case 'Thursday':
+        day = 'Quinta-feira';
+        break;
+      case 'Friday':
+        day = 'Sexta-feira';
+        break;
+      case 'Saturday':
+        day = 'Sábado';
+        break;
+      case 'Sunday':
+        day = 'Domingo';
+        break;
+    }
+    // return this.day;
+*/
