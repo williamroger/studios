@@ -45,7 +45,7 @@
         <td>{{ room.maximum_capacity }}</td>
         <td>{{ room.color }}</td>
         <td class="text-center">
-          <a [routerLink]="[room.id, 'periodos', room.name]" class="btn btn-outline-primary btn-sm mr-1 text-uppercase">Períodos</a>
+          <a [routerLink]="[room.id, 'periodos']" class="btn btn-outline-primary btn-sm mr-1 text-uppercase">Períodos</a>
           <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
           <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
         </td>

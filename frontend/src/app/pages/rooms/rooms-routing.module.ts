@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: ':id/edit', component: RoomFormComponent, },
   { path: ':id/periodos', component: PeriodListComponent },
   { path: ':id/periodos/new', component: PeriodFormComponent},
-  { path: ':id/periodos/:id/edit', component: PeriodFormComponent }
+  { path: ':id/periodos/:idperiod/edit', component: PeriodFormComponent }
 ];
 
 @NgModule({

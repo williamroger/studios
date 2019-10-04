@@ -54,12 +54,19 @@ export class RoomsService {
   }
 
   getPeriodsByRoomId(id: number): Observable<PeriodModel[]> {
-
     return this.http.get(`api/studio/getperiodsbyroomid/${id}`).pipe(
       catchError(this.handleError),
       map(this.jsonDataToPeriods)
     )
   }
+
+  getPeriodById(id: number): Observable<PeriodModel> {
+    return this.http.get(`api/studio/getperiodbyid/${id}`).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToPeriod)
+    )
+  }
+
   /**
  * Private Methods
  */
@@ -87,6 +94,10 @@ export class RoomsService {
 
   private jsonDataToRoom(jsonData: any): RoomModel {
     return Object.assign(new RoomModel(), jsonData['room']);
+  }
+
+  private jsonDataToPeriod(jsonData: any): PeriodModel {
+    return Object.assign(new PeriodModel(), jsonData['period']);
   }
 
   private handleError(error: any): Observable<any> {

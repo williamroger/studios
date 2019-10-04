@@ -22,6 +22,7 @@ export class PeriodFormComponent implements OnInit {
   serverErrorMessage: string[] = null;
   submittingForm: boolean = false;
   period: PeriodModel = new PeriodModel();
+  idPeriod: number;
 
   constructor(private roomService: RoomsService,
               private route: ActivatedRoute,
@@ -29,10 +30,19 @@ export class PeriodFormComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.setCurrentAction();
     this.buildPeriodForm();
+    this.loadPeriod();
   }
 
   // Private Methods
+  private setCurrentAction() {
+    if (this.route.snapshot.url[0].path == 'new')
+      this.currentAction = 'new';
+    else
+      this.currentAction = 'edit';
+  }
+
   private buildPeriodForm() {
     this.periodForm = this.formBuilder.group({
       id: [null],
@@ -43,5 +53,21 @@ export class PeriodFormComponent implements OnInit {
       begin_period: [null, [Validators.required, Validators.minLength(8)]],
       end_period: [null, [Validators.required, Validators.minLength(8)]]
     });
+  }
+
+  private loadPeriod() {
+    if (this.currentAction == "edit") {
+      this.route.paramMap.pipe(
+        switchMap(params => this.roomService.getPeriodById(+params.get("idperiod")))
+      )
+        .subscribe(
+          (period) => {
+            this.period = period[0];
+            this.idPeriod = period[0]['id'];
+            this.periodForm.patchValue(period[0])
+          },
+          (error) => alert("Ocorreu um erro no servidor, tente mais tarde.")
+        )
+    }
   }
 }
