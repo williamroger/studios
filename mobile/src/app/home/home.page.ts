@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { NavController} from '@ionic/angular';
+import { NavController, ModalController} from '@ionic/angular';
 import { HomeService } from './shared/home.service';
 import {StudioModel} from './shared/StudioModel';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
     public service:HomeService,
     public serviceRoom:RoomService,
     private route: ActivatedRoute,
+    public modalCtrl: ModalController,
     private router: Router,) { }
 
   getStudios() {
