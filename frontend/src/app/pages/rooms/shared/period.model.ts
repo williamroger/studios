@@ -11,15 +11,10 @@ export class PeriodModel {
     public updated_at?: string,
   ) { }
 
-  get dayToPtBR() {
-    return this.day;
-  }
-}
+  get dayText() {
+    let day = '';
 
-/*
-// let day = '';
-
-    switch(this.day) {
+    switch (this.day) {
       case 'Monday':
         day = 'Segunda-feira';
         console.log('tstes')
@@ -28,7 +23,7 @@ export class PeriodModel {
         day = 'Terça-feira';
         break;
       case 'Wednesday':
-        day ='Quarta-feira';
+        day = 'Quarta-feira';
         break;
       case 'Thursday':
         day = 'Quinta-feira';
@@ -43,5 +38,6 @@ export class PeriodModel {
         day = 'Domingo';
         break;
     }
-    // return this.day;
-*/
+    return day;
+  }
+}

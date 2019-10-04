@@ -40,13 +40,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let period of periods">
-        <td *ngIf="period.day == 'Monday'">Segunda-feira</td>
-        <td *ngIf="period.day == 'Tuesday'">Terça-feira</td>
-        <td *ngIf="period.day == 'Wednesday'">Quarta-feira</td>
-        <td *ngIf="period.day == 'Thursday'">Quinta-feira</td>
-        <td *ngIf="period.day == 'Friday'">Sexta-feira</td>
-        <td *ngIf="period.day == 'Saturday'">Sábado</td>
-        <td *ngIf="period.day == 'Sunday'">Domingo</td>
+        <td>{{ period.dayText }}</td>
         <td>{{ period.begin_period }}</td>
         <td>{{ period.end_period }}</td>
         <td>{{ period.amount }}</td>

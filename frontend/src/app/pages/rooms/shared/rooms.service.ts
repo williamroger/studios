@@ -67,7 +67,7 @@ export class RoomsService {
     const periods: PeriodModel[] = [];
 
     jsonData['periods'].forEach(element => {
-      const period = Object.assign(new RoomModel(), element);
+      const period = Object.assign(new PeriodModel(), element);
       periods.push(period);
     });
 
