@@ -518,7 +518,7 @@ final class StudioController
 
       $response = $response->withJson([
         'success' => true,
-        'room' => $period,
+        'period' => $period,
       ], 200);
 
       return $response;
