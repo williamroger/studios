@@ -1,1 +1,91 @@
-<p>period-form works!</p>
+<!-- menu provisório -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-5">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/dashboard">
+      <img class="navbar__logo" src="../../../../assets/images/logo-studios_2x.png" alt="logo-studios">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard">Agendamentos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/salas">Salas de Ensaio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/configuracoes">Configurações</a>
+        </li>
+      </ul>
+    </div>
+    <a routerLink="/logout" class="btn btn-danger">SAIR</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="mb-5">
+        <div>
+          <h2 class="d-inline-block">Editando Período</h2>
+          <a routerLink="/periodos" class="btn btn-light float-right">Voltar</a>
+        </div>
+        <p>Mantenha os períodos de ensaio sempre atualizados.</p>
+      </div>
+      <form [formGroup]="periodForm" (submit)="submitForm()">
+        <div class="form-row">
+          <div class="form-group col-12 col-md-3 mb-4">
+            <label for="day">Dia da semana</label>
+            <select id="day" class="form-control" formControlName="day">
+              <option value="MondayToSaturday">Segunda a Sábado</option>
+              <option value="Monday">Segunda-feira</option>
+              <option value="Tuesday">Terça-feira</option>
+              <option value="Wednesday">Quarta-feira</option>
+              <option value="Thursday">Quinta-feira</option>
+              <option value="Friday">Sexta-feira</option>
+              <option value="Saturday">Sábado</option>
+              <option value="Sunday">Domingo</option>
+            </select>
+            <div class="text-danger" *ngIf="periodForm.get('day').invalid && periodForm.get('day').touched">
+              <div *ngIf="periodForm.get('day').errors.required">Este campo é obrigatório!</div>
+            </div>
+          </div>
+          <div class="form-group col-12 col-md-3 mb-4">
+            <label for="begin_period">Hora Inicial</label>
+            <input type="text" class="form-control" id="begin_period" formControlName="begin_period">
+            <div class="text-danger" *ngIf="periodForm.get('begin_period').invalid && periodForm.get('begin_period').touched">
+              <div *ngIf="periodForm.get('begin_period').errors.required">Este campo é obrigatório!</div>
+              <div *ngIf="periodForm.get('begin_period').errors.minlength">Deve ter no mínimo 8 caracteres!</div>
+            </div>
+          </div>
+          <div class="form-group col-12 col-md-3 mb-4">
+            <label for="end_period">Hora Final</label>
+            <input type="text" class="form-control" id="end_period" formControlName="end_period">
+            <div class="text-danger" *ngIf="periodForm.get('end_period').invalid && periodForm.get('end_period').touched">
+              <div *ngIf="periodForm.get('end_period').errors.required">Este campo é obrigatório!</div>
+              <div *ngIf="periodForm.get('end_period').errors.minlength">Deve ter no mínimo 8 caracteres!</div>
+            </div>
+          </div>
+          <div class="form-group col-12 col-md-3 mb-4">
+            <label for="amount">Valor</label>
+            <input type="text" class="form-control" id="amount" formControlName="amount">
+            <div class="text-danger" *ngIf="periodForm.get('amount').invalid && periodForm.get('amount').touched">
+              <div *ngIf="periodForm.get('amount').errors.required">Este campo é obrigatório!</div>
+              <div *ngIf="periodForm.get('amount').errors.minlength">Deve ter no mínimo 5 caracteres!</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-12 col-md-3 mb-5">
+            <button class="btn btn-primary px-5 text-uppercase" type="submit"
+              [disabled]="submittingForm || periodForm.invalid">Salvar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

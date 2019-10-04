@@ -10,9 +10,9 @@ const routes: Routes = [
   { path: '', component: RoomListComponent, },
   { path: 'new', component: RoomFormComponent, },
   { path: ':id/edit', component: RoomFormComponent, },
-  { path: ':id/periods', component: PeriodListComponent },
-  { path: ':id/periods/new', component: PeriodFormComponent},
-  { path: ':id/periods/:id/edit', component: PeriodFormComponent }
+  { path: ':id/periodos', component: PeriodListComponent },
+  { path: ':id/periodos/new', component: PeriodFormComponent},
+  { path: ':id/periodos/:id/edit', component: PeriodFormComponent }
 ];
 
 @NgModule({

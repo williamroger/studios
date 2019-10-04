@@ -37,7 +37,7 @@
 
       <form [formGroup]="roomForm" (submit)="submitForm()">
         <div class="form-row">
-          <div class="col-12 col-md-6 mb-4">
+          <div class="form-group col-12 col-md-6 mb-4">
             <label for="name">Nome da Sala</label>
             <input type="text" class="form-control" id="name" formControlName="name">
             <div class="text-danger" *ngIf="roomForm.get('name').invalid && roomForm.get('name').touched">
@@ -45,7 +45,7 @@
               <div *ngIf="roomForm.get('name').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
             </div>
           </div>
-          <div class="col-12 col-md-2">
+          <div class="form-group col-12 col-md-2">
             <label for="maximum_capacity">Capac. máxima</label>
             <input type="text" [imask]="imaskNumber" class="form-control" id="maximum_capacity" formControlName="maximum_capacity">
             <div class="text-danger"
@@ -54,7 +54,7 @@
               <div *ngIf="roomForm.get('maximum_capacity').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
             </div>
           </div>
-          <div class="col-12 col-md-3">
+          <div class="form-group col-12 col-md-3">
             <label for="color">Cor de referência</label>
             <input type="text" class="form-control" id="color" formControlName="color">
             <div class="text-danger" *ngIf="roomForm.get('color').invalid && roomForm.get('color').touched">
@@ -64,7 +64,7 @@
           </div>
         </div>
         <div class="form-row mb-3">
-          <div class="col-12 mb-4">
+          <div class="form-group col-12 mb-4">
             <label for="description">Descrição</label>
             <textarea class="form-control" id="description" formControlName="description" id="description" rows="5"></textarea>
             <div class="text-danger" *ngIf="roomForm.get('description').invalid && roomForm.get('description').touched">
