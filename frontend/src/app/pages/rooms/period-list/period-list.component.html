@@ -43,7 +43,7 @@
         <td>{{ period.dayText }}</td>
         <td>{{ period.begin_period }}</td>
         <td>{{ period.end_period }}</td>
-        <td>{{ period.amount }}</td>
+        <td>{{ period.amount | currency:'BRL':'symbol':'2.2-2':'pt' }}</td>
         <td class="text-center">
           <a [routerLink]="[period.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
           <button (click)="deletePeriod(period)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
