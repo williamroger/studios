@@ -26,6 +26,7 @@ $app->group('', function() use ($app) {
   $app->post('/studio/insertperiod', StudioController::class . ':insertPeriod');
   $app->get('/studio/getallrooms', StudioController::class . ':getAllRooms');
   $app->get('/studio/getroombyid/{id}', StudioController::class . ':getRoomById');
+  $app->get('/studio/getperiodbyid/{id}', StudioController::class . ':getPeriodById');
   $app->get('/studio/getroomsbystudioid/{id}', StudioController::class . ':getRoomsByStudioId');
   $app->get('/studio/getperiodsbyroomid/{id}', StudioController::class . ':getPeriodsByRoomId');
   $app->put('/studio/updatestudio', StudioController::class . ':updateStudio');

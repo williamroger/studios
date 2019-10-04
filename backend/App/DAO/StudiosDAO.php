@@ -404,6 +404,25 @@ class StudiosDAO extends ConnectionDataBase
     return $statement->fetchAll(\PDO::FETCH_ASSOC);
   }
 
+  public function getPeriodById(int $idPeriod) {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id,
+                    room_id,
+                    amount,
+                    day,
+                    begin_period,
+                    end_period
+                 FROM
+                    time_periods
+                 WHERE id = :id');
+    $statement->execute([
+      'id' => $idPeriod
+    ]);
+
+    return $statement->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
   public function insertPeriod(TimePeriodModel $period): void
   {
     $statement = $this->pdo 

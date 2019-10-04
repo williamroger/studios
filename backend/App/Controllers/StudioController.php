@@ -502,6 +502,33 @@ final class StudioController
     }
   }
 
+  public function getPeriodById(Request $request, Response $response, array $args): Response 
+  {
+    try {
+      $idPeriod = intval($args['id']);
+      $studioDAO = new StudiosDAO();
+
+      if (!$idPeriod)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      if ($studioDAO->roomExists($idPeriod) == 0)
+        throw new \Exception("Não encontramos esse período em nossa base de dados.");
+
+      $period = $studioDAO->getPeriodById($idPeriod);
+
+      $response = $response->withJson([
+        'success' => true,
+        'room' => $period,
+      ], 200);
+
+      return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
+  }
   public function insertPeriod(Request $request, Response $response, array $args): Response
   {
     try {
