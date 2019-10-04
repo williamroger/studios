@@ -511,7 +511,7 @@ final class StudioController
       if (!$idPeriod)
         throw new \Exception("Erro na aplicação, tente novamente.");
 
-      if ($studioDAO->roomExists($idPeriod) == 0)
+      if ($studioDAO->periodExists($idPeriod) == 0)
         throw new \Exception("Não encontramos esse período em nossa base de dados.");
 
       $period = $studioDAO->getPeriodById($idPeriod);

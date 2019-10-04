@@ -382,6 +382,22 @@ class StudiosDAO extends ConnectionDataBase
     return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
 
+  public function periodExists(int $idPeriod): int
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT 
+                    id,
+                    day
+                 FROM
+                    time_periods
+                 WHERE id = :id');
+    $statement->execute([
+      'id' => $idPeriod
+    ]);
+
+    return $statement->rowCount(\PDO::FETCH_ASSOC);
+  }
+
   public function getPeriodsByRoomId(int $idRoom)
   {
     $statement = $this->pdo
