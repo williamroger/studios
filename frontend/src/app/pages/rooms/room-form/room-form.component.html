@@ -55,8 +55,8 @@
             </div>
           </div>
           <div class="form-group col-12 col-md-3">
-            <label for="color">Cor de referência</label>
-            <input type="text" class="form-control" id="color" formControlName="color">
+            <label for="color" class="d-block">Cor de referência</label>
+            <p-colorPicker [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" formControlName="color"></p-colorPicker>
             <div class="text-danger" *ngIf="roomForm.get('color').invalid && roomForm.get('color').touched">
               <div *ngIf="roomForm.get('color').errors.required">Este campo é obrigatório!</div>
               <div *ngIf="roomForm.get('color').errors.minlength">Deve ter no mínimo 4 caracteres!</div>

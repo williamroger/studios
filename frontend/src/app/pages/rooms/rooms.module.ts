@@ -6,6 +6,8 @@ import { RoomsRoutingModule } from './rooms-routing.module';
 import { RoomFormComponent } from './room-form/room-form.component';
 import { RoomListComponent } from './room-list/room-list.component';
 
+import { ColorPickerModule } from 'primeng/colorpicker';
+
 import { IMaskModule } from 'angular-imask';
 import { PeriodListComponent } from './period-list/period-list.component';
 import { PeriodFormComponent } from './period-form/period-form.component';
@@ -16,7 +18,8 @@ import { PeriodFormComponent } from './period-form/period-form.component';
     CommonModule,
     RoomsRoutingModule,
     ReactiveFormsModule,
-    IMaskModule
+    IMaskModule,
+    ColorPickerModule
   ]
 })
 export class RoomsModule { }
