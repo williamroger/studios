@@ -1,8 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { NavController, ToastController} from '@ionic/angular';
+import { NavController} from '@ionic/angular';
 import { HomeService } from './shared/home.service';
 import {StudioModel} from './shared/StudioModel';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RoomService } from '../rooms/shared/room.service';
+
 
 @Component({
   selector: 'app-home',
@@ -12,10 +14,13 @@ import {StudioModel} from './shared/StudioModel';
 export class HomePage implements OnInit {
 
   public studios: Array<StudioModel>;
+  public API_URL = 'http://localhost:8080/';
 
   constructor(public navCtrl: NavController,  
     public service:HomeService,
-    private router: Router) { }
+    public serviceRoom:RoomService,
+    private route: ActivatedRoute,
+    private router: Router,) { }
 
   getStudios() {
     this.service.getStudios().subscribe(
@@ -32,7 +37,8 @@ export class HomePage implements OnInit {
 
   chamarSala(index){
     this.navCtrl.navigateRoot('room');
-    console.log(index);
+    this.service.takeIndex(this.studios[index].id);
+    //console.log(this.studios[index].id);   
   }
 }
  

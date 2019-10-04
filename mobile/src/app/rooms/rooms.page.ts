@@ -1,6 +1,7 @@
 import { RoomService } from './shared/room.service';
 import { RoomModel } from './shared/RoomModel';
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../home/shared/home.service';
 
 @Component({
   selector: 'app-rooms',
@@ -9,13 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomsPage implements OnInit {
 
-  public rooms: Array<RoomModel>;
+  public rooms: Array<RoomModel> = [];
 
-  constructor(public service: RoomService) {}
+  public id;
+
+  constructor(public service: RoomService,
+    public serviceHome: HomeService) {}
 
   ngOnInit() {
-    this.getRooms();
-    //this.getRoomsByStudio();
+    //this.getRooms();
+    this.id = this.serviceHome.returnIndex();
+    this.getRoomsByStudio(this.id);
   }
 
   getRooms() {
@@ -25,5 +30,11 @@ export class RoomsPage implements OnInit {
         this.rooms = rooms;
       }
     );
+  }
+
+  getRoomsByStudio(id: number){
+    this.service.getRoomsByStudio(id).subscribe(
+      rooms => this.rooms = rooms
+    )
   }
 }

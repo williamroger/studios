@@ -20,8 +20,8 @@ export class RoomService {
     );
   }
 
-  getRoomsByStudio(): Observable<RoomModel[]> {
-    return this.http.get(this.API_URL + 'studio/getroomsbystudioid/${id}').pipe(
+  getRoomsByStudio(idStudio: number): Observable<RoomModel[]> {
+    return this.http.get(this.API_URL + `studio/getroomsbystudioid/${idStudio}`).pipe(
       catchError(this.handleError),
       map(this.jsonDataToRooms)
     );
@@ -29,7 +29,7 @@ export class RoomService {
 
   private jsonDataToRooms(jsonData: any[]): RoomModel[] {
     const rooms: RoomModel[] = [];
-    jsonData['data'].forEach(element => rooms.push(element as RoomModel));
+    jsonData['rooms'].forEach(element => rooms.push(element as RoomModel));
     return rooms;
   }
 

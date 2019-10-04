@@ -15,6 +15,8 @@ export class HomeService {
 
   constructor(public http: HttpClient) { }
 
+  public id: number;
+
   getStudios(): Observable<StudioModel[]> {
     return this.http.get(this.API_URL + 'studio/getallstudios').pipe(
       catchError(this.handleError),
@@ -28,6 +30,14 @@ export class HomeService {
       map(this.jsonDataToStudios)
     );
   }*/
+
+  public takeIndex(index: number){
+    this.id = index;
+  }
+
+  public returnIndex(){
+    return this.id;
+  }
 
   private jsonDataToStudios(jsonData: any[]): StudioModel[] {
     const studios: StudioModel[] = [];
