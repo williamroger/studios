@@ -23,6 +23,7 @@ export class PeriodFormComponent implements OnInit {
   submittingForm: boolean = false;
   period: PeriodModel = new PeriodModel();
   idPeriod: number;
+  roomId: number;
 
   constructor(private roomService: RoomsService,
               private route: ActivatedRoute,
@@ -46,16 +47,18 @@ export class PeriodFormComponent implements OnInit {
 
   // Private Methods
   private setCurrentAction() {
-    if (this.route.snapshot.url[2].path == 'new')
+    if (this.route.snapshot.url[2].path == 'new'){
       this.currentAction = 'new';
-    else
+      this.roomId = +this.route.snapshot.url[0].path;
+    } else {
       this.currentAction = 'edit';
+    }
   }
 
   private buildPeriodForm() {
     this.periodForm = this.formBuilder.group({
       id: [null],
-      room_id: [null],
+      room_id: [this.roomId],
       amount: [null, [Validators.required, Validators.minLength(5)]],
       day: [null, [Validators.required]],
       price_rate: [null],
@@ -66,7 +69,6 @@ export class PeriodFormComponent implements OnInit {
 
   private loadPeriod() {
     if (this.currentAction == "edit") {
-      console.log('edit');
       this.route.paramMap.pipe(
         switchMap(params => this.roomService.getPeriodById(+params.get("idperiod")))
       )
@@ -83,7 +85,7 @@ export class PeriodFormComponent implements OnInit {
 
   private createPeriod() {
     const period: PeriodModel = Object.assign(new PeriodModel(), this.periodForm.value);
-    console.log(period);return;
+
     this.roomService.createPeriod(period)
       .subscribe(
         period => this.actionsForSuccess(period, 'Período cadastrado com sucesso!'),

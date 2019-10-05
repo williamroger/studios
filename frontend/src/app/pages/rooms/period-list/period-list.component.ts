@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { RoomsService } from './../shared/rooms.service';
 
+import toastr from 'toastr';
+
 @Component({
   selector: 'app-period-list',
   templateUrl: './period-list.component.html',
@@ -34,5 +36,18 @@ export class PeriodListComponent implements OnInit {
     this.roomService.getPeriodsByRoomId(+id).subscribe(
       periods => this.periods = periods
     )
+  }
+
+  deletePeriod(period) {
+    const confirmDelete = confirm('Deseja realmente excluir este período?');
+
+    if (confirmDelete) {
+      this.roomService.deletePeriod(period.id).subscribe(
+        (data) => {
+          toastr.success(data.msg);
+          this.loadPeriods();
+        }
+      )
+    }
   }
 }

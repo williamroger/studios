@@ -119,7 +119,6 @@ export class RoomsService {
   }
 
   private jsonDataToPeriod(jsonData: any): PeriodModel {
-    console.log(jsonData);
     return Object.assign(new PeriodModel(), jsonData['period']);
   }
 
