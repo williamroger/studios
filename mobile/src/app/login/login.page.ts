@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController} from '@ionic/angular';
 import { AuthService } from './shared/auth.service';
 
-import { ToastController } from '@ionic/angular';
 import { UserModel } from './shared/UserModel';
 
 //import toastr from 'toastr';
@@ -25,9 +24,9 @@ export class LoginPage implements OnInit {
     this.builCustomerForm();
   }
 
-  rotaEntrar(){
+  /*rotaEntrar(){
     this.navCtrl.navigateRoot('tabs/tabs/home');
-  }
+  }*/
 
   rotaCadastro(){
     this.navCtrl.navigateRoot('register');

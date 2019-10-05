@@ -2,7 +2,7 @@ import { UserModel } from './UserModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { map, catchError, flatMap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
