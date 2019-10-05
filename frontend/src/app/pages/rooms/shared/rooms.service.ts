@@ -71,7 +71,7 @@ export class RoomsService {
   }
 
   deletePeriod(id: number): Observable<any> {
-    return this.http.delete(`/studio/deleteperiod/${id}`).pipe(
+    return this.http.delete(`api/studio/deleteperiod/${id}`).pipe(
       catchError(this.handleError),
       map((data) => data)
     )
