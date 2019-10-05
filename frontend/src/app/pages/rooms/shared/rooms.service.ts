@@ -16,6 +16,7 @@ export class RoomsService {
 
   constructor(private http: HttpClient) { }
 
+  // Métodos Salas
   getRoomsByStudioId(): Observable<RoomModel[]> {
     const idStudio = this.userLocalStorage['studio_id'];
 
@@ -53,6 +54,29 @@ export class RoomsService {
     );
   }
 
+  // Métodos de Período
+  createPeriod(period: PeriodModel): Observable<PeriodModel> {
+
+    return this.http.post('api/studio/insertperiod', period).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToPeriod)
+    )
+  }
+
+  updatePeriod(period: PeriodModel): Observable<PeriodModel> {
+    return this.http.put('api/studio/updateperiod', period).pipe(
+      catchError(this.handleError),
+      map(() => period)
+    )
+  }
+
+  deletePeriod(id: number): Observable<any> {
+    return this.http.delete(`/studio/deleteperiod/${id}`).pipe(
+      catchError(this.handleError),
+      map((data) => data)
+    )
+  }
+
   getPeriodsByRoomId(id: number): Observable<PeriodModel[]> {
     return this.http.get(`api/studio/getperiodsbyroomid/${id}`).pipe(
       catchError(this.handleError),
@@ -67,9 +91,7 @@ export class RoomsService {
     )
   }
 
-  /**
- * Private Methods
- */
+  // Private Methods
   private jsonDataToPeriods(jsonData: any[]): PeriodModel[] {
     const periods: PeriodModel[] = [];
 
@@ -97,6 +119,7 @@ export class RoomsService {
   }
 
   private jsonDataToPeriod(jsonData: any): PeriodModel {
+    console.log(jsonData);
     return Object.assign(new PeriodModel(), jsonData['period']);
   }
 

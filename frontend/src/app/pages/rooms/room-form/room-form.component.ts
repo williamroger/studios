@@ -23,7 +23,6 @@ export class RoomFormComponent implements OnInit {
   serverErrorMessage: string[] = null;
   submittingForm: boolean = false;
   room: RoomModel = new RoomModel();
-  // color: string;
 
   imaskNumber = {
     mask: Number,

@@ -35,9 +35,18 @@ export class PeriodFormComponent implements OnInit {
     this.loadPeriod();
   }
 
+  submitForm() {
+    this.submittingForm = true;
+
+    if (this.currentAction == 'new')
+      this.createPeriod();
+    else
+      this.updatePeriod();
+  }
+
   // Private Methods
   private setCurrentAction() {
-    if (this.route.snapshot.url[0].path == 'new')
+    if (this.route.snapshot.url[2].path == 'new')
       this.currentAction = 'new';
     else
       this.currentAction = 'edit';
@@ -57,17 +66,65 @@ export class PeriodFormComponent implements OnInit {
 
   private loadPeriod() {
     if (this.currentAction == "edit") {
+      console.log('edit');
       this.route.paramMap.pipe(
         switchMap(params => this.roomService.getPeriodById(+params.get("idperiod")))
       )
-        .subscribe(
-          (period) => {
-            this.period = period[0];
-            this.idPeriod = period[0]['id'];
-            this.periodForm.patchValue(period[0])
-          },
-          (error) => alert("Ocorreu um erro no servidor, tente mais tarde.")
-        )
+      .subscribe(
+        (period) => {
+          this.period = period[0];
+          this.idPeriod = period[0]['id'];
+          this.periodForm.patchValue(period[0])
+        },
+        (error) => alert("Ocorreu um erro no servidor, tente mais tarde.")
+      )
     }
+  }
+
+  private createPeriod() {
+    const period: PeriodModel = Object.assign(new PeriodModel(), this.periodForm.value);
+    console.log(period);return;
+    this.roomService.createPeriod(period)
+      .subscribe(
+        period => this.actionsForSuccess(period, 'Período cadastrado com sucesso!'),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private updatePeriod() {
+    const period: PeriodModel = Object.assign(new PeriodModel(), this.periodForm.value);
+
+    this.roomService.updatePeriod(period)
+      .subscribe(
+        period => this.actionsForSuccess(period, 'Período atualizado com sucesso!'),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private actionsForSuccess(period: PeriodModel, message: string) {
+    toastr.success(message);
+    this.submittingForm = false;
+
+    // redirect / reload / component page
+    if (this.currentAction == 'new') {
+      setTimeout(() => {
+        this.router.navigateByUrl('/salas');
+      }, 3000)
+    } else {
+      this.router.navigateByUrl('periodos', { skipLocationChange: true }).then(
+        () => this.router.navigate(['periodos', period.id, 'edit'])
+      );
+    }
+  }
+
+  private actionsForError(error) {
+    toastr.error('Ocorreu um erro na aplicação, tento novamente!');
+
+    this.submittingForm = false;
+
+    if (error.status === 422)
+      this.serverErrorMessage = JSON.parse(error._body).errors;
+    else
+      this.serverErrorMessage = ['Falha na comunicação com o servidor. Por favor, tente mais tarde.'];
   }
 }

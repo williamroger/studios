@@ -17,7 +17,6 @@ export class PeriodModel {
     switch (this.day) {
       case 'Monday':
         day = 'Segunda-feira';
-        console.log('tstes')
         break;
       case 'Tuesday':
         day = 'Terça-feira';
