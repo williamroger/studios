@@ -4,6 +4,7 @@ import { CustomerModel } from '../register/shared/customer';
 import { RegisterService } from '../register/shared/register.service';
 import { ToastController } from '@ionic/angular';
 import { NavController} from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +17,17 @@ export class RegisterPage implements OnInit {
   customer: CustomerModel = new CustomerModel();
 
   error_messages = {
-    'name': [
+    'firstname': [
       { type: 'required', message: 'este campo é obrigatório'},
       { type: 'minlength', message: 'deve ter no mínimo 4 caracteres' },
       { type: 'maxlength', message: 'deve ter no máximo 150 caracteres' },
       //{ type: 'pattern', message: 'Informe um nome válido' }
+    ],
+    'lastname': [
+      { type: 'required', message: 'este campo é obrigatório'},
+      { type: 'minlength', message: 'deve ter no mínimo 4 caracteres' },
+      { type: 'maxlength', message: 'deve ter no máximo 150 caracteres' },
+      //{ type: 'pattern', message: 'Informe um sobrenome válido' }
     ],
     'email': [
       { type: 'required', message: 'este campo é obrigatório' },
@@ -39,15 +46,30 @@ export class RegisterPage implements OnInit {
     public registerService: RegisterService,
     public formBuilder: FormBuilder,
     private toastCtrl: ToastController,
-    public navCtrl: NavController 
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
     this.buildCustomerForm();
   }
 
+  async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Cadastrando',
+      duration: 1000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+
+    console.log('Loading dismissed!');
+  }
+
   submitForm() {
     const customer: CustomerModel = Object.assign(new CustomerModel(), this.customerForm.value);
+
+    this.presentLoading();
 
     this.registerService.createCustumer(customer)
       .subscribe(
@@ -59,7 +81,13 @@ export class RegisterPage implements OnInit {
   // Private Methods
   buildCustomerForm() {
     this.customerForm = this.formBuilder.group({
-      name: new FormControl(null, Validators.compose([
+      firstname: new FormControl(null, Validators.compose([
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(150),
+        //Validators.pattern("^[^0-9]$")
+      ])),
+      lastname: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(150),
