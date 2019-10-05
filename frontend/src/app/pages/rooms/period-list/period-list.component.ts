@@ -12,12 +12,20 @@ import { RoomsService } from './../shared/rooms.service';
 export class PeriodListComponent implements OnInit {
 
   periods: PeriodModel[] = [];
+  roomName: string;
 
   constructor(private roomService: RoomsService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.loadPeriods();
+    this.roomName = JSON.parse(localStorage.getItem('roomName'));
+  }
+
+  goToRooms() {
+    this.router.navigate(['salas']);
+    localStorage.removeItem('roomName');
   }
 
   loadPeriods() {

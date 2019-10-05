@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { RoomsService } from '../shared/rooms.service';
 import { RoomModel } from '../shared/room.model';
 
@@ -13,7 +15,8 @@ export class RoomListComponent implements OnInit {
 
   rooms: Array<RoomModel> = [];
 
-  constructor(private roomsService: RoomsService) { }
+  constructor(private roomsService: RoomsService,
+              private router: Router) { }
 
   ngOnInit() {
     this.loadRooms();
@@ -23,6 +26,11 @@ export class RoomListComponent implements OnInit {
     this.roomsService.getRoomsByStudioId().subscribe(
       rooms => this.rooms = rooms
     )
+  }
+
+  goToPeriods(room) {
+    this.router.navigate(['salas', room.id, 'periodos']);
+    localStorage.setItem('roomName', JSON.stringify(room.name));
   }
 
   deleteRoom(room) {

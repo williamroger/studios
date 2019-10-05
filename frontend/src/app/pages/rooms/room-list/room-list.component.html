@@ -28,7 +28,7 @@
 <div class="container">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Salas de Ensaio</h1>
-    <a routerLink="new" class="btn btn-primary">+ Nova Sala</a>
+    <a routerLink="new" class="btn btn-primary btn-sm">+ Nova Sala</a>
   </div>
   <table class="table">
     <thead class="thead-dark">
@@ -45,7 +45,7 @@
         <td>{{ room.maximum_capacity }}</td>
         <td>{{ room.color }}</td>
         <td class="text-center">
-          <a [routerLink]="[room.id, 'periodos']" class="btn btn-outline-primary btn-sm mr-1 text-uppercase">Períodos</a>
+          <a (click)="goToPeriods(room)" class="btn btn-outline-primary btn-sm mr-1 text-uppercase">Períodos</a>
           <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
           <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
         </td>
