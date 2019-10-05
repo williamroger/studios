@@ -134,9 +134,7 @@ final class CustomerController{
       $customerID = intval($data['id']);
 
       $customerDAO = new CustomersDAO();
-      $userDAO = new UsersDAO();
       $customer = new CustomerModel();
-      $user = new UserModel();
 
       if (!$customerID)
         throw new Exception("Erro na aplicação, tente novamente.");
@@ -156,9 +154,6 @@ final class CustomerController{
       if (!$data['city_id'] || $data['city_id'] === '')
         throw new Exception("A cidade e estado são obrigatórios.");
 
-      if (!$data['email'] || $data['email'] === '')
-        throw new Exception("O email é obrigatório");
-
       if ($customerDAO->customerExists($customerID) == 0)
         throw new \Exception("Não encontramos esse usuário em nossa base de dados.");
 
@@ -171,13 +166,7 @@ final class CustomerController{
         ->setCityId(intval($data['city_id']))
         ->setImage($data['image']);
 
-      $user->setEmail($data['email'])
-        ->setUpdatedAt($now)
-        ->setCustomerId($customerID);
-
       $customerDAO->updateCustomer($customer);
-
-      $userDAO->updateUserCustomer($user);
 
       $response = $response->withJson([
         'success' => true,
@@ -189,8 +178,7 @@ final class CustomerController{
     } catch (\Exception $ex) {
       return $response->withJson([
         'success' => false,
-        'msg' => 'Erro na aplicação, tente novamente.',
-        'msgDev' => $ex->getMessage()
+        'msg' => $ex->getMessage()
       ], 500);
     }
   }
