@@ -37,7 +37,7 @@ export class RegisterPage implements OnInit {
     ],
     'password': [
       { type: 'required', message: 'este campo é obrigatório' },
-      { type: 'minlength', message: 'deve ter no mínimo 6 caracteres' },
+      { type: 'minlength', message: 'deve ter no mínimo 8 caracteres' },
       { type: 'maxlength', message: 'deve ter no máximo 30 caracteres' }
     ]
   }
@@ -62,8 +62,6 @@ export class RegisterPage implements OnInit {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
-
-    console.log('Loading dismissed!');
   }
 
   submitForm() {
@@ -101,7 +99,7 @@ export class RegisterPage implements OnInit {
       ])),
       password: new FormControl(null, Validators.compose([
         Validators.required,
-        Validators.minLength(6),
+        Validators.minLength(8),
         Validators.maxLength(30)
       ]))
     })
