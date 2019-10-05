@@ -8,6 +8,7 @@ use App\Models\RoomModel;
 use App\Models\StudioModel;
 use App\Models\TimePeriodModel;
 use App\Models\UserModel;
+use App\Controllers\UtilController;
 use DateTimeZone;
 use Exception;
 use Firebase\JWT\ExpiredException;
@@ -536,6 +537,7 @@ final class StudioController
       $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
       $now = $date->format('Y-m-d H:i:s');
       $idRoom = intval($data['room_id']);
+      $dayOrder = null;
       $msgFeedback = 'Período cadastrado com sucesso!';
       $mondayToSaturday = array(
         "Monday", 
@@ -567,10 +569,12 @@ final class StudioController
       if ($data['day'] == 'MondayToSaturday') {
         foreach($mondayToSaturday as $day) {
           $msgFeedback = 'Períodos cadastrados com sucesso!';
+          $dayOrder = UtilController::setDayOrder($day);
 
           $period->setRoomId($idRoom)
             ->setAmount($data['amount'])
             ->setDay($day)
+            ->setDayOrder($dayOrder)
             ->setBeginPeriod($data['begin_period'])
             ->setEndPeriod($data['end_period'])
             ->setCreatedAt($now);
@@ -578,9 +582,12 @@ final class StudioController
           $studioDAO->insertPeriod($period);
         }
       } else {
+        $dayOrder = UtilController::setDayOrder($data['day']);
+     
         $period->setRoomId($idRoom)
           ->setAmount($data['amount'])
           ->setDay($data['day'])
+          ->setDayOrder($dayOrder)
           ->setBeginPeriod($data['begin_period'])
           ->setEndPeriod($data['end_period'])
           ->setCreatedAt($now);
@@ -611,6 +618,7 @@ final class StudioController
       $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
       $now = $date->format('Y-m-d H:i:s');
       $idPeriod = intval($data['id']);
+      $dayOrder = null;
 
       if (!$idPeriod)
         throw new Exception('Erro na aplicação, tente novamente.');
@@ -629,10 +637,12 @@ final class StudioController
 
       $studioDAO = new StudiosDAO();
       $period = new TimePeriodModel();
+      $dayOrder = UtilController::setDayOrder($data['day']);
 
       $period->setId($idPeriod)
       ->setAmount($data['amount'])
       ->setDay($data['day'])
+      ->setDayOrder($dayOrder)
       ->setBeginPeriod($data['begin_period'])
       ->setEndPeriod($data['end_period'])
       ->setUpdatedAt($now);

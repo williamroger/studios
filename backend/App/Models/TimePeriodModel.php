@@ -21,6 +21,10 @@ final class TimePeriodModel
    */
   private $day;
   /**
+   * @var int
+   */
+  private $dayOrder;
+  /**
    * @var string
    */
   private $priceRate;
@@ -117,6 +121,26 @@ final class TimePeriodModel
   public function setDay(string $day): self
   {
     $this->day = $day;
+
+    return $this;
+  }
+
+  /**
+   * @return  int
+   */
+  public function getDayOrder(): ?int
+  {
+    return $this->dayOrder;
+  }
+
+  /**
+   * @param  int  $dayOrder
+   *
+   * @return  self
+   */
+  public function setDayOrder(int $dayOrder): self
+  {
+    $this->dayOrder = $dayOrder;
 
     return $this;
   }

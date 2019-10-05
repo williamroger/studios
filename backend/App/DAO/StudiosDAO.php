@@ -412,7 +412,8 @@ class StudiosDAO extends ConnectionDataBase
                     created_at,
                     updated_at
                 FROM time_periods
-                WHERE room_id = :id;');
+                WHERE room_id = :id
+                ORDER BY day_order');
     $statement->execute([
       'id' => $idRoom
     ]);
@@ -445,7 +446,8 @@ class StudiosDAO extends ConnectionDataBase
       ->prepare('INSERT INTO time_periods
                   (room_id, 
                    amount, 
-                   day, 
+                   day,
+                   day_order,
                    begin_period, 
                    end_period,
                    created_at)
@@ -453,6 +455,7 @@ class StudiosDAO extends ConnectionDataBase
                   (:room_id, 
                    :amount, 
                    :day, 
+                   :day_order,
                    :begin_period, 
                    :end_period,
                    :created_at);');
@@ -460,6 +463,7 @@ class StudiosDAO extends ConnectionDataBase
       'room_id'      => $period->getRoomId(),
       'amount'       => $period->getAmount(),
       'day'          => $period->getDay(),
+      'day_order'    => $period->getDayOrder(),
       'begin_period' => $period->getBeginPeriod(),
       'end_period'   => $period->getEndPeriod(),
       'created_at'   => $period->getCreatedAt()
@@ -472,6 +476,7 @@ class StudiosDAO extends ConnectionDataBase
       ->prepare('UPDATE time_periods SET
                     amount = :amount,
                     day = :day,
+                    day_order,
                     begin_period = :begin_period,
                     end_period = :end_period,
                     updated_at = :updated_at
@@ -481,6 +486,7 @@ class StudiosDAO extends ConnectionDataBase
     $statement->execute([
       'amount'       => $period->getAmount(),
       'day'          => $period->getDay(),
+      'day_order'    => $period->getDayOrder(),
       'begin_period' => $period->getBeginPeriod(),
       'end_period'   => $period->getEndPeriod(),
       'updated_at'   => $period->getUpdatedAt(),

@@ -30,3 +30,8 @@ CHANGE COLUMN `id` `id` INT(11) NOT NULL AUTO_INCREMENT ;
 
 ALTER TABLE `db_dev_studios`.`time_periods`
 CHANGE COLUMN `price` `amount` DECIMAL(10,2) NOT NULL ;
+
+=========================================================05-10-19
+
+ALTER TABLE `db_dev_studios`.`time_periods`
+ADD COLUMN `day_order` INT NULL AFTER `end_period`;
