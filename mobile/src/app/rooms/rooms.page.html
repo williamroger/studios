@@ -1,6 +1,31 @@
+<ion-app>
+
+  <ion-header>
+    <ion-toolbar>
+        <div class="studioName">
+           <span>{{studio.name}}</span>
+        </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content fullscreen>
+    <ion-card *ngFor='let room of rooms'>
+      <img src="./assets/imgRoom.jpg" />
+      <ion-card-header>
+        <ion-card-subtitle>{{room.maximum_capacity}}</ion-card-subtitle>
+        <!--<ion-card-title>{{room.name}}</ion-card-title>-->
+      </ion-card-header>
+      <ion-card-content>
+        {{room.description}}
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
+</ion-app>
 
 
-<ion-content class="card-background-page">
+
+<!--<ion-content class="card-background-page">
 
   <ion-card *ngFor='let room of rooms'>
     <img src="https://br.habcdn.com/photos/project/medium/sala-de-gravacao-do-estudio-do-sesc-vila-mariana-852523.jpg"/> 
@@ -8,4 +33,4 @@
     <div class="card-subtitle">{{room.description}}</div>
   </ion-card>
 
-</ion-content>
+</ion-content>*/-->

@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { NavController, ModalController} from '@ionic/angular';
+import { NavController} from '@ionic/angular';
 import { HomeService } from './shared/home.service';
 import {StudioModel} from './shared/StudioModel';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,6 @@ export class HomePage implements OnInit {
     public service:HomeService,
     public serviceRoom:RoomService,
     private route: ActivatedRoute,
-    public modalCtrl: ModalController,
     private router: Router,) { }
 
   getStudios() {
@@ -36,9 +35,9 @@ export class HomePage implements OnInit {
     this.getStudios();
   }
 
-  chamarSala(index){
+  async chamarSala(index){
     this.navCtrl.navigateRoot('room');
-    this.service.takeIndex(this.studios[index].id);
+    this.service.takeIndex(this.studios[index]);
     //console.log(this.studios[index].id);   
   }
 }

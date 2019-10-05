@@ -15,7 +15,7 @@ export class HomeService {
 
   constructor(public http: HttpClient) { }
 
-  public id: number;
+  public studio: StudioModel;
 
   getStudios(): Observable<StudioModel[]> {
     return this.http.get(this.API_URL + 'studio/getallstudios').pipe(
@@ -31,12 +31,12 @@ export class HomeService {
     );
   }*/
 
-  public takeIndex(index: number){
-    this.id = index;
+  public takeIndex(studio: StudioModel){
+    this.studio = studio;
   }
 
-  public returnIndex(){
-    return this.id;
+  public returnStudio(){
+    return this.studio;
   }
 
   private jsonDataToStudios(jsonData: any[]): StudioModel[] {
