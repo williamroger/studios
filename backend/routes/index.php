@@ -4,6 +4,7 @@ use App\Controllers\AuthController;
 use App\Controllers\StudioController;
 use App\Controllers\CustomerController;
 use App\Controllers\UtilController;
+use App\Controllers\ScheduleController;
 
 use function src\slimConfiguration;
 
@@ -43,6 +44,9 @@ $app->group('', function() use ($app) {
   $app->post('/customer/insertcustomer', CustomerController::class . ':insertCustomer');
   $app->put('/customer/updatecustomer', CustomerController::class . ':updateCustomer');
   $app->delete('/customer/deletecustomer/{id}', CustomerController::class . ':deleteCustomer');
+
+  // SCHEDULES ============================================================
+  $app->post('/insertschedule', ScheduleController::class . ':insertSchedule');
 
 })->add(function ($req, $res, $next) {
   $response = $next($req, $res);

@@ -9,9 +9,9 @@ use App\Models\StudioModel;
 use App\Models\TimePeriodModel;
 use App\Models\UserModel;
 use App\Controllers\UtilController;
+use App\Models\ScheduleModel;
 use DateTimeZone;
 use Exception;
-use Firebase\JWT\ExpiredException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
