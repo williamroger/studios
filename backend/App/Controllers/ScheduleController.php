@@ -63,7 +63,7 @@ final class ScheduleController
     }
   }
 
-  public function getAllSchedulesByStudioId(Request $request, Response $response, array $args): Response
+  public function getSchedulesByStudioId(Request $request, Response $response, array $args): Response
   {
     try {
       $studioId = intval($args['id']);
@@ -76,7 +76,7 @@ final class ScheduleController
       if ($studioDAO->studioExists($studioId) == 0)
         throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
 
-      $schedules = $scheduleDAO->getAllSchedulesByStudioId($studioId);
+      $schedules = $scheduleDAO->getSchedulesByStudioId($studioId);
       
       $response = $response->withJson([
         'success' => true,
@@ -84,12 +84,43 @@ final class ScheduleController
       ], 200);
 
       return $response;
-      
+
     } catch (\Exception $ex) {
       return $response->withJson([
         'success' => false,
         'msg' => $ex->getMessage()
       ], 500);      
+    }
+  }
+
+  public function getSchedulesByStudioIdAndDate(Request $request, Response $response, array $args): Response 
+  {
+    try {
+      $studioId = intval($args['id']);
+      $date = $args['date'];
+      
+      if (!$studioId)
+        throw new Exception('Erro na aplicação, tente novamente.');
+      
+      if (!$date || $date == '')
+        throw new Exception('Você precisa informar uma data');
+
+      $scheduleDAO = new SchedulesDAO();
+      
+      $schedules = $scheduleDAO->getSchedulesByStudioIdAndDate($studioId, $date);
+
+      $response = $response->withJson([
+        'success' => true,
+        'schedules' => $schedules
+      ], 200);
+
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => true,
+        'msg' => $ex->getMessage()
+      ], 500);
     }
   }
 }

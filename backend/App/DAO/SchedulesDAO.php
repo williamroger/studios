@@ -52,7 +52,7 @@ class SchedulesDAO extends ConnectionDataBase
     ]);
   }
 
-  public function getAllSchedulesByStudioId(int $scheduleId): ?array 
+  public function getSchedulesByStudioId(int $scheduleId): ?array 
   {
     $statement = $this->pdo
       ->prepare('SELECT * FROM schedules_time_periods
@@ -68,6 +68,28 @@ class SchedulesDAO extends ConnectionDataBase
     if (count($schedules) === 0)
       return null;
     
+    return $schedules;
+  }
+
+  public function getSchedulesByStudioIdAndDate(int $scheduleId, string $date): ?array 
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT * FROM schedules_time_periods
+                 INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
+                 INNER JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id
+                 INNER JOIN rooms ON time_periods.room_id = rooms.id
+                 WHERE rooms.studio_id = :id AND schedules.date_scheduling = :date');
+    
+    $statement->execute([
+      'id'   => $scheduleId,
+      'date' => $date
+    ]);
+
+    $schedules = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    if (count($schedules) === 0)
+      return null;
+
     return $schedules;
   }
 }
