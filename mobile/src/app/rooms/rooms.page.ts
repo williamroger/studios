@@ -40,6 +40,11 @@ export class RoomsPage implements OnInit {
     )
   }
 
+  callInfoRooms(index){
+    this.service.setRoom(this.rooms[index]);
+    this.navCtrl.navigateRoot('info-rooms');
+  }
+
   voltar(){
     this.navCtrl.navigateRoot('tabs/tabs/home');
   }
