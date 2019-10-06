@@ -11,6 +11,7 @@ import { Observable, throwError } from 'rxjs';
 
 export class HomeService {
 
+  private userLocalStorage = JSON.parse(localStorage.getItem('userLoggedIn'));
   public API_URL = 'http://localhost:8080/';
 
   constructor(public http: HttpClient) { }
@@ -19,6 +20,14 @@ export class HomeService {
 
   getStudios(): Observable<StudioModel[]> {
     return this.http.get(this.API_URL + 'studio/getallstudios').pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToStudios)
+    );
+  }
+
+  getStudiosByCityIdCustomer() {
+    const idCustomer = this.userLocalStorage['customer_id'];
+    return this.http.get(`api/customer/getstudiosbycityidcustomer/${idCustomer}`).pipe(
       catchError(this.handleError),
       map(this.jsonDataToStudios)
     );

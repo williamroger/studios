@@ -5,5 +5,8 @@ export class StudioModel{
     public phone?: string;
     public description?: string;
     public telephone?: string;
+    // tslint:disable-next-line:variable-name
     public city_id?: number;
+    // tslint:disable-next-line:variable-name
+    public created_at?: string;
 }

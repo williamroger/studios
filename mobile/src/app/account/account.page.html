@@ -19,70 +19,56 @@
       <ion-grid fixed no-padding>
           <ion-row>
             <ion-col size="12" padding>
-              <form [formGroup]="customerForm">
+              <form [formGroup]="customerForm" class="form-configuration mb-5">
                 <ion-item>
-                  <ion-label color="dark" position="stacked">Nome</ion-label>
-                  <ion-input type="text" formControlName="name"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                  <ng-container *ngFor="let error of error_messages.name">
-                  <div class="error-message" *ngIf="customerForm.get('name').hasError(error.type) && (customerForm.get('name').dirty || customerForm.get('name').touched)">
-                    {{ error.message }}
+                  <ion-label color="dark" position="stacked">FirstNome</ion-label>
+                  <ion-input type="text" formControlName="firstname"></ion-input>
+                  <div class="text-danger" *ngIf="customerForm.get('firstname').invalid && customerForm.get('firstname').touched">
+                    <!--<div *ngIf="customerForm.get('firstname').errors.required">Este campo é obrigatório!</div>
+                    <div *ngIf="customerForm.get('firstname').errors.minlength">Deve ter no mínimo 4 caracteres!</div>-->
                   </div>
-                  </ng-container>
-                </div>
+                </ion-item>
+                <ion-item>
+                  <ion-label color="dark" position="stacked">LastNome</ion-label>
+                  <ion-input type="text" formControlName="lastname"></ion-input>
+                  <div class="text-danger" *ngIf="customerForm.get('lastname').invalid && customerForm.get('lastname').touched">
+                    <!--<div *ngIf="customerForm.get('lastname').errors.required">Este campo é obrigatório!</div>
+                    <div *ngIf="customerForm.get('lastname').errors.minlength">Deve ter no mínimo 4 caracteres!</div>-->
+                  </div>
+                </ion-item>
                 <ion-item>
                   <ion-label color="dark" position="stacked">Phone</ion-label>
-                  <ion-input type="tel" formControlName="phone"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                  <ng-container *ngFor="let error of error_messages.phone">
-                  <div class="error-message" *ngIf="customerForm.get('phone').hasError(error.type) && (customerForm.get('phone').dirty || customerForm.get('phone').touched)">
-                    {{ error.message }}
+                  <ion-input type="text" formControlName="phone"></ion-input>
+                  <div class="text-danger" *ngIf="customerForm.get('phone').invalid && customerForm.get('phone').touched">
+                    <!--<div *ngIf="customerForm.get('phone').errors.required">Este campo é obrigatório!</div>
+                    <div *ngIf="customerForm.get('phone').errors.minlength">Deve ter no mínimo 9 caracteres!</div>-->
                   </div>
-                  </ng-container>
-                </div>
+                </ion-item>
+                
                 <ion-item>
                   <ion-label color="dark" position="stacked">Cpf</ion-label>
-                  <ion-input type="number" formControlName="cpf"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                  <ng-container *ngFor="let error of error_messages.cpf">
-                  <div class="error-message" *ngIf="customerForm.get('cpf').hasError(error.type) && (customerForm.get('cpf').dirty || customerForm.get('cpf').touched)">
-                    {{ error.message }}
+                  <ion-input type="text" formControlName="cpf"></ion-input>
+                  <div class="text-danger" *ngIf="customerForm.get('cpf').invalid && customerForm.get('cpf').touched">
+                    <!--<div *ngIf="customerForm.get('cpf').errors.required">Este campo é obrigatório!</div>
+                    <div *ngIf="customerForm.get('cpf').errors.minlength">Deve ter no mínimo 11 caracteres!</div>-->
                   </div>
-                  </ng-container>
-                </div>
+                </ion-item>
+                
                 <ion-item>
                   <ion-label color="dark" position="stacked">City</ion-label>
-                  <ion-select>
-                    <ion-select-option>Recife</ion-select-option>
-                    <ion-select-option>Olinda</ion-select-option>
-                    <ion-select-option>Caruaru</ion-select-option>
-                    <ion-select-option>Petrolina</ion-select-option>
-                    <ion-select-option>Paulista</ion-select-option>
-                    <ion-select-option>Igarassu</ion-select-option>
-                    <ion-select-option>Abreu e Lima</ion-select-option>
-                    <ion-select-option>Camaragibe</ion-select-option>
-                    <ion-select-option>Ipojuca</ion-select-option>
+                  <ion-select formControlName="city_id">
+                    <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
                   </ion-select>
-                </ion-item>
-                <ion-item>
-                  <ion-label color="dark" position="stacked">Email</ion-label>
-                  <ion-input type="email" formControlName="email"></ion-input>
-                </ion-item>
-                <div class="error-messages">
-                  <ng-container *ngFor="let error of error_messages.email">
-                  <div class="error-message" *ngIf="customerForm.get('email').hasError(error.type) && (customerForm.get('email').dirty || customerForm.get('email').touched)">
-                    {{ error.message }}
+                  <div class="text-danger" *ngIf="customerForm.get('city_id').invalid && customerForm.get('city_id').touched">
+                    <!--<div *ngIf="customerForm.get('city_id').errors.required">Este campo é obrigatório!</div>-->
                   </div>
-                  </ng-container>
-                </div>
+                </ion-item>
+                
               </form>
             </ion-col>
           </ion-row>
         </ion-grid> <br>
-        <ion-button (click)="updateForm()" color="padrao" [disabled]="customerForm.invalid" shape="round" size="default" expand="block" class="button">
+        <ion-button (click)="updateForm()" color="padrao" shape="round" size="default" expand="block" class="button">
           Edit
         </ion-button>
   </div>

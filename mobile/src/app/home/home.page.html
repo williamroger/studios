@@ -12,7 +12,14 @@
 
   <ion-searchbar placeholder="Buscar"></ion-searchbar>
   
-  <ion-list>
+  <!--*ngIf="city.id == null"-->
+  <ion-card class="alert alert-warning" *ngIf="cityId == null">
+    <p> Bem-vindo ao <strong><em>Studios</em></strong>,</p>
+    <p> Você precisa atualizar os seus dados para ver os estudios da sua cidade.</p>
+    <ion-button (click)="rotaAccount()">Atualizar meus dados</ion-button>
+  </ion-card>
+  <!--*ngIf="city.id != null"-->
+  <ion-list *ngIf="cityId != null">
     <ion-item *ngFor="let studio of studios; let i = index" (click)="chamarSala(i)">
       <ion-avatar item-start>
         <img src="./assets/studios.png">
