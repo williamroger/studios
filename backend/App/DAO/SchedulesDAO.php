@@ -60,7 +60,9 @@ class SchedulesDAO extends ConnectionDataBase
                  INNER JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id
                  INNER JOIN rooms ON time_periods.room_id = rooms.id
                  WHERE rooms.studio_id = :id;');
+
     $statement->bindParam('id', $scheduleId);
+
     $statement->execute();
 
     $schedules = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -84,6 +86,27 @@ class SchedulesDAO extends ConnectionDataBase
       'id'   => $scheduleId,
       'date' => $date
     ]);
+
+    $schedules = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    if (count($schedules) === 0)
+      return null;
+
+    return $schedules;
+  }
+
+  public function getSchedulesByCustomerId(int $customerId): ?array 
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT * FROM schedules_time_periods
+                 INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
+                 INNER JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id
+                 INNER JOIN rooms ON time_periods.room_id = rooms.id
+                 WHERE schedules.customer_id = :id;');
+
+    $statement->bindParam('id', $customerId);
+    
+    $statement->execute();
 
     $schedules = $statement->fetchAll(\PDO::FETCH_ASSOC);
 

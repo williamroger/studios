@@ -118,7 +118,34 @@ final class ScheduleController
 
     } catch (\Exception $ex) {
       return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
+  }
+
+  public function getSchedulesByCustomerId(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $idCustomer = intval($args['id']);
+      
+      if (!$idCustomer)
+        throw new Exception('Erro na aplicação, tente novamente.');
+      
+      $scheduleDAO = new SchedulesDAO();
+
+      $schedules = $scheduleDAO->getSchedulesByCustomerId($idCustomer);
+
+      $response = $response->withJson([
         'success' => true,
+        'schedules' => $schedules
+      ], 200);
+
+      return $response;
+      
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
         'msg' => $ex->getMessage()
       ], 500);
     }
