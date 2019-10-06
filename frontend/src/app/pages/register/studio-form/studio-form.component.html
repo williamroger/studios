@@ -1,53 +1,46 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
-    <div class="col-12 col-sm-6 col-md-3">
-      <form class="form-register" [formGroup]="studioForm" (submit)="submitForm()">
-        <div class="form-row">
-          <div class="col-12 text-center mb-5">
-            <img class="form-register__logo" src="../../../../assets/images/logo-studios_2x.png" alt="logo-studios">
-          </div>
+<div class="register">
+  <form class="register-form" [formGroup]="studioForm" (submit)="submitForm()">
+    <div>
+      <div class="register-form__logo">
+        <img  src="../../../../assets/images/logo-studios_2x.png" alt="logo-studios">
+      </div>
+      <div class="register-form__title">
+        <h1>Cadastre seu Estúdio</h1>
+        <small>Para aproveitar todos os nossos recursos.</small>
+      </div>
+      <div class="form-group mb-4">
+        <label for="name">*Nome do Estúdio</label>
+        <input type="text" class="form-control" id="name" formControlName="name">
+        <div class="text-danger" *ngIf="studioForm.get('name').invalid && studioForm.get('name').touched">
+          <small *ngIf="studioForm.get('name').errors.required">Este campo é obrigatório!</small>
+          <small *ngIf="studioForm.get('name').errors.minlength">Deve ter no mínimo 4 caracteres!</small>
         </div>
-        <div class="form-row">
-          <div class="col-12 text-center mb-5">
-            <h1>Cadastre seu Estúdio</h1>
-            <small>Para aproveitar todos os nossos recursos.</small>
-          </div>
-          <div class="col-12 mb-4">
-            <label for="name">*Nome do Estúdio</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
-            <div class="text-danger" *ngIf="studioForm.get('name').invalid && studioForm.get('name').touched">
-              <div *ngIf="studioForm.get('name').errors.required">Este campo é obrigatório!</div>
-              <div *ngIf="studioForm.get('name').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
-            </div>
-          </div>
-          <div class="col-12 mb-4">
-            <label for="email">*E-mail</label>
-            <input type="email" class="form-control" id="email" formControlName="email">
-            <div class="text-danger" *ngIf="studioForm.get('email').invalid && studioForm.get('email').touched">
-              <div *ngIf="studioForm.get('email').errors.required">Este campo é obrigatório!</div>
-              <div *ngIf="studioForm.get('email').errors.minlength">Deve ter no mínimo 10 caracteres!</div>
-              <div *ngIf="studioForm.get('email').errors.email">Endereço de e-mail inválido!</div>
-            </div>
-          </div>
-          <div class="col-12 mb-3">
-            <label for="password">*Senha</label>
-            <input type="password" class="form-control" id="password" formControlName="password">
-            <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
-              <div *ngIf="studioForm.get('password').errors.required">Este campo é obrigatório!</div>
-              <div *ngIf="studioForm.get('password').errors.minlength">Deve ter no mínimo 6 caracteres!</div>
-            </div>
-          </div>
+      </div>
+      <div class="form-group mb-4">
+        <label for="email">*E-mail</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+        <div class="text-danger" *ngIf="studioForm.get('email').invalid && studioForm.get('email').touched">
+          <small *ngIf="studioForm.get('email').errors.required">Este campo é obrigatório!</small>
+          <small *ngIf="studioForm.get('email').errors.minlength">Deve ter no mínimo 10 caracteres!</small>
+          <small *ngIf="studioForm.get('email').errors.email">Endereço de e-mail inválido!</small>
         </div>
-        <br>
-        <div class="form-row">
-          <div class="col-12 mb-5">
-            <button class="btn btn-primary w-100 text-uppercase" type="submit" [disabled]="submittingForm || studioForm.invalid">Cadastrar</button>
-          </div>
-          <div class="col-12 text-center mb-5">
-            <a routerLink="/" class="text-primary">Voltar para o login</a>
-          </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="password">*Senha</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <div class="text-danger" *ngIf="studioForm.get('password').invalid && studioForm.get('password').touched">
+          <small *ngIf="studioForm.get('password').errors.required">Este campo é obrigatório!</small>
+          <small *ngIf="studioForm.get('password').errors.minlength">Deve ter no mínimo 6 caracteres!</small>
         </div>
-      </form>
+      </div>
+      <div class="mb-5">
+        <button class="btn btn-primary w-100 text-uppercase" type="submit"
+          [disabled]="submittingForm || studioForm.invalid">Cadastrar</button>
+      </div>
+      <div class="register-form__login text-center">
+        <a routerLink="/" class="text-primary">Voltar para o login</a>
+      </div>
     </div>
-  </div>
+  </form>
 </div>
+
