@@ -141,6 +141,6 @@ export class AccountPage implements OnInit {
   }
   logout(){
     this.navCtrl.navigateRoot('');
-    this.refresh();
+    //this.refresh();
   }
 }

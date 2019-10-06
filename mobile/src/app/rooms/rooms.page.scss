@@ -31,19 +31,23 @@
     //background-color: cadetblue;
     //opacity: 0;    
     button{
-      background-color: #FE2E64;
+      background-color: #7B68EE;
       border-radius: 10px;
       color: #fff;
       margin-top: 10px;
     }
   }
 
+  ion-button{
+    color: #FE2E64;
+}
+
   
   #linha {
     width: 100%;
     margin-top: 30px;
     margin-left: 15px;
-    border-bottom: 2px solid #FE2E64;
-    color: #FE2E64;
-    font-weight: bold;
+    border-bottom: 1px solid #FE2E64;
+    color: #2b2b2b;
+    //font-weight: bold;
   }

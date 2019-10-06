@@ -19,22 +19,12 @@
  
 
   <ion-content>
-      <!--<ion-card class="infoStudio">
-          <ion-card-header>
-            <ion-card-subtitle>{{studio.street}}</ion-card-subtitle>
-            <ion-card-title>{{studio.name}}</ion-card-title>
-          </ion-card-header>
-        
-          <ion-card-content>
-            Mais informações...
-          </ion-card-content>
-      </ion-card>-->
       
       <div id="linha">
           <span>Salas disponíveis</span>
       </div>
       
-      <ion-card *ngFor='let room of rooms'>
+      <ion-card *ngFor='let room of rooms; let i = index' (click)="callInfoRooms(i)">
         <img src="./assets/imgRoom.jpg" />
         <ion-card-header>
           <ion-card-subtitle>{{room.description}}</ion-card-subtitle>
