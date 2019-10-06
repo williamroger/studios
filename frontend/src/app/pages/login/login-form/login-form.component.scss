@@ -1,8 +1,70 @@
-.form-login {
-  margin-top: 30%;
+@import '../../../../styles.scss';
 
-  &__logo {
-    display: inline-block;
-    width: 225px;
+.login {
+  background-color: #fff;
+  background-image: url('../../../../assets/images/bg-unsplash.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: start;
+
+  &-form {
+    background-color: #fff;
+    width: 35%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5rem;
+    padding-right: 5rem;
+
+    > div {
+      width: 100%;
+    }
+
+    &__logo {
+      text-align: center;
+      margin-bottom: 4rem;
+
+      img {
+        display: inline-block;
+        width: 225px;
+      }
+    }
+
+    &__title {
+      text-align: center;
+      margin-bottom: 3rem;
+
+
+      h1 {
+        color: $color-text;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      small {
+        color: $color-label;
+        font-size: 1rem;
+        font-weight: 300;
+      }
+    }
+
+    &__register {
+      p {
+        color: $color-label;
+        font-size: 1.1rem;
+        font-weight: 300;
+      }
+
+      a {
+        font-weight: 500;
+        text-decoration: none !important;
+      }
+    }
   }
 }
