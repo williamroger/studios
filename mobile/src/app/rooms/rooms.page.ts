@@ -3,6 +3,7 @@ import { RoomModel } from './shared/RoomModel';
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../home/shared/home.service';
 import {StudioModel} from '../home/shared/StudioModel';
+import { NavController} from '@ionic/angular';
 
 @Component({
   selector: 'app-rooms',
@@ -15,7 +16,8 @@ export class RoomsPage implements OnInit {
   public studio: StudioModel;
 
   constructor(public service: RoomService,
-    public serviceHome: HomeService) {}
+    public serviceHome: HomeService,
+    public navCtrl: NavController) {}
 
   ngOnInit() {
     //this.getRooms();
@@ -36,5 +38,9 @@ export class RoomsPage implements OnInit {
     this.service.getRoomsByStudio(studio.id).subscribe(
       rooms => this.rooms = rooms
     )
+  }
+
+  voltar(){
+    this.navCtrl.navigateRoot('tabs/tabs/home');
   }
 }
