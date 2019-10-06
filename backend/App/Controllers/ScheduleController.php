@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\UtilController;
 use App\DAO\SchedulesDAO;
+use App\DAO\StudiosDAO;
 use App\Models\ScheduleModel;
 use App\Models\SchedulePeriodModel;
 use DateTimeZone;
@@ -13,7 +14,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class ScheduleController 
 {
-  public function insertSchedule(Request $request, Response $response, array $args) 
+  public function insertSchedule(Request $request, Response $response, array $args): Response 
   {
     try {
       $data = $request->getParsedBody();
@@ -30,7 +31,7 @@ final class ScheduleController
       
       if (!$data['time_period_id'] || $data['time_period_id'] == '')
         throw new Exception('Você precisa escolher um período de ensaio.');
-        
+
       $schedule = new ScheduleModel();
       $schedulePeriod = new SchedulePeriodModel();
       $scheduleDAO = new SchedulesDAO();
@@ -59,6 +60,36 @@ final class ScheduleController
         'success' => false,
         'msg' => $ex->getMessage()
       ], 500);
+    }
+  }
+
+  public function getAllSchedulesByStudioId(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $studioId = intval($args['id']);
+      $studioDAO = new StudiosDAO();
+      $scheduleDAO = new SchedulesDAO();
+      
+      if (!$studioId)
+        throw new Exception('Erro na aplicação, tente novamente.');
+
+      if ($studioDAO->studioExists($studioId) == 0)
+        throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
+
+      $schedules = $scheduleDAO->getAllSchedulesByStudioId($studioId);
+      
+      $response = $response->withJson([
+        'success' => true,
+        'schedules' => $schedules
+      ], 200);
+
+      return $response;
+      
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);      
     }
   }
 }

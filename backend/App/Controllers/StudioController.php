@@ -440,8 +440,7 @@ final class StudioController
     } catch (\Exception $ex) {
       return $response->withJson([
         'success' => false,
-        'msg' => 'Erro na aplicação, tente novamente.',
-        'msgDev' => $ex->getMessage()
+        'msg' => $ex->getMessage()
       ], 500);
     }
   }

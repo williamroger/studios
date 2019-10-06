@@ -47,6 +47,7 @@ $app->group('', function() use ($app) {
 
   // SCHEDULES ============================================================
   $app->post('/insertschedule', ScheduleController::class . ':insertSchedule');
+  $app->get('/getallschedulesbystudioid/{id}', ScheduleController::class . ':getAllSchedulesByStudioId');
 
 })->add(function ($req, $res, $next) {
   $response = $next($req, $res);
