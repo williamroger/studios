@@ -12,11 +12,13 @@ import { AppComponent } from './app.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 
 import { AuthGuard } from './auth.guard';
+import { HeaderMenuComponent } from './shared/header-menu/header-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LogoutComponent
+    LogoutComponent,
+    HeaderMenuComponent
   ],
   imports: [
     BrowserModule,

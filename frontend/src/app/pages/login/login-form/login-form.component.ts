@@ -53,15 +53,15 @@ export class LoginFormComponent implements OnInit {
   }
 
   private actionsForSuccess(message: string) {
-    toastr.success(message);
-
-    setTimeout(() => {
-      this.router.navigateByUrl('/dashboard');
-    }, 3000)
+    this.router.navigateByUrl('/dashboard');
   }
 
   private actionsForError(error) {
     this.submittingForm = false;
     toastr.error(error.msg);
+  }
+
+  private refresh() {
+    window.location.reload();
   }
 }

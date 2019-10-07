@@ -29,3 +29,62 @@ $color-primary: #5F57A6;
   background-color: $color-primary !important;
   border-color: $color-primary !important;
 }
+
+// Estilo Provisório HEADER MENU
+.header-menu {
+  padding-top: .7rem;
+
+  &__logo img {
+    display: inline-block;
+    width: 200px;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__nav {
+    display: flex;
+
+    ul {
+      display: flex;
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      text-transform: uppercase;
+      font-weight: 400;
+
+      li {
+        margin-right: 3rem;
+      }
+
+      a {
+        color: $color-primary;
+        text-decoration: none !important;
+        opacity: .7;
+        font-size: 1.2rem;
+
+        &::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 5px;
+          margin-top: .5rem;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+          background-color: transparent;
+        }
+      }
+
+      a.active {
+        opacity: 1;
+        &::after {
+          background-color: $color-primary;
+        }
+      }
+    }
+  }
+}

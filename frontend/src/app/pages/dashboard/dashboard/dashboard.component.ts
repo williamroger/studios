@@ -9,11 +9,17 @@ import { AuthService } from './../../../auth.service';
 })
 export class DashboardComponent implements OnInit {
 
+  userLoggedIn: any;
   studioHasCityId: boolean;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.studioHasCityId = (this.authService.userLoggedIn['city_id']) ? true : false;
+    this.loadCityId();
+  }
+
+  private loadCityId() {
+    this.userLoggedIn = JSON.parse(localStorage.getItem('userLoggedIn'));
+    this.studioHasCityId = (+this.userLoggedIn['city_id']) ? true : false;
   }
 }

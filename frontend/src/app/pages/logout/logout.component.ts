@@ -15,9 +15,8 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit() {
     // Adicionar um Confirme aqui
-    this.router.navigate(['']);
     this.authService.setLoggedIn(false);
+    this.router.navigate(['']);
     localStorage.clear();
   }
-
 }
