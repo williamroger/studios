@@ -25,6 +25,19 @@ export class PeriodFormComponent implements OnInit {
   idPeriod: number;
   roomId: number;
 
+  imaskconfig = {
+    mask: Number,
+    scale: 2,
+    thousandsSeparator: '',
+    padFractionalZeros: true,
+    normalizeZeros: true,
+    radix: '.'
+  }
+
+  imaskHour = {
+    mask: '00:00'
+  }
+
   constructor(private roomService: RoomsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -62,8 +75,8 @@ export class PeriodFormComponent implements OnInit {
       amount: [null, [Validators.required, Validators.minLength(5)]],
       day: [null, [Validators.required]],
       price_rate: [null],
-      begin_period: [null, [Validators.required, Validators.minLength(8)]],
-      end_period: [null, [Validators.required, Validators.minLength(8)]]
+      begin_period: [null, [Validators.required, Validators.minLength(5)]],
+      end_period: [null, [Validators.required, Validators.minLength(5)]]
     });
   }
 

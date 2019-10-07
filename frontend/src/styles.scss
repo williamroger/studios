@@ -142,3 +142,14 @@ body {
     }
   }
 }
+
+// RESET NG PRIME
+span.ui-calendar-timeonly {
+  width: 100% !important;
+
+  input {
+    width: 100% !important;
+    height: 38px;
+    border-color: #ced4da !important;
+  }
+}

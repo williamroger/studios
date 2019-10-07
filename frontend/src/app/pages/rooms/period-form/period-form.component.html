@@ -68,25 +68,25 @@
                   <div *ngIf="periodForm.get('day').errors.required">Este campo é obrigatório!</div>
                 </div>
               </div>
-              <div class="form-group col-12 col-md-3 mb-4">
+              <div class="form-group col-12 col-md-2 mb-4">
                 <label for="begin_period">Hora Inicial</label>
-                <input type="text" class="form-control" id="begin_period" formControlName="begin_period">
+                <input type="text" [imask]="imaskHour" class="form-control" id="begin_period" formControlName="begin_period">
                 <div class="text-danger" *ngIf="periodForm.get('begin_period').invalid && periodForm.get('begin_period').touched">
                   <div *ngIf="periodForm.get('begin_period').errors.required">Este campo é obrigatório!</div>
-                  <div *ngIf="periodForm.get('begin_period').errors.minlength">Deve ter no mínimo 8 caracteres!</div>
+                  <div *ngIf="periodForm.get('begin_period').errors.minlength">Deve ter no mínimo 5 caracteres!</div>
                 </div>
               </div>
-              <div class="form-group col-12 col-md-3 mb-4">
+              <div class="form-group col-12 col-md-2 mb-4">
                 <label for="end_period">Hora Final</label>
-                <input type="text" class="form-control" id="end_period" formControlName="end_period">
+                <input type="text" [imask]="imaskHour" class="form-control" id="end_period" formControlName="end_period">
                 <div class="text-danger" *ngIf="periodForm.get('end_period').invalid && periodForm.get('end_period').touched">
                   <div *ngIf="periodForm.get('end_period').errors.required">Este campo é obrigatório!</div>
-                  <div *ngIf="periodForm.get('end_period').errors.minlength">Deve ter no mínimo 8 caracteres!</div>
+                  <div *ngIf="periodForm.get('end_period').errors.minlength">Deve ter no mínimo 5 caracteres!</div>
                 </div>
               </div>
-              <div class="form-group col-12 col-md-3 mb-4">
+              <div class="form-group col-12 col-md-2 mb-4">
                 <label for="amount">Valor</label>
-                <input type="text" class="form-control" id="amount" formControlName="amount">
+                <input type="text" [imask]="imaskconfig" class="form-control" id="amount" formControlName="amount">
                 <div class="text-danger" *ngIf="periodForm.get('amount').invalid && periodForm.get('amount').touched">
                   <div *ngIf="periodForm.get('amount').errors.required">Este campo é obrigatório!</div>
                   <div *ngIf="periodForm.get('amount').errors.minlength">Deve ter no mínimo 5 caracteres!</div>
