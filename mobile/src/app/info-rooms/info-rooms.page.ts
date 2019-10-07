@@ -24,4 +24,7 @@ export class InfoRoomsPage implements OnInit {
     this.navCtrl.navigateRoot('room');
   }
 
+  rotaScheduling() {
+    this.navCtrl.navigateRoot('scheduling');
+  }
 }
