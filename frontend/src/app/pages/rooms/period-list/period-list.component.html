@@ -25,33 +25,50 @@
   </div>
 </nav>
 
-<div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Períodos da Sala {{ roomName }}</h1>
-    <div>
-      <a (click)="goToRooms()" class="btn btn-light btn-sm mr-3">Voltar</a>
-      <a routerLink="new" class="btn btn-primary btn-sm ">+ Novo Período</a>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-xl-block col-xl-3">
+      <div class="content-box content-calendar shadow-sm p-3">
+        <div class="content-calendar__today">
+          <h1>Ensaios Hoje</h1>
+          <p>Não tem nenhum ensaio agendado para hoje!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-9">
+      <div class="content-box shadow-sm p-3">
+        <div class="content-box__header">
+          <h1>Períodos da Sala {{ roomName }}</h1>
+          <span>
+            <a (click)="goToRooms()" class="btn btn-light btn-sm mr-3">Voltar</a>
+            <a routerLink="new" class="btn btn-primary btn-sm ">+ Novo Período</a>
+          </span>
+        </div>
+        <div class="content-box__body">
+          <table class="table">
+            <thead>
+              <th scope="col">Dia</th>
+              <th scope="col">Hora Inicial</th>
+              <th scope="col">Hora Final</th>
+              <th scope="col">Valor</th>
+              <th scope="col" class="text-center">Ações</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let period of periods">
+                <td>{{ period.dayText }}</td>
+                <td>{{ period.begin_period }}</td>
+                <td>{{ period.end_period }}</td>
+                <td>{{ period.amount | currency:'BRL':'symbol':'2.2-2':'pt' }}</td>
+                <td class="text-center">
+                  <a [routerLink]="[period.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
+                  <button (click)="deletePeriod(period)"
+                    class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  <table class="table">
-    <thead class="thead-dark">
-      <th scope="col">Dia</th>
-      <th scope="col">Hora Inicial</th>
-      <th scope="col">Hora Final</th>
-      <th scope="col">Valor</th>
-      <th scope="col" class="text-center">Ações</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let period of periods">
-        <td>{{ period.dayText }}</td>
-        <td>{{ period.begin_period }}</td>
-        <td>{{ period.end_period }}</td>
-        <td>{{ period.amount | currency:'BRL':'symbol':'2.2-2':'pt' }}</td>
-        <td class="text-center">
-          <a [routerLink]="[period.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
-          <button (click)="deletePeriod(period)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

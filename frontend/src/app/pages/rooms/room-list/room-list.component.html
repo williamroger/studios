@@ -25,33 +25,50 @@
   </div>
 </nav>
 
-<div class="container">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Salas de Ensaio</h1>
-    <a routerLink="new" class="btn btn-primary btn-sm">+ Nova Sala</a>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-xl-block col-xl-3">
+      <div class="content-box content-calendar shadow-sm p-3">
+        <div class="content-calendar__today">
+          <h1>Ensaios Hoje</h1>
+          <p>Não tem nenhum ensaio agendado para hoje!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-9">
+      <div class="content-box shadow-sm p-3">
+        <div class="content-box__header">
+          <h1>Salas de Ensaio</h1>
+          <span>
+            <a routerLink="new" class="btn btn-primary btn-sm">+ Nova Sala</a>
+          </span>
+        </div>
+        <div class="content-box__body">
+          <table class="table">
+            <thead>
+              <th scope="col">Sala</th>
+              <th scope="col">Descrição</th>
+              <th scope="col">Cor</th>
+              <th scope="col" class="text-center">Ações</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let room of rooms">
+                <td>{{ room.name }}</td>
+                <td>{{ room.description }}</td>
+                <td>
+                  <span class="block-color" [ngStyle]="{'background-color': room.color }"></span>
+                </td>
+                <td class="text-center">
+                  <a (click)="goToPeriods(room)"
+                    class="btn btn-outline-primary btn-sm mr-1 text-uppercase cursor-pointer">Períodos</a>
+                  <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
+                  <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
-  <table class="table">
-    <thead class="thead-dark">
-      <th scope="col">Sala</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Capac. Máxima</th>
-      <th scope="col">Cor</th>
-      <th scope="col" class="text-center">Ações</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let room of rooms">
-        <td>{{ room.name }}</td>
-        <td>{{ room.description }}</td>
-        <td>{{ room.maximum_capacity }}</td>
-        <td>
-          <span class="block-color" [ngStyle]="{'background-color': room.color }"></span>
-        </td>
-        <td class="text-center">
-          <a (click)="goToPeriods(room)" class="btn btn-outline-primary btn-sm mr-1 text-uppercase cursor-pointer">Períodos</a>
-          <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
-          <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

@@ -25,23 +25,29 @@
   </div>
 </nav>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <div class="mb-5">
-        <div>
-          <h2 class="d-inline-block">Atualizar dados</h2>
-          <a class="btn btn-light float-right" routerLink="/dashboard">Voltar</a>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-xl-block col-xl-3">
+      <div class="content-box content-calendar shadow-sm p-3">
+        <div class="content-calendar__today">
+          <h1>Ensaios Hoje</h1>
+          <p>Não tem nenhum ensaio agendado para hoje!</p>
         </div>
-        <p>Mantenha as informações do seu estúdio sempre atualizadas.</p>
       </div>
-
-      <form [formGroup]="configForm" class="form-configuration mb-5" (submit)="submitForm()">
-        <div class="card">
-          <div class="card-header">
-            Informações sobre o Estúdio
-          </div>
-          <div class="card-body">
+    </div>
+    <div class="col-12 col-xl-9">
+      <div class="content-box shadow-sm p-3">
+        <div class="content-box__header">
+          <h1>Dados e Configurações do Estúdio</h1>
+          <span>
+            <a class="btn btn-light float-right" routerLink="/dashboard">Voltar</a>
+          </span>
+        </div>
+        <div class="content-box__info">
+          <p>Mantenha as informações do seu estúdio sempre atualizadas.</p>
+        </div>
+        <div class="content-box__body">
+          <form [formGroup]="configForm" class="form-configuration mb-5" (submit)="submitForm()">
             <div class="form-row mb-4">
               <div class="form-group col-12 col-md-6">
                 <label for="name">*Nome do Estúdio</label>
@@ -125,28 +131,38 @@
               <div class="form-group col-6 col-md-3">
                 <label for="estacionamento">*Possui Estacionamento</label>
                 <div class="btn-group">
-                  <label (click)="configForm.get('has_parking').setValue(1)" [class.active]="configForm.get('has_parking').value == 1" class="btn btn-outline-info cursor-pointer px-4">
+                  <label (click)="configForm.get('has_parking').setValue(1)"
+                    [class.active]="configForm.get('has_parking').value == 1"
+                    class="btn btn-outline-info cursor-pointer px-4">
                     Sim
                   </label>
-                  <label (click)="configForm.get('has_parking').setValue(0)" [class.active]="configForm.get('has_parking').value == 0" class="btn btn-outline-info cursor-pointer px-4">
+                  <label (click)="configForm.get('has_parking').setValue(0)"
+                    [class.active]="configForm.get('has_parking').value == 0"
+                    class="btn btn-outline-info cursor-pointer px-4">
                     Não
                   </label>
                 </div>
-                <div class="text-danger" *ngIf="configForm.get('has_parking').invalid && configForm.get('has_parking').touched">
+                <div class="text-danger"
+                  *ngIf="configForm.get('has_parking').invalid && configForm.get('has_parking').touched">
                   <div *ngIf="configForm.get('has_parking').errors.required">Este campo é obrigatório!</div>
                 </div>
               </div>
               <div class="form-group col-6 col-md-3">
                 <label for="24horas">*Funciona 24 horas</label>
                 <div class="btn-group">
-                  <label (click)="configForm.get('is_24_hours').setValue(1)" [class.active]="configForm.get('is_24_hours').value == 1" class="btn btn-outline-info cursor-pointer px-4">
+                  <label (click)="configForm.get('is_24_hours').setValue(1)"
+                    [class.active]="configForm.get('is_24_hours').value == 1"
+                    class="btn btn-outline-info cursor-pointer px-4">
                     Sim
                   </label>
-                  <label (click)="configForm.get('is_24_hours').setValue(0)" [class.active]="configForm.get('is_24_hours').value == 0"  class="btn btn-outline-info cursor-pointer px-4">
+                  <label (click)="configForm.get('is_24_hours').setValue(0)"
+                    [class.active]="configForm.get('is_24_hours').value == 0"
+                    class="btn btn-outline-info cursor-pointer px-4">
                     Não
                   </label>
                 </div>
-                <div class="text-danger" *ngIf="configForm.get('is_24_hours').invalid && configForm.get('is_24_hours').touched">
+                <div class="text-danger"
+                  *ngIf="configForm.get('is_24_hours').invalid && configForm.get('is_24_hours').touched">
                   <div *ngIf="configForm.get('is_24_hours').errors.required">Este campo é obrigatório!</div>
                 </div>
               </div>
@@ -155,7 +171,8 @@
               <div class="form-group col-12">
                 <label for="description">*Descrição</label>
                 <textarea id="description" formControlName="description" class="form-control" rows="5"></textarea>
-                <div class="text-danger" *ngIf="configForm.get('description').invalid && configForm.get('description').touched">
+                <div class="text-danger"
+                  *ngIf="configForm.get('description').invalid && configForm.get('description').touched">
                   <div *ngIf="configForm.get('description').errors.required">Este campo é obrigatório!</div>
                   <div *ngIf="configForm.get('description').errors.minlength">Deve ter no mínimo 100 caracteres!</div>
                 </div>
@@ -163,13 +180,13 @@
             </div>
             <div class="form-row">
               <div class="col-xm-3">
-                <button class="btn btn-primary px-5" type="submit" [disabled]="submittingForm || configForm.invalid">Salvar</button>
+                <button class="btn btn-primary px-5" type="submit"
+                  [disabled]="submittingForm || configForm.invalid">Salvar</button>
               </div>
             </div>
-          </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-  <!-- <pre>{{ configForm.value | json }}</pre> -->
 </div>

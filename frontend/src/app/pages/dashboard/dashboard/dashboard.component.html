@@ -25,11 +25,32 @@
   </div>
 </nav>
 
-<div class="container">
-  <h1>Agendamentos</h1>
-  <div class="alert alert-warning" *ngIf="!studioHasCityId">
-    <p>Bem-vindo ao <strong><em>Studios</em></strong>,</p>
-    <p>Você precisa atualizar os dados do seu estúdio para ser vistos pelos usuários.</p>
-    <a routerLink="/configuracoes" class="btn btn-primary">Atualizar meus dados</a>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-xl-block col-xl-3">
+      <div class="content-box content-calendar shadow-sm p-3">
+        <div class="content-calendar__today">
+          <h1>Ensaios Hoje</h1>
+          <p>Não tem nenhum ensaio agendado para hoje!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-9">
+      <div class="content-box shadow-sm p-3">
+        <div class="content-box__header">
+          <h1>Agendamentos</h1>
+        </div>
+        <div class="content-box__info">
+          <p>Hoje, 06 de Outubro de 2019</p>
+        </div>
+        <div class="content-box__body">
+          <div class="alert alert-warning" *ngIf="!studioHasCityId">
+            <p>Bem-vindo ao <strong><em>Studios</em></strong>,</p>
+            <p>Você precisa atualizar os dados do seu estúdio para ser vistos pelos usuários.</p>
+            <a routerLink="/configuracoes" class="btn btn-primary">Atualizar meus dados</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

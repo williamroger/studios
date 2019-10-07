@@ -25,62 +25,78 @@
   </div>
 </nav>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-12">
-      <div class="mb-5">
-        <div>
-          <h2 class="d-inline-block">{{ pageTitle }}</h2>
-          <a routerLink="/salas" class="btn btn-light float-right">Voltar</a>
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-xl-block col-xl-3">
+      <div class="content-box content-calendar shadow-sm p-3">
+        <div class="content-calendar__today">
+          <h1>Ensaios Hoje</h1>
+          <p>Não tem nenhum ensaio agendado para hoje!</p>
         </div>
-        <p>Mantenha as informações da sala sempre atualizadas.</p>
       </div>
-
-      <form [formGroup]="roomForm" (submit)="submitForm()">
-        <div class="form-row">
-          <div class="form-group col-12 col-md-6 mb-4">
-            <label for="name">Nome da Sala</label>
-            <input type="text" class="form-control" id="name" formControlName="name">
-            <div class="text-danger" *ngIf="roomForm.get('name').invalid && roomForm.get('name').touched">
-              <div *ngIf="roomForm.get('name').errors.required">Este campo é obrigatório!</div>
-              <div *ngIf="roomForm.get('name').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
-            </div>
-          </div>
-          <div class="form-group col-12 col-md-2">
-            <label for="maximum_capacity">Capac. máxima</label>
-            <input type="text" [imask]="imaskNumber" class="form-control" id="maximum_capacity" formControlName="maximum_capacity">
-            <div class="text-danger"
-              *ngIf="roomForm.get('maximum_capacity').invalid && roomForm.get('maximum_capacity').touched">
-              <div *ngIf="roomForm.get('maximum_capacity').errors.required">Este campo é obrigatório!</div>
-              <div *ngIf="roomForm.get('maximum_capacity').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
-            </div>
-          </div>
-          <div class="form-group col-12 col-md-3">
-            <label for="color" class="d-block">Cor de referência</label>
-            <p-colorPicker [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" formControlName="color"></p-colorPicker>
-            <div class="text-danger" *ngIf="roomForm.get('color').invalid && roomForm.get('color').touched">
-              <div *ngIf="roomForm.get('color').errors.required">Este campo é obrigatório!</div>
-              <div *ngIf="roomForm.get('color').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
-            </div>
-          </div>
+    </div>
+    <div class="col-12 col-xl-9">
+      <div class="content-box shadow-sm p-3">
+        <div class="content-box__header">
+          <h1>{{ pageTitle }}</h1>
+          <span>
+            <a routerLink="/salas" class="btn btn-light float-right"> <i class="pi pi-check"></i>Voltar</a>
+          </span>
         </div>
-        <div class="form-row mb-3">
-          <div class="form-group col-12 mb-4">
-            <label for="description">Descrição</label>
-            <textarea class="form-control" id="description" formControlName="description" id="description" rows="5"></textarea>
-            <div class="text-danger" *ngIf="roomForm.get('description').invalid && roomForm.get('description').touched">
-              <div *ngIf="roomForm.get('description').errors.required">Este campo é obrigatório!</div>
-              <div *ngIf="roomForm.get('description').errors.minlength">Deve ter no mínimo 20 caracteres!</div>
+        <div class="content-box__info">
+          <p>Mantenha as informações da sala sempre atualizadas.</p>
+        </div>
+        <div class="content-box__body">
+          <form [formGroup]="roomForm" (submit)="submitForm()">
+            <div class="form-row">
+              <div class="form-group col-12 col-md-6 mb-4">
+                <label for="name">Nome da Sala</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+                <div class="text-danger" *ngIf="roomForm.get('name').invalid && roomForm.get('name').touched">
+                  <div *ngIf="roomForm.get('name').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="roomForm.get('name').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
+                </div>
+              </div>
+              <div class="form-group col-12 col-md-2">
+                <label for="maximum_capacity">Capac. máxima</label>
+                <input type="text" [imask]="imaskNumber" class="form-control" id="maximum_capacity"
+                  formControlName="maximum_capacity">
+                <div class="text-danger"
+                  *ngIf="roomForm.get('maximum_capacity').invalid && roomForm.get('maximum_capacity').touched">
+                  <div *ngIf="roomForm.get('maximum_capacity').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="roomForm.get('maximum_capacity').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
+                </div>
+              </div>
+              <div class="form-group col-12 col-md-3">
+                <label for="color" class="d-block">Cor de referência</label>
+                <p-colorPicker [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" formControlName="color">
+                </p-colorPicker>
+                <div class="text-danger" *ngIf="roomForm.get('color').invalid && roomForm.get('color').touched">
+                  <div *ngIf="roomForm.get('color').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="roomForm.get('color').errors.minlength">Deve ter no mínimo 4 caracteres!</div>
+                </div>
+              </div>
             </div>
-          </div>
+            <div class="form-row mb-3">
+              <div class="form-group col-12 mb-4">
+                <label for="description">Descrição</label>
+                <textarea class="form-control" id="description" formControlName="description" id="description"
+                  rows="5"></textarea>
+                <div class="text-danger" *ngIf="roomForm.get('description').invalid && roomForm.get('description').touched">
+                  <div *ngIf="roomForm.get('description').errors.required">Este campo é obrigatório!</div>
+                  <div *ngIf="roomForm.get('description').errors.minlength">Deve ter no mínimo 20 caracteres!</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-12 col-md-3 mb-5">
+                <button class="btn btn-primary px-5 text-uppercase" type="submit"
+                  [disabled]="submittingForm || roomForm.invalid">Salvar</button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="form-row">
-          <div class="col-12 col-md-3 mb-5">
-            <button class="btn btn-primary px-5 text-uppercase" type="submit"
-              [disabled]="submittingForm || roomForm.invalid">Salvar</button>
-          </div>
-        </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
