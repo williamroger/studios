@@ -40,7 +40,10 @@
         <div class="content-box__header">
           <h1>Salas de Ensaio</h1>
           <span>
-            <a routerLink="new" class="btn btn-primary btn-sm">+ Nova Sala</a>
+            <a routerLink="new" class="btn btn-primary btn-sm">
+              <i class="pi pi-plus" style="font-size: 1.2em"></i>
+              Nova Sala
+            </a>
           </span>
         </div>
         <div class="content-box__body">
@@ -60,9 +63,18 @@
                 </td>
                 <td class="text-center">
                   <a (click)="goToPeriods(room)"
-                    class="btn btn-outline-primary btn-sm mr-1 text-uppercase cursor-pointer">Períodos</a>
-                  <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">Editar</a>
-                  <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">Excluir</button>
+                    class="btn btn-outline-primary btn-sm mr-1 text-uppercase cursor-pointer">
+                    <i class="pi pi-clock" style="font-size: 1.3em"></i>
+                    Períodos
+                  </a>
+                  <a [routerLink]="[room.id, 'edit']" class="btn btn-outline-info btn-sm mr-1 ml-1 text-uppercase">
+                    <i class="pi pi-pencil" style="font-size: 1.2em"></i>
+                    Editar
+                  </a>
+                  <button (click)="deleteRoom(room)" class="btn btn-outline-danger btn-sm ml-1 text-uppercase">
+                    <i class="pi pi-times" style="font-size: 1.2em"></i>
+                    Excluir
+                  </button>
                 </td>
               </tr>
             </tbody>
