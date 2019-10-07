@@ -1,3 +1,5 @@
+import { AuthService } from './../login/shared/auth.service';
+import { AlertController } from '@ionic/angular';
 import { AccountService } from './shared/account.service';
 import { CustomerModel } from './../register/shared/customer';
 import { Component, OnInit } from '@angular/core';
@@ -18,41 +20,13 @@ export class AccountPage implements OnInit {
   customer: CustomerModel = new CustomerModel();
   submittingForm = false;
 
-  /*imaskPhone = {
-    mask: '(00) 00000-0000'
-  };
-
-  imaskCPF = {
-    mask: '000.000.000-00'
-  };*/
-
-  /*error_messages = {
-    'name': [
-      { type: 'required', message: 'informe o seu nome!'},
-      { type: 'minlength', message: 'deve ter no mínimo 4 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 150 caracteres' }
-    ],
-    'phone': [
-      { type: 'required', message: 'informe o seu phone!'},
-      { type: 'minlength', message: 'deve ter no mínimo 8 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 12 caracteres' }
-    ],
-    'cpf': [
-      { type: 'required', message: 'informe o seu cpf!'},
-      { type: 'minlength', message: 'deve ter no mínimo 11 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 11 caracteres' }
-    ],
-    'email': [
-      { type: 'required', message: 'informe o seu email!' },
-      { type: 'minlength', message: 'deve ter no mínimo 10 caracteres' },
-      { type: 'maxlength', message: 'deve ter no máximo 100 caracteres' }
-    ]
-  }*/
-
   constructor(public accountService: AccountService, 
               public formBuilder: FormBuilder, 
               private toastCtrl: ToastController, 
-              public navCtrl: NavController ) { }
+              public navCtrl: NavController,
+              public auth: AuthService,
+              public alert: AlertController ) { }
+
 
   ngOnInit() {
     this.loadCities();
@@ -71,9 +45,6 @@ export class AccountPage implements OnInit {
         userLoggedIn.city_id = data.city_id;
         localStorage.removeItem('userLoggedIn');
         localStorage.setItem('userLoggedIn', JSON.stringify(userLoggedIn));
-        //setTimeout(() => {
-        this.refresh();
-        //}, 3000);
       },
       error => this.actionsForError(error)
     )
@@ -111,21 +82,12 @@ export class AccountPage implements OnInit {
   actionsForSuccess(customer: CustomerModel) {
     this.presentToast('Atualizado com sucesso!');
     this.submittingForm = false;
-    // setTimeout(() => {
-    //   this.router.navigateByUrl('/');
-    // }, 3000);
   }
 
   actionsForError(error) {
     this.submittingForm = false;
     this.presentToast('Ocorreu um erro, tente novamente!');
   }
-
-  // register() {
-  //   console.log('name: ', this.registerForm.value.name);
-  //   console.log('email: ', this.registerForm.value.email);
-  //   console.log('password: ', this.registerForm.value.password);
-  // }
 
   async presentToast(message: string) {
     const toast = await this.toastCtrl.create({
@@ -136,11 +98,31 @@ export class AccountPage implements OnInit {
     toast.present();
   }
 
-  private refresh() {
-    window.location.reload();
+  async presentAlert() {
+    const alert = await this.alert.create({
+      header: 'Confirmar',
+      message: '<strong>Tem certeza que deseja sair da sua conta?</strong>',
+      buttons: [
+      {
+        text: 'Sim',
+        cssClass: 'secondary',
+        handler: async() => {
+          this.logout();
+        }
+      },
+      {
+        text: 'Não',
+        role: 'cancel'
+      }
+      ]
+    });
+
+    await alert.present();
   }
+
   logout(){
     this.navCtrl.navigateRoot('');
-    this.refresh();
+    this.auth.setLoggedIn(false);
+    localStorage.clear();
   }
 }

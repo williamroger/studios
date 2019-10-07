@@ -13,6 +13,16 @@ export class RoomService {
 
   constructor(public http: HttpClient) { }
 
+  public room: RoomModel;
+
+  setRoom(room: RoomModel){
+    this.room = room;
+  }
+
+  getRoom(){
+    return this.room;
+  }
+
   getRooms(): Observable<RoomModel[]> {
     return this.http.get(this.API_URL + 'studio/getallrooms').pipe(
       catchError(this.handleError),

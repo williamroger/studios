@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button (click)="voltar()">
+              <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+      </ion-buttons>
+    <ion-title>{{room.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <p>Room name: {{room.name}}</p>
+    <p>Room description: {{room.description}}</p>
+    <p>Room maximum capacity: {{room.maximum_capacity}}</p>
+  </div>
+
+    <ion-button color="padrao" shape="round" size="default" expand="block" class="button">
+        Ensaiar
+    </ion-button>
+
+</ion-content>
