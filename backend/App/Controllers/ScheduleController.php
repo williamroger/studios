@@ -14,7 +14,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 final class ScheduleController 
 {
-  public function insertSchedule(Request $request, Response $response, array $args): Response 
+  public function newSchedule(Request $request, Response $response, array $args): Response 
   {
     try {
       $data = $request->getParsedBody();
@@ -42,7 +42,7 @@ final class ScheduleController
       ->setCustomerId($idCustomer)
       ->setComment($data['comment']);
 
-      $idSchedule = $scheduleDAO->insertSchedule($schedule);
+      $idSchedule = $scheduleDAO->newSchedule($schedule);
 
       $schedulePeriod->setScheduleId(intval($idSchedule))
       ->setTimePeriodId($data['time_period_id']);
@@ -145,6 +145,38 @@ final class ScheduleController
       
     } catch (\Exception $ex) {
       return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
+  }
+
+  public function getPeriodsFreeByRoomIdAndDate(Request $request, Response $response, array $args): Response 
+  {
+    try {
+      $roomId = intval($args['id']);
+      $day = $args['day'];
+      $date = $args['date'];
+
+      if (!$roomId)
+        throw new Exception('Erro na aplicação, tente novamente.');
+      
+      if (!$date || $date == '')
+        throw new Exception('Você precisa informar uma data');
+      
+      $scheduleDAO = new SchedulesDAO();
+
+      $schedules = $scheduleDAO->getPeriodsFreeByRoomIdAndDate($roomId, $day, $date);
+
+      $response = $response->withJson([
+        'success' => true,
+        'schedules' => $schedules
+      ], 200);
+
+      return $response;
+        
+    } catch (\Exception $ex) {
+      return $request->withJson([
         'success' => false,
         'msg' => $ex->getMessage()
       ], 500);

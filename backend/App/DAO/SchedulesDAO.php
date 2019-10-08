@@ -12,7 +12,7 @@ class SchedulesDAO extends ConnectionDataBase
     parent::__construct();
   }
 
-  public function insertSchedule(ScheduleModel $schedule): string 
+  public function newSchedule(ScheduleModel $schedule): string 
   { 
     $statement = $this->pdo
       ->prepare('INSERT INTO schedules
@@ -113,6 +113,34 @@ class SchedulesDAO extends ConnectionDataBase
     if (count($schedules) === 0)
       return null;
 
+    return $schedules;
+  }
+
+  public function getPeriodsFreeByRoomIdAndDate(int $roomId, string $day, string $date): ?array
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT * FROM time_periods
+                 WHERE  time_periods.room_id = :id 
+                 AND time_periods.day = :day 
+                 AND time_periods.id NOT IN (
+												                    SELECT schedules_time_periods.time_period_id FROM schedules_time_periods
+											                      INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
+												                    LEFT JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id AND time_periods.room_id = :id
+												                    WHERE schedules.date_scheduling = :date
+                                            )
+                ORDER BY day_order;');
+
+    $statement->execute([
+      'id' => $roomId,
+      'day' => $day,
+      'date' => $date
+    ]);
+
+    $schedules = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    if (count($schedules) === 0)
+      return null;
+    
     return $schedules;
   }
 }

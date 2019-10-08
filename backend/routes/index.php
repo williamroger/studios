@@ -46,10 +46,11 @@ $app->group('', function() use ($app) {
   $app->delete('/customer/deletecustomer/{id}', CustomerController::class . ':deleteCustomer');
 
   // SCHEDULES ============================================================
-  $app->post('/insertschedule', ScheduleController::class . ':insertSchedule');
+  $app->post('/newschedule', ScheduleController::class . ':newSchedule');
   $app->get('/getschedulesbystudioid/{id}', ScheduleController::class . ':getSchedulesByStudioId');
   $app->get('/getschedulesbycustomerid/{id}', ScheduleController::class . ':getSchedulesByCustomerId');
   $app->get('/getschedulesbystudioidanddate/{id}/{date}', ScheduleController::class . ':getSchedulesByStudioIdAndDate');
+  $app->get('/getperiodsfreebyroomidanddate/{id}/{day}/{date}', ScheduleController::class . ':getPeriodsFreeByRoomIdAndDate');
 
 })->add(function ($req, $res, $next) {
   $response = $next($req, $res);
