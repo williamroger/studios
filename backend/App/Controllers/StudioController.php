@@ -687,4 +687,12 @@ final class StudioController
       ], 500);
     }
   }
+
+  public function upload(Request $request, Response $response, array $args): Response
+  {
+    
+    $uploadedFiles = $request->getUploadedFiles();
+    var_dump($uploadedFiles);die;
+    return $response;
+  }
 }

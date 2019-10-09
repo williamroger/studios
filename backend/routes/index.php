@@ -7,6 +7,7 @@ use App\Controllers\UtilController;
 use App\Controllers\ScheduleController;
 
 use function src\slimConfiguration;
+use Slim\Http\UploadedFile;
 
 $app = new \Slim\App(slimConfiguration());
 
@@ -36,6 +37,7 @@ $app->group('', function() use ($app) {
   $app->delete('/studio/deletestudio/{id}', StudioController::class . ':deleteStudio');
   $app->delete('/studio/deleteroom/{id}', StudioController::class . ':deleteRoom');
   $app->delete('/studio/deleteperiod/{id}', StudioController::class . ':deletePeriod');
+  $app->post('/studio/upload', StudioController::class . ':upload');
 
   // CUSTOMER ============================================================
   $app->get('/customer/getallcustomers', CustomerController::class . ':getAllCustomers');
