@@ -6,8 +6,7 @@ function slimConfiguration(): \Slim\Container
 {
   $configuration = [
     'settings' => [
-      'displayErrorDetails' => getenv('DISPLAY_ERRORS_DETAILS'),
-      'upload_directory' => __DIR__ . './../public/uploads'
+      'displayErrorDetails' => getenv('DISPLAY_ERRORS_DETAILS')
     ],
   ];
   return new \Slim\Container($configuration);

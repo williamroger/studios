@@ -6,10 +6,11 @@ use App\DAO\UtilDAO;
 use Exception;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\UploadedFile;
 
 class UtilController
 {
-  public function getAllStates(Request $request, Response $response, array $args): Response
+  public static function getAllStates(Request $request, Response $response, array $args): Response
   {
     try {
       $utilDAO = new UtilDAO();
@@ -33,7 +34,7 @@ class UtilController
     }
   }
 
-  public function getAllCities(Request $request, Response $response, array $args): Response
+  public static function getAllCities(Request $request, Response $response, array $args): Response
   {
     try {
       $utilDAO = new UtilDAO();
@@ -57,7 +58,7 @@ class UtilController
     }
   }
 
-  public function getCitiesByStateId(Request $request, Response $response, array $args): Response
+  public static function getCitiesByStateId(Request $request, Response $response, array $args): Response
   {
     try {
       $idState = intval($args['id']);
@@ -111,5 +112,15 @@ class UtilController
         return 7;
         break;
     }
+  }
+
+  public static function moveUploadedFile($directory, $id, UploadedFile $uploadedFile): string {
+    // pegar a extensão do arquivo
+    $extension = pathinfo($uploadedFile->getClientFileName(), PATHINFO_EXTENSION);
+    // renomear o arquivo concatenando com id do estúdio
+    $filename = sprintf('%s.%0.8s', 'studio_' . $id, $extension);
+    $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+
+    return $filename;
   }
 }

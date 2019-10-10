@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
 use App\DAO\StudiosDAO;
 use App\DAO\UsersDAO;
 use App\Models\RoomModel;
@@ -9,7 +11,8 @@ use App\Models\StudioModel;
 use App\Models\TimePeriodModel;
 use App\Models\UserModel;
 use App\Controllers\UtilController;
-use App\Models\ScheduleModel;
+
+
 use DateTimeZone;
 use Exception;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -688,11 +691,40 @@ final class StudioController
     }
   }
 
-  public function upload(Request $request, Response $response, array $args): Response
+  public function logoUpload(Request $request, Response $response, array $args): Response
   {
-    
+    $directory = '/Users/williamroger/faculdade/studios/backend/App/public/uploads';
     $uploadedFiles = $request->getUploadedFiles();
-    var_dump($uploadedFiles);die;
+    $id = $args['id'];
+    // trabalhar com um único arquivo
+    $uploadedFile = $uploadedFiles['cover'];
+    if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+      $filename = UtilController::moveUploadedFile($directory, $id, $uploadedFile); 
+      $response = $response->withJson([
+        'success' => true,
+        'msg' => 'upload do arquivo ' . $filename . ' foi realizado com sucesso.' 
+      ], 200);
+    } else {
+      $response = $response->withJson([
+        'success' => false,
+        'msg' => 'upload do arquivo ' . $filename . ' não rolou.'
+      ], 500);
+    }
+    return $response;
+  }
+
+  public function getLogoStudio(Request $request, Response $response, array $args): Response 
+  {
+    $teste = __DIR__ . '/public/uploads';
+    $pathlogo  = \str_replace("/Controllers", "", $teste);
+    var_dump($pathlogo);die;
+    $id = $args['id'];
+    $path = '/Users/williamroger/faculdade/studios/backend/App/public/uploads/studio_1.jpg';
+    $response = $response->withJson([
+      'success' => true,
+      'path' => $path
+    ], 200);
+    
     return $response;
   }
 }
