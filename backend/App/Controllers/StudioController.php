@@ -703,7 +703,8 @@ final class StudioController
     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
       
       $logopath = UtilController::moveUploadedFile($directory, $id, $uploadedFile); 
-      
+      $studioDAO = new StudiosDAO();
+    
       $response = $response->withJson([
         'success' => true,
         'msg' => 'upload realizado com sucesso!',

@@ -174,7 +174,7 @@ final class StudioModel
    * Get the value of cnpj
    * @return  string
    */ 
-  public function getCnpj(): string
+  public function getCnpj(): ?string
   {
     return $this->cnpj;
   }
