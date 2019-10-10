@@ -696,18 +696,24 @@ final class StudioController
     $directory = '/Users/williamroger/faculdade/studios/backend/App/public/uploads';
     $uploadedFiles = $request->getUploadedFiles();
     $id = $args['id'];
+
     // trabalhar com um único arquivo
     $uploadedFile = $uploadedFiles['cover'];
+
     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-      $filename = UtilController::moveUploadedFile($directory, $id, $uploadedFile); 
+      
+      $logopath = UtilController::moveUploadedFile($directory, $id, $uploadedFile); 
+      
       $response = $response->withJson([
         'success' => true,
-        'msg' => 'upload do arquivo ' . $filename . ' foi realizado com sucesso.' 
+        'msg' => 'upload realizado com sucesso!',
+        'logopath' => $logopath
       ], 200);
+
     } else {
       $response = $response->withJson([
         'success' => false,
-        'msg' => 'upload do arquivo ' . $filename . ' não rolou.'
+        'msg' => 'Ocorreu um erro ao fazer o upload.'
       ], 500);
     }
     return $response;

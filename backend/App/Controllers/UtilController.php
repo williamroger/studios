@@ -115,12 +115,35 @@ class UtilController
   }
 
   public static function moveUploadedFile($directory, $id, UploadedFile $uploadedFile): string {
+    // todas as extensões que serão permitidas
+    $fileExtensions = ['jpeg', 'jpg', 'png'];
+
     // pegar a extensão do arquivo
     $extension = pathinfo($uploadedFile->getClientFileName(), PATHINFO_EXTENSION);
+    if (!in_array($extension, $fileExtensions))
+      throw new Exception('Qual a parte de apenas .jpeg, .jpg ou .png você não entendeu?');
+    
     // renomear o arquivo concatenando com id do estúdio
-    $filename = sprintf('%s.%0.8s', 'studio_' . $id, $extension);
-    $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+    // $basename = bin2hex(random_bytes(8));
+    $filename = sprintf('%s.%0.8s', 'logo_studio', $extension);
+    $directoryStudio = $directory . '/studio_' . $id;
+    
+    if (!is_dir($directoryStudio)) {
+      mkdir($directoryStudio, 0777, true);
+    }
 
-    return $filename;
+    if (is_dir($directoryStudio)) {
+      $dir = dir($directoryStudio);
+      while ($file = $dir->read()) {
+        if (($file != '.') && ($file != '..') && ($extension != 'DS_Store')) {
+          unlink($directoryStudio.'/'.$file);
+        }
+      }
+      $dir->close();
+    }
+
+    $uploadedFile->moveTo($directoryStudio . DIRECTORY_SEPARATOR . $filename);
+    
+    return $directoryStudio . '/' . $filename;
   }
 }
