@@ -20,6 +20,12 @@ export class StudioFormComponent implements OnInit {
   studio: StudioModel = new StudioModel();
   submittingForm: boolean = false;
 
+  // upload image
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
   // iMasks
   imaskCEP = {
     mask: '00000-000'
@@ -49,6 +55,38 @@ export class StudioFormComponent implements OnInit {
     this.loadConfigForm();
     this.buildConfigForm();
   }
+
+  // upload files
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // show privew
+    let mimType = this.fileData.type;
+    if (mimType.match(/image\/*/) === null)
+      return;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
+  }
+
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('logostudio', this.fileData);
+    this.configService.uploadLogo(formData).subscribe(
+      res => {
+        console.log(res);
+        this.uploadedFilePath = res.pathlogo;
+        alert('SUCCESS');
+      }
+    )
+  }
+
 
   submitForm() {
     this.submittingForm = true;

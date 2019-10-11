@@ -39,6 +39,12 @@ export class ConfigurationService {
     );
   }
 
+  uploadLogo(formData: FormData): Observable<any> {
+    const idStudio = this.userLocalStorage['studio_id'];
+
+    return this.http.post(`api/studio/${idStudio}/logoupload`, formData);
+  }
+
   /**
    * Private Methods
    */
