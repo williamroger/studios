@@ -1,8 +1,30 @@
-// Estilo Provisório
+@import './../../../../styles.scss';
 
-.navbar {
-  &__logo {
-    display: inline-block;
-    width: 225px;
+.form-upload {
+  display: flex;
+  align-items: flex-end;
+
+  label {
+    display: block;
+  }
+
+  button {
+    justify-content: center;
+  }
+
+  &__preview {
+    width: 170px;
+    height: 150px;
+    background-color: $gray-light;
+    background-size: cover;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    i {
+      color: $color-label;
+    }
   }
 }
+

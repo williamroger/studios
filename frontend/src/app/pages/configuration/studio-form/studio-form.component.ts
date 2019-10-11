@@ -7,6 +7,7 @@ import { CityModel } from '../shared/city.mode';
 import { StudioModel } from './../shared/studio.model';
 
 import toastr from 'toastr';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-studio-form',
@@ -24,7 +25,6 @@ export class StudioFormComponent implements OnInit {
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
-  uploadedFilePath: string = null;
 
   // iMasks
   imaskCEP = {
@@ -54,6 +54,7 @@ export class StudioFormComponent implements OnInit {
     this.loadCities();
     this.loadConfigForm();
     this.buildConfigForm();
+    this.loadLogoStudio();
   }
 
   // upload files
@@ -75,18 +76,27 @@ export class StudioFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  submitUploadLogo() {
     const formData = new FormData();
     formData.append('logostudio', this.fileData);
-    this.configService.uploadLogo(formData).subscribe(
-      res => {
-        console.log(res);
-        this.uploadedFilePath = res.pathlogo;
-        alert('SUCCESS');
+
+    this.fileUploadProgress = '0%';
+    this.configService.uploadLogo(formData)
+    .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
+          // console.log(this.fileUploadProgress);
+        } else if (events.type === HttpEventType.Response) {
+          this.fileUploadProgress = '';
+          // console.log(events);
+          if (events.body.success)
+            toastr.success(events.body.msg);
+          else
+            toastr.error(events.body.msg);
+        }
       }
     )
   }
-
 
   submitForm() {
     this.submittingForm = true;
@@ -118,6 +128,14 @@ export class StudioFormComponent implements OnInit {
       .subscribe(
         cities => this.cities = cities
       );
+  }
+
+  private loadLogoStudio() {
+    this.configService.getLogoStudio().subscribe(
+      logo => {
+        console.log(logo)
+      }
+    )
   }
 
   private loadConfigForm() {
