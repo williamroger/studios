@@ -700,15 +700,15 @@ final class StudioController
       $studioDAO = new StudiosDAO();
 
       // trabalhar com um único arquivo
-      $uploadedFile = $uploadedFiles['cover'];
+      $uploadedFile = $uploadedFiles['logostudio'];
 
       if (!$studioDAO->studioExists($idStudio))
         throw new Exception('Erro na aplicação, tente novamente.');
 
       if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-        $pathlogo = UtilController::moveUploadedFile($directory, idStudio, $uploadedFile);
+        $pathlogo = UtilController::moveUploadedFile($directory, $idStudio, $uploadedFile);
 
-        $studioDAO->logoUpload(intval(idStudio), $pathlogo);
+        $studioDAO->logoUpload(intval($idStudio), $pathlogo);
 
         $response = $response->withJson([
           'success' => true,

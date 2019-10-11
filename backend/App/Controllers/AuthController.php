@@ -48,7 +48,8 @@ final class AuthController
         'lastname' => $custumer['lastname'],
         'phone' => $custumer['phone'],
         'cpf' => $custumer['cpf'],
-        'city_id' => $custumer['city_id']
+        'city_id' => $custumer['city_id'],
+        'image' => $custumer['image']
       );
     } else {
       $studio = $studioDAO->getStudioById(intval($user->getStudioId()));
@@ -59,7 +60,8 @@ final class AuthController
         'studio_id' => $user->getStudioId(),
         'email' => $user->getEmail(),
         'name' => $studio['name'],
-        'city_id' => $studio['city_id']
+        'city_id' => $studio['city_id'],
+        'image' => $studio['image']
       );
     }
 
