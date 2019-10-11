@@ -37,7 +37,7 @@ $app->group('', function() use ($app) {
   $app->delete('/studio/deleteroom/{id}', StudioController::class . ':deleteRoom');
   $app->delete('/studio/deleteperiod/{id}', StudioController::class . ':deletePeriod');
   $app->post('/studio/{id}/logoupload', StudioController::class . ':logoUpload');
-  $app->get('/studio/getlogostudio/{id}', StudioController::class . ':getLogoStudio');
+  $app->get('/studio/{id}/getlogostudio', StudioController::class . ':getLogoStudio');
   
   // CUSTOMER ============================================================
   $app->get('/customer/getallcustomers', CustomerController::class . ':getAllCustomers');

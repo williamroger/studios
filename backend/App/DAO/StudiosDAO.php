@@ -224,6 +224,32 @@ class StudiosDAO extends ConnectionDataBase
     ]);
   }
 
+  public function logoUpload(int $id, string $pathimage): void
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE studios SET
+                    image = :image
+                 WHERE id = :id');
+    $statement->execute([
+      'image' => $pathimage,
+      'id' => $id
+    ]);
+  }
+
+  public function getLogoStudio(int $id): string
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT image FROM studios
+                 WHERE id = :id');
+    $statement->execute([
+      'id' => $id
+    ]);
+
+    $logopath = $statement->fetchColumn();
+
+    return $logopath;
+  }
+
   public function deleteStudio(int $idStudio): void 
   {
     $statement = $this->pdo

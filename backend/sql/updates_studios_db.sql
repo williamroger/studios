@@ -35,3 +35,8 @@ CHANGE COLUMN `price` `amount` DECIMAL(10,2) NOT NULL ;
 
 ALTER TABLE `db_dev_studios`.`time_periods`
 ADD COLUMN `day_order` INT NULL AFTER `end_period`;
+
+=========================================================10-10-19
+
+ALTER TABLE `db_dev_studios`.`studios`
+CHANGE COLUMN `image` `image` VARCHAR(1500) NULL DEFAULT NULL ;

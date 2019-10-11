@@ -693,45 +693,70 @@ final class StudioController
 
   public function logoUpload(Request $request, Response $response, array $args): Response
   {
-    $directory = '/Users/williamroger/faculdade/studios/backend/App/public/uploads';
-    $uploadedFiles = $request->getUploadedFiles();
-    $id = $args['id'];
-
-    // trabalhar com um único arquivo
-    $uploadedFile = $uploadedFiles['cover'];
-
-    if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-      
-      $logopath = UtilController::moveUploadedFile($directory, $id, $uploadedFile); 
+    try {
+      $directory = '/Users/williamroger/faculdade/studios/backend/App/public/uploads';
+      $uploadedFiles = $request->getUploadedFiles();
+      $idStudio = $args['id'];
       $studioDAO = new StudiosDAO();
-    
-      $response = $response->withJson([
-        'success' => true,
-        'msg' => 'upload realizado com sucesso!',
-        'logopath' => $logopath
-      ], 200);
 
-    } else {
-      $response = $response->withJson([
+      // trabalhar com um único arquivo
+      $uploadedFile = $uploadedFiles['cover'];
+
+      if (!$studioDAO->studioExists($idStudio))
+        throw new Exception('Erro na aplicação, tente novamente.');
+
+      if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+        $pathlogo = UtilController::moveUploadedFile($directory, idStudio, $uploadedFile);
+
+        $studioDAO->logoUpload(intval(idStudio), $pathlogo);
+
+        $response = $response->withJson([
+          'success' => true,
+          'msg' => 'upload realizado com sucesso!',
+          'pathlogo' => $pathlogo
+        ], 200);
+
+      } else {
+        $response = $response->withJson([
+          'success' => false,
+          'msg' => 'Ocorreu um erro no upload.'
+        ], 500);
+      }
+
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
         'success' => false,
-        'msg' => 'Ocorreu um erro ao fazer o upload.'
+        'msg' => $ex->getMessage()
       ], 500);
     }
-    return $response;
   }
 
   public function getLogoStudio(Request $request, Response $response, array $args): Response 
   {
-    $teste = __DIR__ . '/public/uploads';
-    $pathlogo  = \str_replace("/Controllers", "", $teste);
-    var_dump($pathlogo);die;
-    $id = $args['id'];
-    $path = '/Users/williamroger/faculdade/studios/backend/App/public/uploads/studio_1.jpg';
-    $response = $response->withJson([
-      'success' => true,
-      'path' => $path
-    ], 200);
+    try {
+      $idStudio = intval($args['id']);
+      $studioDAO = new StudiosDAO();
+      
+      if (!$studioDAO->studioExists($idStudio))
+        throw new Exception('Erro na aplicação, tente novamente.');
+        
+      $pathlogo = $studioDAO->getLogoStudio($idStudio);
+      
+      $response = $response->withJson([
+        'success' => true,
+        'pathlogo' => $pathlogo
+      ], 200);
+
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
     
-    return $response;
   }
 }
