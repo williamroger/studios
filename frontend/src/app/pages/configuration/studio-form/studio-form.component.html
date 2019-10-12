@@ -54,11 +54,11 @@
             <div class="form-group">
               <label>Logotipo do Estúdio</label>
 
-              <div class="form-upload__preview mb-2">
-                <img *ngIf="previewUrl" [src]="previewUrl">
+              <div class="form-upload__preview mb-2" [ngStyle]="{'background-image': 'url('+previewUrl+')'}">
+                <!-- <img *ngIf="previewUrl" [src]="previewUrl"> -->
                 <i *ngIf="!previewUrl" class="pi pi-image" style="font-size: 3em"></i>
               </div>
-              <input type="file" [ngStyle]="{'display': 'none'}" name="logostudio" (change)="fileProgress($event)" #fileInput>
+              <input type="file" accept="image/*" [ngStyle]="{'display': 'none'}" name="logostudio" (change)="fileProgress($event)" #fileInput>
               <button type="button" class="btn btn-outline-primary btn-sm w-100" (click)="fileInput.click()">
                 <i class="pi pi-upload" style="font-size: 1.5em"></i>
                 Buscar imagem

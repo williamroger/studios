@@ -743,13 +743,10 @@ final class StudioController
         throw new Exception('Erro na aplicação, tente novamente.');
         
       $pathlogo = $studioDAO->getLogoStudio($idStudio);
-      
-      $response = $response->withJson([
-        'success' => true,
-        'pathlogo' => $pathlogo
-      ], 200);
-
-      return $response;
+      $image = readfile($pathlogo);
+     
+      $response->getBody($image);
+      return $response->withHeader('Content-Type', 'image/png');
 
     } catch (\Exception $ex) {
       return $response->withJson([
