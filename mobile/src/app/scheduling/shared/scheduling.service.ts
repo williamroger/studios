@@ -21,8 +21,16 @@ export class SchedulingService {
     )
   }
 
+  getSchedulingByCustomer(): Observable<SchedulingModel[]> {
+    const id = this.userLocalStorage['customer_id'];
+    return this.http.get(`api/getschedulesbycustomerid/${id}`).pipe(
+      catchError(this.handleError),
+      map(this.jsonScheduling)
+    )
+  }
+
   insertScheduling(scheduling: SchedulingModel): Observable<SchedulingModel> {
-    return this.http.post('api/insertschedule', scheduling).pipe(
+    return this.http.post('api/newschedule', scheduling).pipe(
       catchError(this.handleError),
       map(this.jsonDataToScheduling)
     )
@@ -39,6 +47,14 @@ export class SchedulingService {
     return periods;
   }
 
+  private jsonScheduling(jsonData: any[]): SchedulingModel[] {
+    const scheduling: SchedulingModel[] = [];
+    jsonData['schedules'].forEach(element => {
+      const schedu = Object.assign(new SchedulingModel(), element);
+      scheduling.push(schedu);
+    });
+    return scheduling;
+  }
   /*private jsonDataToPeriod(jsonData: any): PeriodModel {
     return Object.assign(new PeriodModel(), jsonData['period']);
   }*/

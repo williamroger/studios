@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NavController} from '@ionic/angular';
 import { SchedulingService } from './shared/scheduling.service';
 import { RoomService } from '../rooms/shared/room.service';
-import { RoomModel } from './shared/RoomModel';
 import { SchedulingModel } from './shared/SchedulingModel';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { PeriodModel } from './shared/PeriodModel';
 import { AuthService } from '../login/shared/auth.service';
+import { RoomModel } from '../rooms/shared/RoomModel';
 
 
 @Component({
@@ -38,7 +38,7 @@ export class SchedulingPage implements OnInit {
 
   submitForm() {
     const scheduling: SchedulingModel = Object.assign(new SchedulingModel(), this.schedulingForm.value);
-
+    //const timePeriod: PeriodModel = Object.assign(new PeriodModel(), this.schedulingForm.value);
     this.presentLoading();
 
     this.service.insertScheduling(scheduling)
@@ -52,10 +52,15 @@ export class SchedulingPage implements OnInit {
     this.schedulingForm = this.formBuilder.group({
       id: [null],
       dateScheduling: [null, [Validators.required]],
-      status: [0],
+      //status: [0],
       customerId: [this.service.userLocalStorage['customer_id']],
-      comment: [null, [Validators.required, Validators.maxLength(150)]]
+      comment: [null, [Validators.required, Validators.maxLength(150)]],
+      periodId: [this.scheduling.periodId]
     });
+  }
+
+  periodHandler(event) {
+    this.scheduling.periodId = event.target.value;
   }
 
   loadPeriods() {

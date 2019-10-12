@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SchedulingService } from '../scheduling/shared/scheduling.service';
+import { AuthService } from '../login/shared/auth.service';
+import { SchedulingModel } from '../scheduling/shared/SchedulingModel';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +10,22 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  mySchedulings: Array<SchedulingModel>;
+
+  constructor(public service: SchedulingService, public auth: AuthService) {  }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnInit() {
+    this.getMySchedulings();
+  }
+
+  getMySchedulings() {
+    this.service.getSchedulingByCustomer().subscribe(
+      schedules => {
+        console.log('schedules', schedules);
+        this.mySchedulings = schedules;
+      }
+    );
+  }
 
 }

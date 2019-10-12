@@ -1,29 +1,30 @@
 export class SchedulingModel {
-    constructor(
-        public id?: number,
-        public dateScheduling?: string,
-        public status?: number,
-        public dateCancellation?: string,
-        public createdAt?: string,
-        public updatedAt?: string,
-        public customerId?: number,
-        public comment?: string,
-    ) { }
+    public id?: number;
+    public dateScheduling?: string;
+    public status?: number;
+    public dateCancellation?: string;
+    public createdAt?: string;
+    public updatedAt?: string;
+    public customerId?: number;
+    public comment?: string;
+    public periodId?: number;
+
+    constructor() { }
 
     get statusText() {
-        let status = '';
+        let varStatus = '';
 
         switch (this.status) {
             case 0:
-                status = 'aguardando';
+                varStatus = 'aguardando';
                 break;
             case 1:
-                status = 'confirmado';
+                varStatus = 'confirmado';
                 break;
             case 2:
-                status = 'cancelado';
+                varStatus = 'cancelado';
                 break;
         }
-        return status;
+        return varStatus;
     }
 }
