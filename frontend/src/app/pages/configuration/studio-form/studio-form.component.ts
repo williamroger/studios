@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { AuthService } from 'src/app/auth.service';
 import { ConfigurationService } from './../shared/configuration.service';
 import { CityModel } from '../shared/city.mode';
 import { StudioModel } from './../shared/studio.model';
@@ -53,7 +54,8 @@ export class StudioFormComponent implements OnInit {
 
   constructor(private configService: ConfigurationService,
               private formBuilder: FormBuilder,
-              private imageService: ImageService) { }
+              private imageService: ImageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.loadCities();
@@ -75,7 +77,9 @@ export class StudioFormComponent implements OnInit {
   }
 
   getImageFromService() {
-    this.imageService.getImage('studio/6/getlogostudio').subscribe(data => {
+    const idRoom = this.authService.userLoggedIn['studio_id'];
+
+    this.imageService.getImage(`studio/${idRoom}/getlogostudio`).subscribe(data => {
       this.createImageFromBlob(data);
     }, error => {
       console.log('error ', error);
