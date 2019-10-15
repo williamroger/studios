@@ -236,7 +236,7 @@ class StudiosDAO extends ConnectionDataBase
     ]);
   }
 
-  public function imageUpload(int $roomId, int $studioId, string $pathimage): void
+  public function imageRoomUpload(int $roomId, int $studioId, string $pathimage): void
   {
     $statement  = $this->pdo
       ->prepare('UPDATE rooms SET

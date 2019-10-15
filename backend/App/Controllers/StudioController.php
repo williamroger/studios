@@ -760,7 +760,7 @@ final class StudioController
     
   }
 
-  public function imageUpload(Request $request, Response $response, array $args): Response
+  public function imageRoomUpload(Request $request, Response $response, array $args): Response
   {
     try {
       $dir = __DIR__;
@@ -784,7 +784,7 @@ final class StudioController
       if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
         $pathImage = UtilController::moveUploadedImageRoom($directory, $idStudio, $roomId, $uploadedFile);
 
-        $studioDAO->imageUpload($roomId, $idStudio, $pathImage);
+        $studioDAO->imageRoomUpload($roomId, $idStudio, $pathImage);
 
         $response = $response->withJson([
           'success' => true,

@@ -37,7 +37,7 @@ $app->group('', function() use ($app) {
   $app->delete('/studio/deleteroom/{id}', StudioController::class . ':deleteRoom');
   $app->delete('/studio/deleteperiod/{id}', StudioController::class . ':deletePeriod');
   $app->post('/studio/{id}/logoupload', StudioController::class . ':logoUpload');
-  $app->post('/studio/{studioid}/room/{id}/imageupload', StudioController::class . ':imageUpload');
+  $app->post('/studio/{studioid}/room/{id}/imageupload', StudioController::class . ':imageRoomUpload');
   $app->get('/studio/{id}/getlogostudio', StudioController::class . ':getLogoStudio');
   $app->get('/studio/{studioid}/getimageroom/{id}', StudioController::class . ':getImageRoom');
   
