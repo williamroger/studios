@@ -290,7 +290,7 @@ final class StudioController
         ->setMaximumCapacity(intval($data['maximum_capacity']))
         ->setColor($data['color'])
         ->setCreatedAt($now)
-        ->setImages($data['images']);
+        ->setImage($data['image']);
 
       $studioDAO->insertRoom($room);
 
@@ -371,7 +371,7 @@ final class StudioController
         ->setMaximumCapacity(intval($data['maximum_capacity']))
         ->setColor($data['color'])
         ->setUpdatedAt($now)
-        ->setImages($data['images']);
+        ->setImage($data['image']);
 
       $studioDAO->updateRoom($room);
 
@@ -532,6 +532,7 @@ final class StudioController
       ], 500);
     }
   }
+
   public function insertPeriod(Request $request, Response $response, array $args): Response
   {
     try {

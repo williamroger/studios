@@ -298,7 +298,7 @@ class StudiosDAO extends ConnectionDataBase
                    maximum_capacity, 
                    color, 
                    created_at,
-                   images)
+                   image)
                  VALUES
                     (:description, 
                      :studio_id, 
@@ -306,7 +306,7 @@ class StudiosDAO extends ConnectionDataBase
                      :maximum_capacity, 
                      :color, 
                      :created_at,
-                     :images)');
+                     :image)');
 
     $statement->execute([
       'description'      => $room->getDescription(), 
@@ -315,7 +315,7 @@ class StudiosDAO extends ConnectionDataBase
       'maximum_capacity' => $room->getMaximumCapacity(), 
       'color'            => $room->getColor(), 
       'created_at'       => $room->getCreatedAt(),
-      'images'           => $room->getImages()
+      'image'           => $room->getImage()
     ]);
   }
 
@@ -347,7 +347,7 @@ class StudiosDAO extends ConnectionDataBase
                     maximum_capacity = :maximum_capacity,
                     color = :color,
                     updated_at = :updated_at,
-                    images = :images
+                    image = :image
                  WHERE 
                     id = :id;');
 
@@ -357,7 +357,7 @@ class StudiosDAO extends ConnectionDataBase
       'maximum_capacity' => $room->getMaximumCapacity(),
       'color'            => $room->getColor(),
       'updated_at'       => $room->getUpdatedAt(),
-      'images'           => $room->getImages(),
+      'image'           => $room->getImage(),
       'id'               => $room->getId()
     ]);
   }
@@ -384,7 +384,7 @@ class StudiosDAO extends ConnectionDataBase
                    rooms.color,
                    rooms.created_at,
                    rooms.updated_at,
-                   rooms.images
+                   rooms.image
                  FROM rooms
                  INNER JOIN studios
                  ON rooms.studio_id = studios.id
@@ -409,7 +409,7 @@ class StudiosDAO extends ConnectionDataBase
                     color,
                     created_at,
                     updated_at,
-                    images
+                    image
                  FROM
                     rooms
                  WHERE id = :id');
