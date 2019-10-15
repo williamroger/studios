@@ -50,6 +50,28 @@
           <p>Mantenha as informações da sala sempre atualizadas.</p>
         </div>
         <div class="content-box__body">
+          <div class="form-upload mb-4">
+            <div class="form-group">
+              <label>Fotografia da Sala</label>
+
+              <div class="form-upload__preview mb-2" [ngStyle]="{'background-image': 'url('+previewUrl+')'}">
+                <i *ngIf="!previewUrl" class="pi pi-image" style="font-size: 3em"></i>
+              </div>
+
+              <input type="file" accept="image/*" [ngStyle]="{'display': 'none'}" name="image" (change)="fileProgress($event)" #fileInput>
+
+              <button type="button" class="btn btn-outline-primary btn-sm w-100" (click)="fileInput.click()">
+                <i class="pi pi-upload" style="font-size: 1.5em"></i>
+                Buscar imagem
+              </button>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-sm ml-4 px-4" (click)="submitUploadImage()">
+                <i class="pi pi-check" style="font-size: 1.5em"></i>
+                Salvar imagem
+              </button>
+            </div>
+          </div>
           <form [formGroup]="roomForm" (submit)="submitForm()">
             <div class="form-row">
               <div class="form-group col-12 col-md-6 mb-4">

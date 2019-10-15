@@ -55,20 +55,15 @@
               <label>Logotipo do Estúdio</label>
 
               <div class="form-upload__preview mb-2" [ngStyle]="{'background-image': 'url('+previewUrl+')'}">
-                <!-- <img *ngIf="previewUrl" [src]="previewUrl"> -->
                 <i *ngIf="!previewUrl" class="pi pi-image" style="font-size: 3em"></i>
               </div>
+
               <input type="file" accept="image/*" [ngStyle]="{'display': 'none'}" name="logostudio" (change)="fileProgress($event)" #fileInput>
+
               <button type="button" class="btn btn-outline-primary btn-sm w-100" (click)="fileInput.click()">
                 <i class="pi pi-upload" style="font-size: 1.5em"></i>
                 Buscar imagem
               </button>
-              <!-- Só vale a pena utilizar isso para grandes imagens
-                        <div *ngIf="fileUploadProgress">
-                          <div class="progress">
-                            <div class="progress-bar" [ngStyle]="{'width': 'fileUploadProgress'}"></div>
-                          </div>
-                        </div> -->
             </div>
             <div class="form-group">
               <button class="btn btn-primary btn-sm ml-4 px-4" (click)="submitUploadLogo()">

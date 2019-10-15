@@ -91,6 +91,12 @@ export class RoomsService {
     )
   }
 
+  uploadImage(formData: FormData, idRoom: number): Observable<any> {
+    const idStudio = this.userLocalStorage['studio_id'];
+
+    return this.http.post(`api/studio/${idStudio}/room/${idRoom}/imageupload`, formData, { reportProgress: true, observe: 'events' });
+  }
+
   // Private Methods
   private jsonDataToPeriods(jsonData: any[]): PeriodModel[] {
     const periods: PeriodModel[] = [];

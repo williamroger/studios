@@ -28,9 +28,6 @@ export class StudioFormComponent implements OnInit {
   previewUrl: any = null;
   fileUploadProgress: string = null;
 
-  // Get Image API
-  imageToShow: any;
-
   // iMasks
   imaskCEP = {
     mask: '00000-000'
@@ -77,9 +74,9 @@ export class StudioFormComponent implements OnInit {
   }
 
   getImageFromService() {
-    const idRoom = this.authService.userLoggedIn['studio_id'];
+    const idStudio = this.authService.userLoggedIn['studio_id'];
 
-    this.imageService.getImage(`studio/${idRoom}/getlogostudio`).subscribe(data => {
+    this.imageService.getImage(`studio/${idStudio}/getlogostudio`).subscribe(data => {
       this.createImageFromBlob(data);
     }, error => {
       console.log('error ', error);
