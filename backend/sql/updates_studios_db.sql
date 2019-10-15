@@ -40,3 +40,8 @@ ADD COLUMN `day_order` INT NULL AFTER `end_period`;
 
 ALTER TABLE `db_dev_studios`.`studios`
 CHANGE COLUMN `image` `image` VARCHAR(1500) NULL DEFAULT NULL ;
+
+=========================================================14-10-19
+
+ALTER TABLE `db_dev_studios`.`rooms` 
+CHANGE COLUMN `images` `image` VARCHAR(1500) NULL DEFAULT NULL ;

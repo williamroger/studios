@@ -694,7 +694,10 @@ final class StudioController
   public function logoUpload(Request $request, Response $response, array $args): Response
   {
     try {
-      $directory = '/Users/williamroger/faculdade/studios/backend/App/public/uploads';
+      $dir = __DIR__;
+      $dir = str_replace('/Controllers', '/', $dir);
+      $directory = $dir . 'public/uploads';
+
       $uploadedFiles = $request->getUploadedFiles();
       $idStudio = $args['id'];
       $studioDAO = new StudiosDAO();
@@ -706,7 +709,7 @@ final class StudioController
         throw new Exception('Erro na aplicação, tente novamente.');
 
       if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
-        $pathlogo = UtilController::moveUploadedFile($directory, $idStudio, $uploadedFile);
+        $pathlogo = UtilController::moveUploadedLogoFile($directory, $idStudio, $uploadedFile);
 
         $studioDAO->logoUpload(intval($idStudio), $pathlogo);
 
@@ -755,5 +758,81 @@ final class StudioController
       ], 500);
     }
     
+  }
+
+  public function imageUpload(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $dir = __DIR__;
+      $dir = str_replace('/Controllers', '/', $dir);
+      $directory = $dir . 'public/uploads';
+
+      $uploadedFiles = $request->getUploadedFiles();
+      $idStudio = intval($args['studioid']);
+      $roomId = intval($args['id']);
+      $studioDAO = new StudiosDAO();
+
+      // trabalhar com um único arquivo
+      $uploadedFile = $uploadedFiles['image'];
+
+      if (!$studioDAO->studioExists($idStudio))
+        throw new Exception('Erro na aplicação, tente novamente.');
+
+      if (!$studioDAO->roomExists($roomId))
+        throw new Exception('Erro na aplicação, tente novamente.');
+      
+      if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+        $pathImage = UtilController::moveUploadedImageRoom($directory, $idStudio, $roomId, $uploadedFile);
+
+        $studioDAO->imageUpload($roomId, $idStudio, $pathImage);
+
+        $response = $response->withJson([
+          'success' => true,
+          'msg' => 'upload realizado com sucesso!',
+          'pathlogo' => $pathImage
+        ], 200);
+
+      } else {
+        $response = $response->withJson([
+          'success' => false,
+          'msg' => 'upload realizado com sucesso!'
+        ], 500);
+      }
+
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
+  }
+
+  public function getImageRoom(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $idRoom = intval($args['id']);
+      $idStudio = intval($args['studioid']);
+      $studioDAO = new StudiosDAO();
+
+      if (!$studioDAO->studioExists($idStudio))
+        throw new Exception('Erro na aplicação, tente novamente.');
+
+      if (!$studioDAO->roomExists($idRoom))
+        throw new Exception('Erro na aplicação, tente novamente.');
+
+      $pathimage = $studioDAO->getImageRoom($idStudio, $idRoom);
+      $image = readfile($pathimage);
+
+      $response->getBody($image);
+      return $response->withHeader('Content-Type', 'image/png');
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
   }
 }

@@ -236,6 +236,19 @@ class StudiosDAO extends ConnectionDataBase
     ]);
   }
 
+  public function imageUpload(int $roomId, int $studioId, string $pathimage): void
+  {
+    $statement  = $this->pdo
+      ->prepare('UPDATE rooms SET
+                   image = :image
+                 WHERE rooms.id = :roomId AND rooms.studio_id = :studioId');
+    $statement->execute([
+      'roomId' => $roomId,
+      'studioId' => $studioId,
+      'image' => $pathimage
+    ]);
+  }
+
   public function getLogoStudio(int $id): string
   {
     $statement = $this->pdo
@@ -248,6 +261,21 @@ class StudiosDAO extends ConnectionDataBase
     $logopath = $statement->fetchColumn();
 
     return $logopath;
+  }
+
+  public function getImageRoom(int $idStudio, int $idRoom): string
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT image FROM rooms
+                 WHERE rooms.id = :roomId AND rooms.studio_id = :studioId');
+    $statement->execute([
+      'roomId' => $idRoom,
+      'studioId' => $idStudio
+    ]);
+
+    $imagepath = $statement->fetchColumn();
+
+    return $imagepath;
   }
 
   public function deleteStudio(int $idStudio): void 

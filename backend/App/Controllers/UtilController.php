@@ -114,7 +114,7 @@ class UtilController
     }
   }
 
-  public static function moveUploadedFile($directory, $id, UploadedFile $uploadedFile): string {
+  public static function moveUploadedLogoFile($directory, $id, UploadedFile $uploadedFile): string {
     // todas as extensões que serão permitidas
     $fileExtensions = ['jpeg', 'jpg', 'png'];
 
@@ -145,5 +145,44 @@ class UtilController
     $uploadedFile->moveTo($directoryStudio . DIRECTORY_SEPARATOR . $filename);
     
     return $directoryStudio . '/' . $filename;
+  }
+
+  public static function moveUploadedImageRoom($directory, $idStudio, $idRoom, UploadedFile $uploadedFile): string 
+  {
+    // todas as extensões que serão permitidas
+    $fileExtensions = ['jpeg', 'jpg', 'png'];
+
+    $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+
+    if (!in_array($extension, $fileExtensions))
+      throw new Exception('Qual a parte de apenas .jpeg, .jpg ou .png você não entendeu?');
+
+    // renomear o arquivo concatenando com id do estúdio
+    // $basename = bin2hex(random_bytes(8));
+    $filename = sprintf('%s.%0.8s', 'image_room_'.$idRoom, $extension);
+    $directoryStudio = $directory . '/studio_' . $idStudio;
+    $directoryRoom = $directoryStudio . '/room_' . $idRoom;
+
+    if (!is_dir($directoryStudio)) {
+      mkdir($directoryStudio, 0777, true);
+    }
+
+    if (!is_dir($directoryRoom)) {
+      mkdir($directoryRoom, 0777, true);
+    }
+
+    if (is_dir($directoryRoom)) {
+      $dir = dir($directoryRoom);
+      while ($file = $dir->read()) {
+        if (($file != '.') && ($file != '..') && ($extension != 'DS_Store')) {
+          unlink($directoryRoom . '/' . $file);
+        }
+      }
+      $dir->close();
+    }
+
+    $uploadedFile->moveTo($directoryRoom . DIRECTORY_SEPARATOR . $filename);
+
+    return $directoryRoom . '/' . $filename;
   }
 }
