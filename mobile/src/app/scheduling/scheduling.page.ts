@@ -18,6 +18,8 @@ import { RoomModel } from '../rooms/shared/RoomModel';
 })
 export class SchedulingPage implements OnInit {
 
+  public selectRadioGroup: any;
+  public selectRadioItem: any;
   periods: Array<PeriodModel>
   schedulingForm: FormGroup;
   public room: RoomModel;
@@ -34,6 +36,14 @@ export class SchedulingPage implements OnInit {
   ngOnInit() {
     this.room = this.roomService.getRoom();
     this.loadPeriods();
+  }
+
+  radioGroup(event) {
+    this.selectRadioGroup = event.detail;
+  }
+
+  radioSelect(event) {
+    this.selectRadioItem = event.detail;
   }
 
   submitForm() {

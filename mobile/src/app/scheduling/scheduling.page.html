@@ -7,31 +7,19 @@
 <ion-content>
 <h1 style="margin-left: 10px">{{room.name}}</h1>
 <div>
-  <form [formGroup]="schedulingForm">
-    <ion-item>
-      <ion-label>Escolher Data</ion-label>
-      <ion-datetime value="scheduling.dateScheduling" placeholder="Xx xx, xxxx"></ion-datetime>
-    </ion-item>
-    <ion-card *ngFor="let period of periods">
-      <h2>{{period.dayText}}</h2>
-      <h1>{{period.amount}}</h1>
-    </ion-card>
-    <ion-button (click) = "submitForm()">Agendar</ion-button>
-  </form>
-
 <!--<form [formGroup]="schedulingForm">-->
 <ion-item>
   <ion-label>{{scheduling.dateScheduling}}</ion-label>
   <ion-datetime value="scheduling.dateScheduling" placeholder="Selecionar Data"></ion-datetime>
 </ion-item>
 <ion-list>
-  <ion-radio-group>
+  <ion-radio-group allow-empty-selection = "true" name="radio-group" (ionChange)="radioGroup($event)">
     <ion-list-header>
-      <ion-label>Horários Disponíveis</ion-label>
+      <ion-label>Horários Disponíveis</ion-label> 
     </ion-list-header>
-    <ion-item *ngFor="let period of periods">
+    <ion-item *ngFor="let period of periods" (ionSelect)="radioSelect($event)">
       <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label>
-      <ion-radio slot="end" color="success" value="period.id"></ion-radio>
+      <ion-radio slot="end" color="primary" value="{{period.id}}"></ion-radio>
     </ion-item>
   </ion-radio-group>
   <!--<ion-item *ngFor="let period of periods">
@@ -41,6 +29,5 @@
 </ion-list>
 <ion-button (click) = "submitForm()">Agendar</ion-button>
 <!--</form>-->
->>>>>>> 0c1f8fe5d268b60cff9b9ebb4befd4491e542832
 </div>
 </ion-content>
