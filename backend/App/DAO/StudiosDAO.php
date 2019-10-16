@@ -236,6 +236,19 @@ class StudiosDAO extends ConnectionDataBase
     ]);
   }
 
+  public function imageRoomUpload(int $roomId, int $studioId, string $pathimage): void
+  {
+    $statement  = $this->pdo
+      ->prepare('UPDATE rooms SET
+                   image = :image
+                 WHERE rooms.id = :roomId AND rooms.studio_id = :studioId');
+    $statement->execute([
+      'roomId' => $roomId,
+      'studioId' => $studioId,
+      'image' => $pathimage
+    ]);
+  }
+
   public function getLogoStudio(int $id): string
   {
     $statement = $this->pdo
@@ -248,6 +261,21 @@ class StudiosDAO extends ConnectionDataBase
     $logopath = $statement->fetchColumn();
 
     return $logopath;
+  }
+
+  public function getImageRoom(int $idStudio, int $idRoom): string
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT image FROM rooms
+                 WHERE rooms.id = :roomId AND rooms.studio_id = :studioId');
+    $statement->execute([
+      'roomId' => $idRoom,
+      'studioId' => $idStudio
+    ]);
+
+    $imagepath = $statement->fetchColumn();
+
+    return $imagepath;
   }
 
   public function deleteStudio(int $idStudio): void 
@@ -270,7 +298,7 @@ class StudiosDAO extends ConnectionDataBase
                    maximum_capacity, 
                    color, 
                    created_at,
-                   images)
+                   image)
                  VALUES
                     (:description, 
                      :studio_id, 
@@ -278,7 +306,7 @@ class StudiosDAO extends ConnectionDataBase
                      :maximum_capacity, 
                      :color, 
                      :created_at,
-                     :images)');
+                     :image)');
 
     $statement->execute([
       'description'      => $room->getDescription(), 
@@ -287,7 +315,7 @@ class StudiosDAO extends ConnectionDataBase
       'maximum_capacity' => $room->getMaximumCapacity(), 
       'color'            => $room->getColor(), 
       'created_at'       => $room->getCreatedAt(),
-      'images'           => $room->getImages()
+      'image'           => $room->getImage()
     ]);
   }
 
@@ -319,7 +347,7 @@ class StudiosDAO extends ConnectionDataBase
                     maximum_capacity = :maximum_capacity,
                     color = :color,
                     updated_at = :updated_at,
-                    images = :images
+                    image = :image
                  WHERE 
                     id = :id;');
 
@@ -329,7 +357,7 @@ class StudiosDAO extends ConnectionDataBase
       'maximum_capacity' => $room->getMaximumCapacity(),
       'color'            => $room->getColor(),
       'updated_at'       => $room->getUpdatedAt(),
-      'images'           => $room->getImages(),
+      'image'           => $room->getImage(),
       'id'               => $room->getId()
     ]);
   }
@@ -356,7 +384,7 @@ class StudiosDAO extends ConnectionDataBase
                    rooms.color,
                    rooms.created_at,
                    rooms.updated_at,
-                   rooms.images
+                   rooms.image
                  FROM rooms
                  INNER JOIN studios
                  ON rooms.studio_id = studios.id
@@ -381,7 +409,7 @@ class StudiosDAO extends ConnectionDataBase
                     color,
                     created_at,
                     updated_at,
-                    images
+                    image
                  FROM
                     rooms
                  WHERE id = :id');

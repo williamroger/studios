@@ -39,7 +39,7 @@ final class RoomModel
   /**
    * @var string
    */
-  private $images;
+  private $image;
 
   /**
    * Get the value of id
@@ -234,25 +234,25 @@ final class RoomModel
   }
 
   /**
-   * Get the value of images
+   * Get the value of image
    *
    * @return  string
    */ 
-  public function getImages(): ?string
+  public function getImage(): ?string
   {
-    return $this->images;
+    return $this->image;
   }
 
   /**
-   * Set the value of images
+   * Set the value of image
    *
-   * @param  string  $images
+   * @param  string  $image
    *
    * @return  self
    */ 
-  public function setImages(string $images): self
+  public function setImage(string $image): self
   {
-    $this->images = $images;
+    $this->image = $image;
 
     return $this;
   }

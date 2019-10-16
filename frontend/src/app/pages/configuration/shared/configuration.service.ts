@@ -45,11 +45,6 @@ export class ConfigurationService {
     return this.http.post(`api/studio/${idStudio}/logoupload`, formData, {reportProgress: true, observe: 'events'});
   }
 
-  getLogoStudio(): Observable<any> {
-    const idStudio = this.userLocalStorage['studio_id'];
-    return this.http.get(`api/studio/${idStudio}/getlogostudio`);
-  }
-
   /**
    * Private Methods
    */

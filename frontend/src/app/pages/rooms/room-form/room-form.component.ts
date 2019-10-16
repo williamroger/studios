@@ -5,10 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoomModel } from '../shared/room.model';
 import { RoomsService } from '../shared/rooms.service';
 import { AuthService } from 'src/app/auth.service';
+import { ImageService } from 'src/app/shared/image.service';
 
 import { switchMap } from 'rxjs/operators';
 
 import toastr from 'toastr';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-room-form',
@@ -24,6 +26,11 @@ export class RoomFormComponent implements OnInit {
   submittingForm: boolean = false;
   room: RoomModel = new RoomModel();
 
+  // upload image
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+
   imaskNumber = {
     mask: Number,
     min: 1,
@@ -35,17 +42,85 @@ export class RoomFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private imageService: ImageService
   ) { }
 
   ngOnInit() {
     this.setCurrentAction();
     this.buildRoomForm();
     this.loadRoom();
+    // get image to api
+    this.getImageFromService();
   }
 
   ngAfterContentChecked() {
     this.setPageTitle();
+  }
+
+  // Get Image to API
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.previewUrl = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
+  getImageFromService() {
+    const idStudio = this.authService.userLoggedIn['studio_id'];
+    const idRoom = +this.route.snapshot.url[0].path;
+
+    this.imageService.getImage(`studio/${idStudio}/getimageroom/${idRoom}`).subscribe(data => {
+      this.createImageFromBlob(data);
+    }, error => {
+      console.log('error ', error);
+    });
+  }
+  // End Get Image to API
+
+  // upload files
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // show privew
+    let mimType = this.fileData.type;
+    if (mimType.match(/image\/*/) === null)
+      return;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    }
+  }
+
+  submitUploadImage() {
+    const formData = new FormData();
+    const idRoom = +this.route.snapshot.url[0].path;
+
+    formData.append('image', this.fileData);
+
+    this.fileUploadProgress = '0%';
+    this.roomService.uploadImage(formData, idRoom)
+      .subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+          this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
+        } else if (events.type === HttpEventType.Response) {
+          this.fileUploadProgress = '';
+          if (events.body.success)
+            toastr.success(events.body.msg);
+          else
+            toastr.error(events.body.msg);
+        }
+      }
+      )
   }
 
   submitForm() {

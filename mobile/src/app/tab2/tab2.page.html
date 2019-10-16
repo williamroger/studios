@@ -1,9 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Meus Agendamentos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-card *ngFor="let scheduling of mySchedulings">
+    <ion-label>
+      <h2>{{"Data do agendamento: " + scheduling.createdAt}}</h2>
+      <hr>
+      <h2>{{"Status: " + scheduling.statusText}}</h2>
+      <hr>
+      <p>{{"Comentário: " + scheduling.comment}}</p>
+    </ion-label>
+  </ion-card>
+</ion-content>

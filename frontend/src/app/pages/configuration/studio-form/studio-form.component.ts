@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { AuthService } from 'src/app/auth.service';
 import { ConfigurationService } from './../shared/configuration.service';
 import { CityModel } from '../shared/city.mode';
 import { StudioModel } from './../shared/studio.model';
 
 import toastr from 'toastr';
 import { HttpEventType } from '@angular/common/http';
+import { ImageService } from 'src/app/shared/image.service';
 
 @Component({
   selector: 'app-studio-form',
@@ -48,14 +50,39 @@ export class StudioFormComponent implements OnInit {
   }
 
   constructor(private configService: ConfigurationService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private imageService: ImageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.loadCities();
     this.loadConfigForm();
     this.buildConfigForm();
-    this.loadLogoStudio();
+    // get image to api
+    this.getImageFromService();
   }
+  // Get Image to API
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.previewUrl = reader.result;
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
+  getImageFromService() {
+    const idStudio = this.authService.userLoggedIn['studio_id'];
+
+    this.imageService.getImage(`studio/${idStudio}/getlogostudio`).subscribe(data => {
+      this.createImageFromBlob(data);
+    }, error => {
+      console.log('error ', error);
+    });
+  }
+  // End Get Image to API
 
   // upload files
   fileProgress(fileInput: any) {
@@ -85,10 +112,8 @@ export class StudioFormComponent implements OnInit {
     .subscribe(events => {
         if (events.type === HttpEventType.UploadProgress) {
           this.fileUploadProgress = Math.round(events.loaded / events.total * 100) + '%';
-          // console.log(this.fileUploadProgress);
         } else if (events.type === HttpEventType.Response) {
           this.fileUploadProgress = '';
-          // console.log(events);
           if (events.body.success)
             toastr.success(events.body.msg);
           else
@@ -128,14 +153,6 @@ export class StudioFormComponent implements OnInit {
       .subscribe(
         cities => this.cities = cities
       );
-  }
-
-  private loadLogoStudio() {
-    this.configService.getLogoStudio().subscribe(
-      logo => {
-        console.log(logo)
-      }
-    )
   }
 
   private loadConfigForm() {
