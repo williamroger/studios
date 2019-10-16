@@ -1,44 +1,48 @@
-.containerIcon{
-    width: 100%;
-    margin-top: 40%;
-    .icon{
-        height: 90px;
-        width: 170px;
-        margin-left: auto;
-        margin-right: auto;
-    } 
+ion-content {
+  --background: url(./../../assets/bg-unsplash-crop.jpg) no-repeat center/cover !important;
 }
 
-
-.formContainer{
-    height: 100%;
-    position: absolute;
-        left: 0;
-        right: 0;
-        width: 75%;
-        margin: 0 auto;
-        &.top{
-            top:10%;
-        }
-        &.bottom{
-            bottom:30%;
-            color:#fff;
-        }
-}
-
-.botao-entrar{
-    margin-top: 15%;
-    color: #FE2E64;
-}
+// .containerIcon{
+//     width: 100%;
+//     margin-top: 40%;
+//     .icon{
+//         height: 90px;
+//         width: 170px;
+//         margin-left: auto;
+//         margin-right: auto;
+//     } 
+// }
 
 
-.cadastrar{
-    margin-top: 35%;
-    margin-left: 5%;
-    .linkCadastro{
-        color:#0431B4;
-        text-decoration: none;
-    }
-}
+// .formContainer{
+//     height: 100%;
+//     position: absolute;
+//         left: 0;
+//         right: 0;
+//         width: 75%;
+//         margin: 0 auto;
+//         &.top{
+//             top:10%;
+//         }
+//         &.bottom{
+//             bottom:30%;
+//             color:#fff;
+//         }
+// }
+
+// .botao-entrar{
+//     margin-top: 15%;
+//     color: #FE2E64;
+// }
+
+
+// .cadastrar{
+//     margin-top: 35%;
+//     margin-left: 5%;
+//     .linkCadastro{
+//         color:#0431B4;
+//         text-decoration: none;
+//     }
+// }
 
 
