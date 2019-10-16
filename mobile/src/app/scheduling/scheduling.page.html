@@ -7,15 +7,16 @@
 <ion-content>
 <h1>{{room.name}}</h1>
 <div>
-<!--<form [formGroup]="schedulingForm">-->
-<ion-item>
-  <ion-label>Select Date</ion-label>
-  <ion-datetime value="scheduling.dateScheduling" placeholder="Select Date"></ion-datetime>
-</ion-item>
-<ion-card *ngFor="let period of periods">
-  <h2>{{period.dayText}}</h2>
-  <h1>{{period.amount}}</h1>
-</ion-card>
-<ion-button (click) = "submitForm()">Agendar</ion-button>
+  <form [formGroup]="schedulingForm">
+    <ion-item>
+      <ion-label>Escolher Data</ion-label>
+      <ion-datetime value="scheduling.dateScheduling" placeholder="Xx xx, xxxx"></ion-datetime>
+    </ion-item>
+    <ion-card *ngFor="let period of periods">
+      <h2>{{period.dayText}}</h2>
+      <h1>{{period.amount}}</h1>
+    </ion-card>
+    <ion-button (click) = "submitForm()">Agendar</ion-button>
+  </form>
 </div>
 </ion-content>

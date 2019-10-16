@@ -10,11 +10,22 @@
 </ion-header>
 
 <ion-content>
+  <ion-slides paginationClickable=true
+    initialSlide=0
+    loop=true
+    autoplay=1
+    speed=2
+    #mySlider>
+
+    <ion-slide *ngFor="let item of salas">
+        <img src="{{item.img}}">
+    </ion-slide>
+  </ion-slides>
 
   <div>
-    <p>Room name: {{room.name}}</p>
-    <p>Room description: {{room.description}}</p>
-    <p>Room maximum capacity: {{room.maximum_capacity}}</p>
+    <p >Room name: </p>{{room.name}}
+    <p>Room description: </p>{{room.description}}
+    <p>Room maximum capacity: </p>{{room.maximum_capacity}}
   </div>
 
     <ion-button (click)="rotaScheduling()" color="padrao" shape="round" size="default" expand="block" class="button">
