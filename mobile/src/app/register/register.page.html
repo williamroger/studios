@@ -1,83 +1,70 @@
-<ion-header>
-  <ion-toolbar>
-    <span>Cadastrar</span>
-    <!--<ion-buttons slot="start">
-        <ion-button>
-            <ion-icon name="arrow-back">Cadastrar</ion-icon>
-          </ion-button>
-    </ion-buttons>-->
-    <!--<div class="containerIcon">
-      <div class="icon">
-          <img src="/assets/icon/logo-studios_2x.png">
+<ion-content fullscreen>
+  <ion-row class="ion-padding ion-align-items-center register">
+    <ion-col size="12">
+      <div class="register__logo">
+        <img src="/assets/logo-studios-white.png">
       </div>
-    </div>-->
-  </ion-toolbar>
-</ion-header>
-
-<ion-content ion-padding>
-
-  <div class="formContainer">
-
-      <form [formGroup]="customerForm">
-          <ion-item class="ion-margin-top">
-            <ion-input type="text" formControlName="firstname" placeholder="Nome"></ion-input>
+    </ion-col>
+    <ion-col size="12">
+      <form [formGroup]="customerForm" class="register__form">
+        <ion-list class="background-input">
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-label position="stacked">Nome</ion-label>
+            <ion-input type="text" formControlName="firstname"></ion-input>
+            <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.firstname">
+                <small class="error-message"
+                  *ngIf="customerForm.get('firstname').hasError(error.type) && (customerForm.get('firstname').dirty || customerForm.get('firstname').touched)">
+                  {{ error.message }}
+                </small>
+              </ng-container>
+            </div>
           </ion-item>
-      
-          <div class="error-messages">
-            <ng-container *ngFor="let error of error_messages.firstname">
-              <div class="error-message" *ngIf="customerForm.get('firstname').hasError(error.type) && (customerForm.get('firstname').dirty || customerForm.get('firstname').touched)">
-                {{ error.message }}
-              </div>
-            </ng-container>
-          </div>
-
-          <ion-item class="ion-margin-top">
-            <ion-input type="text" formControlName="lastname" placeholder="Sobrenome"></ion-input>
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-label position="stacked">Sobrenome</ion-label>
+            <ion-input type="text" formControlName="lastname"></ion-input>
+            <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.lastname">
+                <small class="error-message"
+                  *ngIf="customerForm.get('lastname').hasError(error.type) && (customerForm.get('lastname').dirty || customerForm.get('lastname').touched)">
+                  {{ error.message }}
+                </small>
+              </ng-container>
+            </div>
           </ion-item>
-      
-          <div class="error-messages">
-            <ng-container *ngFor="let error of error_messages.lastname">
-              <div class="error-message" *ngIf="customerForm.get('lastname').hasError(error.type) && (customerForm.get('lastname').dirty || customerForm.get('lastname').touched)">
-                {{ error.message }}
-              </div>
-            </ng-container>
-          </div>
-      
-          <ion-item class="ion-margin-top">
-            <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+            <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.email">
+                <small class="error-message"
+                  *ngIf="customerForm.get('email').hasError(error.type) && (customerForm.get('email').dirty || customerForm.get('email').touched)">
+                  {{ error.message }}
+                </small>
+              </ng-container>
+            </div>
           </ion-item>
-      
-          <div class="error-messages">
-            <ng-container *ngFor="let error of error_messages.email">
-              <div class="error-message"
-                *ngIf="customerForm.get('email').hasError(error.type) && (customerForm.get('email').dirty || customerForm.get('email').touched)">
-                {{ error.message }}
-              </div>
-            </ng-container>
-          </div>
-      
-          <ion-item class="ion-margin-top">
-            <ion-input type="password" formControlName="password" placeholder="Senha"></ion-input>
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-label position="stacked">Senha</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+            <div class="error-messages">
+              <ng-container *ngFor="let error of error_messages.password">
+                <small class="error-message"
+                  *ngIf="customerForm.get('password').hasError(error.type) && (customerForm.get('password').dirty || customerForm.get('password').touched)">
+                  {{ error.message }}
+                </small>
+              </ng-container>
+            </div>
           </ion-item>
+        </ion-list>
       
-          <div class="error-messages">
-            <ng-container *ngFor="let error of error_messages.password">
-              <div class="error-message"
-                *ngIf="customerForm.get('password').hasError(error.type) && (customerForm.get('password').dirty || customerForm.get('password').touched)">
-                {{ error.message }}
-              </div>
-            </ng-container>
-          </div>
-      
-          <ion-button class="button" (click)="submitForm()" color="padrao" [disabled]="customerForm.invalid" shape="round" size="default" expand="block">
-            Cadastrar
-          </ion-button>
-          <div class="voltar">
-            <a routerLink="" class="linkVoltar">Voltar para o login</a>
-          </div>
-      
-        </form>
-
-  </div>
-  
+        <ion-button (click)="submitForm()" color="secondary button" expand="block" [disabled]="customerForm.invalid">
+          Cadastrar
+        </ion-button>
+      </form>
+      <div class="register__login">
+        <a routerLink="">Voltar para o login</a>
+      </div>
+    </ion-col>
+  </ion-row>  
 </ion-content>

@@ -2,47 +2,36 @@ ion-content {
   --background: url(./../../assets/bg-unsplash-crop.jpg) no-repeat center/cover !important;
 }
 
-// .containerIcon{
-//     width: 100%;
-//     margin-top: 40%;
-//     .icon{
-//         height: 90px;
-//         width: 170px;
-//         margin-left: auto;
-//         margin-right: auto;
-//     } 
-// }
+.login {
+  height: 100%;
 
+  &__logo {
+    text-align: center;
+    img {
+      width: 60%;
+    }
+  }
 
-// .formContainer{
-//     height: 100%;
-//     position: absolute;
-//         left: 0;
-//         right: 0;
-//         width: 75%;
-//         margin: 0 auto;
-//         &.top{
-//             top:10%;
-//         }
-//         &.bottom{
-//             bottom:30%;
-//             color:#fff;
-//         }
-// }
+  &__form {
+    ion-button {
+      margin-top: 20px !important;
+    }
+  }
 
-// .botao-entrar{
-//     margin-top: 15%;
-//     color: #FE2E64;
-// }
+  &__register {
+    text-align: center;
+    p {
+      color: #fff;
+    }
 
-
-// .cadastrar{
-//     margin-top: 35%;
-//     margin-left: 5%;
-//     .linkCadastro{
-//         color:#0431B4;
-//         text-decoration: none;
-//     }
-// }
-
+    a {
+      color: #fff;
+      text-decoration: none !important;
+      text-transform: uppercase;
+      border: 1px solid;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+  }
+}
 

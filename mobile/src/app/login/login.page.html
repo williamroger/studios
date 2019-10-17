@@ -1,33 +1,40 @@
-<ion-content>
-  <div class="containerIcon">
-    <div class="icon">
+<ion-content fullscreen>
+  <ion-row class="ion-padding ion-align-items-center login">
+    <ion-col size="12">
+      <div class="login__logo">
         <img src="/assets/logo-studios-white.png">
-    </div>
-  </div>
-
-  <div class="formContainer">
-    <form [formGroup]="formLogin">
-    <ion-item class="ion-margin-top" lines="none">
-      <ion-input type="email" class="form-control" id="email" formControlName="email" placeholder="E-mail"></ion-input>
-      <div class="text-danger" *ngIf="formLogin.get('email').invalid && formLogin.get('email').touched">
-        <!-- <div *ngIf="formLogin.get('email').errors.required">Este campo é obrigatório!</div>
-        <div *ngIf="formLogin.get('email').errors.email">Endereço de e-mail inválido!</div> -->
       </div>
-    </ion-item>
-
-    <ion-item class="ion-margin-top" lines="none">
-      <ion-input type="password" class="form-control" id="password" formControlName="password" placeholder="Password"></ion-input>
-      <div class="text-danger" *ngIf="formLogin.get('password').invalid && formLogin.get('password').touched">
-        <!--<div *ngIf="formLogin.get('password').errors.required">Este campo é obrigatório!</div>
-        <div *ngIf="formLogin.get('password').errors.minlength">Senha inválida!</div> -->
+    </ion-col>
+    <ion-col size="12">
+      <form [formGroup]="formLogin" class="login__form">
+        <ion-list class="background-input">
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-label position="stacked">E-mail</ion-label>
+            <ion-input type="email" id="email" formControlName="email"></ion-input>
+            <div class="text-danger" *ngIf="formLogin.get('email').invalid && formLogin.get('email').touched">
+              <!-- <div *ngIf="formLogin.get('email').errors.required">Este campo é obrigatório!</div>
+                      <div *ngIf="formLogin.get('email').errors.email">Endereço de e-mail inválido!</div> -->
+            </div>
+          </ion-item>
+          
+          <ion-item class="ion-margin-top" lines="none">
+            <ion-label position="stacked">Senha</ion-label>
+            <ion-input type="password" id="password" formControlName="password">
+            </ion-input>
+            <div class="text-danger" *ngIf="formLogin.get('password').invalid && formLogin.get('password').touched">
+              <!--<div *ngIf="formLogin.get('password').errors.required">Este campo é obrigatório!</div>
+                      <div *ngIf="formLogin.get('password').errors.minlength">Senha inválida!</div> -->
+            </div>
+          </ion-item>
+        </ion-list>
+        <ion-button (click)="submitForm()" color="secondary button" expand="block">
+          Entrar
+        </ion-button>
+      </form>
+      <div class="login__register">
+        <p>Ainda não tem uma conta?</p>
+        <a routerLink="/register">Cadastre-se</a>
       </div>
-    </ion-item>
-<!--(click)="rotaEntrar()"-->
-    <ion-button class="botao-entrar" (click)="submitForm()" color="padrao" shape="round" size="default" expand="block" >Entrar</ion-button>
-    <div class="cadastrar">
-      <p>Ainda não tem uma conta? <a routerLink="/register" class="linkCadastro">Cadastre-se</a></p>
-    </div>
-  </form>
-  </div>
-
+    </ion-col>
+  </ion-row>
 </ion-content>
