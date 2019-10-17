@@ -9,7 +9,7 @@
         </ion-buttons>
         <div class='infoStudio' slot="end">
             <ion-card-subtitle>Street {{studio.street}}</ion-card-subtitle>
-            <ion-card-title>{{studio.name}}</ion-card-title>
+            <h2>{{studio.name}}</h2>
             <button  outline>Mais informações</button>
         </div>
     </ion-toolbar>
@@ -25,7 +25,7 @@
       </div>
       
       <ion-card *ngFor='let room of rooms; let i = index' (click)="callInfoRooms(i)">
-        <img src="./assets/imgRoom.jpg" />
+        <img src="./assets/imgRoom.jpg"/>
         <ion-card-header>
           <ion-card-subtitle>{{room.description}}</ion-card-subtitle>
           <ion-card-title>{{room.name}}</ion-card-title>

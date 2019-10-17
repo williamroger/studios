@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { RoomService } from '../rooms/shared/room.service';
 import { RoomModel } from '../rooms/shared/RoomModel';
 import { NavController} from '@ionic/angular';
-
 
 @Component({
   selector: 'app-info-rooms',
@@ -12,6 +11,7 @@ import { NavController} from '@ionic/angular';
 export class InfoRoomsPage implements OnInit {
 
   public room: RoomModel;
+  mySlider: any;
 
   constructor(public serviceRoom: RoomService,
     public navCtrl: NavController) { }
@@ -26,5 +26,26 @@ export class InfoRoomsPage implements OnInit {
 
   rotaScheduling() {
     this.navCtrl.navigateRoot('scheduling');
+  }
+
+  salas = [
+    {
+      "img": "./assets/sala1.jpeg"
+    },
+    {
+      "img": "./assets/sala2.jpeg"
+    },
+    {
+      "img": "./assets/sala3.jpeg"
+    },
+    
+  ]
+
+  slideNext(){
+    this.mySlider.slideNext();
+  }
+
+  slidePrev(){
+    this.mySlider.slidePrev();
   }
 }
