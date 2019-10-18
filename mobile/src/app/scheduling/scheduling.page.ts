@@ -23,7 +23,8 @@ export class SchedulingPage implements OnInit {
   periods: Array<PeriodModel>
   schedulingForm: FormGroup;
   public room: RoomModel;
-  public scheduling: SchedulingModel = new SchedulingModel();
+  scheduling: SchedulingModel = new SchedulingModel();
+  //public myDate = new Date().toISOString();
 
   constructor(public service: SchedulingService,
               public roomService: RoomService,
@@ -36,6 +37,7 @@ export class SchedulingPage implements OnInit {
   ngOnInit() {
     this.room = this.roomService.getRoom();
     this.loadPeriods();
+    this.builSchedulingForm();
   }
 
   radioGroup(event) {
@@ -61,7 +63,7 @@ export class SchedulingPage implements OnInit {
   builSchedulingForm() {
     this.schedulingForm = this.formBuilder.group({
       id: [null],
-      dateScheduling: [null, [Validators.required]],
+      dateScheduling: new FormControl(null),
       //status: [0],
       customerId: [this.service.userLocalStorage['customer_id']],
       comment: [null, [Validators.required, Validators.maxLength(150)]],
