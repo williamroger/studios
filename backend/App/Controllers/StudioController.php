@@ -370,8 +370,7 @@ final class StudioController
         ->setStudioId(intval($data['studio_id']))
         ->setMaximumCapacity(intval($data['maximum_capacity']))
         ->setColor($data['color'])
-        ->setUpdatedAt($now)
-        ->setImage($data['image']);
+        ->setUpdatedAt($now);
 
       $studioDAO->updateRoom($room);
 

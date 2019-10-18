@@ -346,8 +346,7 @@ class StudiosDAO extends ConnectionDataBase
                     description = :description,
                     maximum_capacity = :maximum_capacity,
                     color = :color,
-                    updated_at = :updated_at,
-                    image = :image
+                    updated_at = :updated_at
                  WHERE 
                     id = :id;');
 
@@ -357,7 +356,6 @@ class StudiosDAO extends ConnectionDataBase
       'maximum_capacity' => $room->getMaximumCapacity(),
       'color'            => $room->getColor(),
       'updated_at'       => $room->getUpdatedAt(),
-      'image'           => $room->getImage(),
       'id'               => $room->getId()
     ]);
   }
