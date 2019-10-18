@@ -1,24 +1,21 @@
-<ion-header>
+<ion-header class="ion-padding-top ion-padding-bottom">
   <ion-toolbar>
-      <div class="containerIcon">
-          <div class="icon">
-              <img src="/assets/icon/logo-studios_2x.png">
-          </div>
-      </div>
+    <ion-title>
+      <img src="/assets/icon/logo-studios_2x.png">
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-  <ion-searchbar placeholder="Buscar"></ion-searchbar>
+  <ion-searchbar *ngIf="cityId != null" placeholder="Buscar"></ion-searchbar>
   
-  <!--*ngIf="city.id == null"-->
-  <ion-card class="alert alert-warning" *ngIf="cityId == null">
-    <p> Bem-vindo ao <strong><em>Studios</em></strong>,</p>
-    <p> Você precisa atualizar os seus dados para ver os estudios da sua cidade.</p>
-    <ion-button (click)="rotaAccount()">Atualizar meus dados</ion-button>
+  <ion-card class="ion-padding alert-message" *ngIf="cityId == null">
+    <ion-img src="./assets/city.svg"></ion-img>
+    <h3>Bem-vindo ao <strong>Studios</strong>,</h3>
+    <p>Você precisa atualizar os seus dados para ver os melhores estudios da sua cidade.</p>
+    <ion-button class="primary" expand="block" (click)="rotaAccount()">Atualizar meus dados</ion-button>
   </ion-card>
-  <!--*ngIf="city.id != null"-->
+
   <ion-list *ngIf="cityId != null">
     <ion-item *ngFor="let studio of studios; let i = index" (click)="chamarSala(i)">
       <ion-avatar item-start>
@@ -31,5 +28,4 @@
       </ion-label>
     </ion-item>
   </ion-list>
-
 </ion-content>
