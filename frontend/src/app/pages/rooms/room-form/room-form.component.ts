@@ -147,8 +147,7 @@ export class RoomFormComponent implements OnInit {
       description: [null, [Validators.required, Validators.minLength(20)]],
       studio_id: [this.authService.userLoggedIn['studio_id']],
       maximum_capacity: [null, [Validators.required, Validators.minLength(1)]],
-      color: [null, [Validators.required, Validators.minLength(4)]],
-      images: ['imagepath']
+      color: [null, [Validators.required, Validators.minLength(4)]]
     });
   }
 

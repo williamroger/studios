@@ -56,8 +56,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let room of rooms">
-                <td>{{ room.name }}</td>
-                <td>{{ room.description }}</td>
+                <td>
+                  <p>{{ room.name }}</p>
+                </td>
+                <td class="td-description">
+                  <p>{{ room.description }}</p>
+                </td>
                 <td>
                   <span class="block-color" [ngStyle]="{'background-color': room.color }"></span>
                 </td>

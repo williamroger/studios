@@ -1,9 +1,9 @@
-// Estilo Provisório
-
-.navbar {
-  &__logo {
-    display: inline-block;
-    width: 225px;
+.table {
+  .td-description p {
+    max-width: 400px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 
