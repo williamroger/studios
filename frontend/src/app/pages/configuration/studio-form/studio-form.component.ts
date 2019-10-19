@@ -174,6 +174,7 @@ export class StudioFormComponent implements OnInit {
       cnpj: [null],
       telephone: [null],
       has_parking: [null, [Validators.required]],
+      has_wifi: [null, [Validators.required]],
       is_24_hours: [null, [Validators.required]],
       city_id: [null, [Validators.required]],
       rate_cancellation: [0],

@@ -173,6 +173,22 @@
                 </div>
               </div>
               <div class="form-group col-6 col-md-3">
+                <label for="wifi" class="d-block">*Wi-fi grátis</label>
+                <div class="btn-group">
+                  <label (click)="configForm.get('has_wifi').setValue(1)" [class.active]="configForm.get('has_wifi').value == 1"
+                    class="btn btn-outline-info cursor-pointer px-4">
+                    Sim
+                  </label>
+                  <label (click)="configForm.get('has_wifi').setValue(0)" [class.active]="configForm.get('has_wifi').value == 0"
+                    class="btn btn-outline-info cursor-pointer px-4">
+                    Não
+                  </label>
+                </div>
+                <div class="text-danger" *ngIf="configForm.get('has_wifi').invalid && configForm.get('has_wifi').touched">
+                  <div *ngIf="configForm.get('has_wifi').errors.required">Este campo é obrigatório!</div>
+                </div>
+              </div>
+              <div class="form-group col-6 col-md-3">
                 <label for="24horas" class="d-block">*Funciona 24 horas</label>
                 <div class="btn-group">
                   <label (click)="configForm.get('is_24_hours').setValue(1)"

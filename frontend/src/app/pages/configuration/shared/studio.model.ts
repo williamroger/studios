@@ -9,6 +9,7 @@ export class StudioModel {
     public created_at?: string,
     public updated_at?: string,
     public has_parking?: number,
+    public has_wifi?: number,
     public is_24_hours?: number,
     public city_id?: number,
     public rate_cancellation?: number,
