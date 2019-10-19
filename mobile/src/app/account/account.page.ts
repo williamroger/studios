@@ -93,7 +93,7 @@ export class AccountPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message,
       duration: 2000,
-      color: 'primary'
+      color: 'secondary'
     });
     toast.present();
   }
