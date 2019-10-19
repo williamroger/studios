@@ -7,7 +7,11 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar *ngIf="cityId != null" placeholder="Buscar"></ion-searchbar>
+  <ion-list class="line-search">
+    <ion-item lines="none">
+      <ion-searchbar *ngIf="cityId != null" placeholder="Buscar"></ion-searchbar>
+    </ion-item>
+  </ion-list>
   
   <ion-card class="ion-padding alert-message" *ngIf="cityId == null">
     <ion-img src="./assets/city.svg"></ion-img>
@@ -16,16 +20,30 @@
     <ion-button class="primary" expand="block" (click)="rotaAccount()">Atualizar meus dados</ion-button>
   </ion-card>
 
-  <ion-list *ngIf="cityId != null">
-    <ion-item *ngFor="let studio of studios; let i = index" (click)="chamarSala(i)">
-      <ion-avatar item-start>
-        <img src="./assets/studios.png">
-      </ion-avatar>
-      <ion-label>
-        <h2>{{studio.name}}</h2>
-        <h3>{{studio.created_at}}</h3>
-        <p>description...</p>
-      </ion-label>
+  <ion-list *ngIf="cityId != null" class="list-studios">
+    <ion-item *ngFor="let studio of studios; let i = index" (click)="chamarSala(i)" lines="none">
+      <ion-card class="card-studio">
+        <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
+        <ion-item class="card-studio__image" lines="none" [ngStyle]="{'background-image': 'url(./assets/studios.png)'}">
+        </ion-item>
+        <ion-item class="card-studio__info" lines="none">
+          <ion-card-header >
+            <ion-card-title>{{ studio.name }}</ion-card-title>
+            <ion-card-subtitle>{{ studio.district }}</ion-card-subtitle>
+            <div>
+              <div class="card-studio__info-adrress">
+                <ion-icon name="pin"></ion-icon>
+                <p>{{ studio.street }}, {{ studio.number }}</p>
+              </div>
+              <div class="card-studio__info-icons">
+                <ion-icon name="car"></ion-icon>
+                <ion-icon name="time"></ion-icon>
+                <ion-icon name="wifi"></ion-icon>
+              </div>
+            </div>
+          </ion-card-header>
+        </ion-item>
+      </ion-card>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -14,4 +14,66 @@ ion-title {
     line-height: 1.5;
   }
 }
-    
+
+// List Studios
+.list-studios {
+  > ion-item {
+    --padding-start: 8px;
+    --inner-padding-end: 8px;
+  }
+}
+
+// Studio Card
+.card-studio {
+  display: flex;
+  width: 100%;
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+
+  &__image {
+    width: 30%;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --min-height: 0;
+    background-size: cover;
+    background-position: center center;
+  }
+
+  &__info {
+    --padding-start: 5px;
+
+    ion-card-header {
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      width: 100%;
+    }
+
+    ion-card-title {
+      font-size: 1.3rem;
+      color: var(--ion-color-secondary);
+    }
+
+    &-adrress {
+      display: flex;
+      margin-bottom: 5px;
+      ion-icon {
+        color: var(--ion-color-medium);
+      }
+      p {
+        margin: 0;
+        font-size: .9rem;
+        color: var(--ion-color-medium);
+      }
+    }
+
+    &-icons {
+      display: flex;
+      ion-icon {
+        margin-right: .5rem;
+        color: #666;
+      }
+    }
+  }
+}

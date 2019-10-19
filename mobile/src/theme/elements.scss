@@ -73,3 +73,30 @@ ion-button {
   margin-right: 0 !important;
   text-transform: uppercase;
 }
+
+// Input Search
+.line-search {
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-bottom: 5px;
+
+  ion-item {
+    // --border-color: --ion-color-medium !important;
+    // --border-style: solid;
+    // --border-width: 1px;
+    // --border-radius: 4px;
+    // --highlight-height: 0;
+    --background: transparent !important;
+    --padding-start: 0 !important;
+    --padding-end: 0 !important;
+    --inner-padding-end: 0 !important;
+  }
+
+  ion-searchbar {
+  // --color: --ion-color-dark;
+  // --background: #fff !important;
+    padding-inline-start: 0px;
+    padding-inline-end: 0px;
+  }
+}
+

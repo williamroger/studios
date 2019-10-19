@@ -1,8 +1,8 @@
 import { CityModel } from './../account/shared/CityModel';
 import { Component, OnInit} from '@angular/core';
-import { NavController} from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { HomeService } from './shared/home.service';
-import {StudioModel} from './shared/StudioModel';
+import { StudioModel } from './shared/StudioModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../rooms/shared/room.service';
 import { AuthService } from '../login/shared/auth.service';
@@ -26,35 +26,20 @@ export class HomePage implements OnInit {
     public serviceRoom:RoomService,
     public auth: AuthService,
     private route: ActivatedRoute,
-    private router: Router,) { }
+    private router: Router) { }
 
-  getStudios() {
-    this.service.getStudios().subscribe(
-      studios => {
-        console.log('studios', studios);
-        this.studios = studios;
-      }
-    );
+  ngOnInit() {
+    this.cityId = this.auth.userLoggedIn['city_id'];
+    if (this.cityId != null)
+      this.getStudiosByCityCustomerId();
   }
 
   getStudiosByCityCustomerId() {
     this.service.getStudiosByCityIdCustomer().subscribe(
       studios => {
-        console.log('studios', studios);
         this.studios = studios;
       }
     );
-  }
-
-  ngOnInit() {
-    // tslint:disable-next-line:no-conditional-assignment
-    /*if (this.customerHasCityId = (this.auth.userLoggedIn['city_id'])){
-      this.getStudios();
-    }*/
-    this.cityId = this.auth.userLoggedIn['city_id'];
-    //if(this.cityId != null){
-    //this.getStudiosByCityCustomerId();
-    this.getStudios();
   }
 
   async chamarSala(index){
