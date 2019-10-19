@@ -43,6 +43,10 @@ final class StudioModel
   /**
    * @var int
    */
+  private $hasWifi;
+  /**
+   * @var int
+   */
   private $is24Hours;
   /**
    * @var int
@@ -276,6 +280,28 @@ final class StudioModel
   public function setHasParking(?int $hasParking): self
   {
     $this->hasParking = $hasParking;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of hasWifi
+   * @return  int
+   */
+  public function getHasWifi(): int
+  {
+    return $this->hasWifi;
+  }
+
+  /**
+   * Set the value of hasWifi
+   * @param  int  $hasWifi
+   *
+   * @return  self
+   */
+  public function setHasWifi(?int $hasWifi): self
+  {
+    $this->hasWifi = $hasWifi;
 
     return $this;
   }

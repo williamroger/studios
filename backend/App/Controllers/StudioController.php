@@ -201,6 +201,7 @@ final class StudioController
         ->setTelephone($data['telephone'])
         ->setUpdatedAt($now)
         ->setHasParking(intval($data['has_parking']))
+        ->setHasWifi(intval($data['has_wifi']))
         ->setIs24Hours(intval($data['is_24_hours']))
         ->setCityId(intval($data['city_id']))
         ->setRateCancellation(intval($data['rate_cancellation']))

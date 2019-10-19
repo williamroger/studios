@@ -45,3 +45,8 @@ CHANGE COLUMN `image` `image` VARCHAR(1500) NULL DEFAULT NULL ;
 
 ALTER TABLE `db_dev_studios`.`rooms` 
 CHANGE COLUMN `images` `image` VARCHAR(1500) NULL DEFAULT NULL ;
+
+=========================================================19-10-19
+
+ALTER TABLE `db_dev_studios`.`studios` 
+ADD COLUMN `has_wifi` INT(11) NULL AFTER `image`;
