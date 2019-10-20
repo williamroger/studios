@@ -19,7 +19,6 @@ import { RoomModel } from '../rooms/shared/RoomModel';
 export class SchedulingPage implements OnInit {
 
   public selectRadioGroup: any;
-  public selectRadioItem: any;
   periods: Array<PeriodModel>
   schedulingForm: FormGroup;
   public room: RoomModel;
@@ -44,13 +43,8 @@ export class SchedulingPage implements OnInit {
     this.selectRadioGroup = event.detail;
   }
 
-  radioSelect(event) {
-    this.selectRadioItem = event.detail;
-  }
-
   submitForm() {
     const scheduling: SchedulingModel = Object.assign(new SchedulingModel(), this.schedulingForm.value);
-    //const timePeriod: PeriodModel = Object.assign(new PeriodModel(), this.schedulingForm.value);
     this.presentLoading();
 
     this.service.insertScheduling(this.schedulingForm.value)
@@ -58,22 +52,23 @@ export class SchedulingPage implements OnInit {
       studio => this.actionsForSuccess(this.schedulingForm.value),
       error => this.actionsForError(error)
     )
-    //console.log(this.schedulingForm.value);
+    console.log(this.schedulingForm.value);
+    console.log(this.selectRadioGroup);
   }
 
   builSchedulingForm() {
     this.schedulingForm = this.formBuilder.group({
       id: [null],
       dateScheduling: new FormControl(null),
-      //status: [0],
-      customerId: [this.service.userLocalStorage['customer_id']],
-      comment: ["minha banda toca muito"/*null, [Validators.required, Validators.maxLength(150)]*/],
-      periodId: [3/*this.scheduling.periodId*/]
+      idCustomer: [this.service.userLocalStorage['customer_id']],
+      comment: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(150)])),
+      periodId: new FormControl(null)
     });
   }
 
   periodHandler(event) {
-    this.scheduling.periodId = event.target.value;
+    this.scheduling.periodId = this.selectRadioGroup;
+    console.log(this.scheduling.periodId);
   }
 
   loadPeriods() {

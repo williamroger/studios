@@ -18,12 +18,16 @@
     <ion-list-header>
       <ion-label>Horários Disponíveis</ion-label> 
     </ion-list-header>
-    <ion-item *ngFor="let period of periods" (ionSelect)="radioSelect($event)">
+    <ion-item *ngFor="let period of periods">
       <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label>
-      <ion-radio slot="end" color="primary" value="{{period.id}}"></ion-radio>
+      <ion-radio slot="end" color="primary" value="{{period.id}}" formControlName="periodId"></ion-radio>
     </ion-item>
   </ion-radio-group>
 </ion-list>
+<ion-item>
+  <ion-label>Comentario</ion-label>
+  <ion-textarea formControlName="comment"></ion-textarea>
+</ion-item>
 <ion-button (click) = "submitForm()">Agendar</ion-button>
 </form>
 
