@@ -53,11 +53,12 @@ export class SchedulingPage implements OnInit {
     //const timePeriod: PeriodModel = Object.assign(new PeriodModel(), this.schedulingForm.value);
     this.presentLoading();
 
-    this.service.insertScheduling(scheduling)
+    this.service.insertScheduling(this.schedulingForm.value)
     .subscribe(
-      studio => this.actionsForSuccess(scheduling),
+      studio => this.actionsForSuccess(this.schedulingForm.value),
       error => this.actionsForError(error)
     )
+    //console.log(this.schedulingForm.value);
   }
 
   builSchedulingForm() {
@@ -66,8 +67,8 @@ export class SchedulingPage implements OnInit {
       dateScheduling: new FormControl(null),
       //status: [0],
       customerId: [this.service.userLocalStorage['customer_id']],
-      comment: [null, [Validators.required, Validators.maxLength(150)]],
-      periodId: [this.scheduling.periodId]
+      comment: ["minha banda toca muito"/*null, [Validators.required, Validators.maxLength(150)]*/],
+      periodId: [3/*this.scheduling.periodId*/]
     });
   }
 
