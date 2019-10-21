@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
   }
 
   async chamarSala(index){
-    this.navCtrl.navigateRoot('room');
+    this.navCtrl.navigateRoot('rooms');
     this.service.takeIndex(this.studios[index]);
     //console.log(this.studios[index].id);   
   }

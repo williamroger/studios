@@ -42,7 +42,7 @@ export class RoomsPage implements OnInit {
 
   callInfoRooms(index){
     this.service.setRoom(this.rooms[index]);
-    this.navCtrl.navigateRoot('info-rooms');
+    this.navCtrl.navigateRoot('info-room');
   }
 
   voltar(){

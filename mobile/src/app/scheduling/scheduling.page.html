@@ -10,8 +10,8 @@
 
 <form [formGroup]="schedulingForm">
 <ion-item>
-  <ion-label></ion-label>
-  <ion-datetime displayFormat="YYYY MMMM DD" formControlName="date_scheduling" placeholder="Selecionar Data"></ion-datetime>
+  <ion-label>Selecionar Data</ion-label>
+  <ion-datetime displayFormat="YYYY MMMM DD" formControlName="date_scheduling" value=""></ion-datetime>
 </ion-item>
 <ion-list>
   <ion-radio-group allow-empty-selection = "true" name="radio-group" (ionChange)="radioGroup($event)">

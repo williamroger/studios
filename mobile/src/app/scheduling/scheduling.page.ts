@@ -26,6 +26,7 @@ export class SchedulingPage implements OnInit {
   public period: PeriodModel = new PeriodModel();
   scheduling: SchedulingModel = new SchedulingModel();
   //public myDate = new Date().toISOString();
+  dateNow = new Date();
 
   constructor(public service: SchedulingService,
               public roomService: RoomService,
@@ -39,6 +40,7 @@ export class SchedulingPage implements OnInit {
     this.room = this.roomService.getRoom();
     this.loadPeriods();
     this.builSchedulingForm();
+    console.log('dateNow ', this.dateNow);
   }
 
   radioGroup(event) {
