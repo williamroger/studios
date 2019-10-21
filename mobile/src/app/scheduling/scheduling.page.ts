@@ -18,10 +18,12 @@ import { RoomModel } from '../rooms/shared/RoomModel';
 })
 export class SchedulingPage implements OnInit {
 
+  public selectDate: any;
   public selectRadioGroup: any;
   periods: Array<PeriodModel>
   schedulingForm: FormGroup;
   public room: RoomModel;
+  public period: PeriodModel = new PeriodModel();
   scheduling: SchedulingModel = new SchedulingModel();
   //public myDate = new Date().toISOString();
 
@@ -43,6 +45,12 @@ export class SchedulingPage implements OnInit {
     this.selectRadioGroup = event.detail;
   }
 
+  dateSchedule(event) {
+    this.selectDate = event.detail;
+    this.loadPeriodsFree();
+    console.log(this.loadPeriodsFree());
+  }
+
   submitForm() {
     const scheduling: SchedulingModel = Object.assign(new SchedulingModel(), this.schedulingForm.value);
     this.presentLoading();
@@ -59,20 +67,27 @@ export class SchedulingPage implements OnInit {
   builSchedulingForm() {
     this.schedulingForm = this.formBuilder.group({
       id: [null],
-      dateScheduling: new FormControl(null),
-      idCustomer: [this.service.userLocalStorage['customer_id']],
-      comment: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(150)])),
-      periodId: new FormControl(null)
+      date_scheduling: new FormControl(null),
+      customer_id: [this.service.userLocalStorage['customer_id']],
+      time_period_id: new FormControl(this.selectRadioGroup),
+      comment: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(150)]))
     });
   }
 
   periodHandler(event) {
-    this.scheduling.periodId = this.selectRadioGroup;
-    console.log(this.scheduling.periodId);
+    this.scheduling.time_period_id = this.selectRadioGroup;
+    console.log(this.scheduling.time_period_id);
   }
 
   loadPeriods() {
     this.service.getPeriodsByRoomId(this.room.id).subscribe(
+      periods => this.periods = periods
+    );
+  }
+
+  loadPeriodsFree() {
+    this.service.getPeriodsFreeByRoomIdAndDate(this.room.id, this.period.day, this.scheduling.date_scheduling)
+    .subscribe(
       periods => this.periods = periods
     );
   }

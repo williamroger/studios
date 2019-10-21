@@ -21,6 +21,13 @@ export class SchedulingService {
     )
   }
 
+  getPeriodsFreeByRoomIdAndDate(id: number, day: string, date: string): Observable<PeriodModel[]> {
+    return this.http.get(`api/getperiodsfreebyroomidanddate/${id}/${day}/${date}`).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToPeriods)
+    )
+  }
+
   getSchedulingByCustomer(): Observable<SchedulingModel[]> {
     const id = this.userLocalStorage['customer_id'];
     return this.http.get(`api/getschedulesbycustomerid/${id}`).pipe(

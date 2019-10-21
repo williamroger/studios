@@ -1,13 +1,13 @@
 export class SchedulingModel {
     public id?: number;
-    public dateScheduling?: string;
+    public date_scheduling?: string;
     public status?: number;
     public dateCancellation?: string;
     public createdAt?: string;
     public updatedAt?: string;
-    public customerId?: number;
+    public customer_id?: number;
     public comment?: string;
-    public periodId?: number;
+    public time_period_id?: number;
 
     constructor() { }
 
