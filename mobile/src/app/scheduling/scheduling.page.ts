@@ -66,10 +66,10 @@ export class SchedulingPage implements OnInit {
 
   builSchedulingForm() {
     this.schedulingForm = this.formBuilder.group({
-      id: [null],
-      date_scheduling: new FormControl(null),
+      //id: [null],
+      date_scheduling: new FormControl(Date),
       customer_id: [this.service.userLocalStorage['customer_id']],
-      time_period_id: new FormControl(this.selectRadioGroup),
+      time_period_id: [this.selectRadioGroup],
       comment: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(150)]))
     });
   }
