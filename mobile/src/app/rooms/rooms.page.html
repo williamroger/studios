@@ -1,20 +1,27 @@
-<ion-header no-border>
+<ion-header>
+
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-button (click)="voltar()">
                 <ion-icon name="arrow-back"></ion-icon>
               </ion-button>
         </ion-buttons>
-        <div class='infoStudio' slot="end">
-            <ion-card-subtitle>Street {{studio.street}}</ion-card-subtitle>
-            <h2>{{studio.name}}</h2>
-            <button  outline>Mais informações</button>
-        </div>
+        <ion-title>Salas</ion-title>
     </ion-toolbar>
     
 </ion-header>
 
 <ion-content>
+
+    <div class="studio">
+        <div class="img">
+          <img src="./assets/ml.jpg"/>
+        </div>
+        <!--<div class='infoStudio'>
+          <ion-card-subtitle>Street {{studio.street}}</ion-card-subtitle>
+          <h2>{{studio.name}}</h2>
+        </div>-->
+    </div>
       
       <div id="linha">
           <span>Salas disponíveis</span>
@@ -23,7 +30,7 @@
       <ion-card *ngFor='let room of rooms; let i = index' (click)="callInfoRooms(i)">
         <img src="./assets/imgRoom.jpg"/>
         <ion-card-header>
-          <ion-card-subtitle>{{room.description}}</ion-card-subtitle>
+          <ion-card-subtitle><span>Sala:</span></ion-card-subtitle>
           <ion-card-title>{{room.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>

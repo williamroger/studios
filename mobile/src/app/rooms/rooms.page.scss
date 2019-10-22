@@ -24,24 +24,21 @@
   
   } 
 
-  .infoStudio{
-    margin-top: 5px;
-    margin-right: 10px;
-    margin-bottom: 15px;
-    //background-color: cadetblue;
-    //opacity: 0;    
-    button{
-      background-color: #7B68EE;
-      border-radius: 10px;
-      color: #fff;
-      margin-top: 10px;
+  .studio{
+    height: 100px;
+    .img{
+      width: 100%;
+      height: 50px;
     }
   }
 
-  ion-button{
-    color: #FE2E64;
-}
-
+  ion-toolbar{
+    text-align: center;
+    ion-button{
+      color: #FE2E64;
+      margin-left: 3px;
+   }
+  }
   
   #linha {
     width: 100%;
