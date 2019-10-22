@@ -20,13 +20,16 @@ export class SchedulingPage implements OnInit {
 
   public selectDate: any;
   public selectRadioGroup: any;
-  periods: Array<PeriodModel>
-  schedulingForm: FormGroup;
+  public periods: Array<PeriodModel>;
+  public schedulingForm: FormGroup;
   public room: RoomModel;
   public period: PeriodModel = new PeriodModel();
-  scheduling: SchedulingModel = new SchedulingModel();
-  //public myDate = new Date().toISOString();
-  dateNow = new Date();
+  public scheduling: SchedulingModel = new SchedulingModel();
+  public dateNow = new Date();
+  public dateNowString = this.dateNow.toISOString();
+  public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth()+1}-${this.dateNow.getDate()}`;
+  public dayName = '';
+  public days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   constructor(public service: SchedulingService,
               public roomService: RoomService,
@@ -41,6 +44,8 @@ export class SchedulingPage implements OnInit {
     this.loadPeriods();
     this.builSchedulingForm();
     console.log('dateNow ', this.dateNow);
+    console.log('dateNowString ', this.dateNowString);
+    this.setDayName(this.dateNow.toString());
   }
 
   radioGroup(event) {
@@ -92,6 +97,42 @@ export class SchedulingPage implements OnInit {
     .subscribe(
       periods => this.periods = periods
     );
+  }
+
+  // Change Datetime
+  changeDateTime() {
+
+  }
+
+  setDayName(date: string) {
+    const day = date.split(' ')[0];
+
+    switch (day) {
+      case 'Sun':
+        this.dayName = this.days[0];
+        break;
+      case 'Mon':
+        this.dayName = this.days[1];
+        break;
+      case 'Tue':
+        this.dayName = this.days[2];
+        break;
+      case 'Wed':
+        this.dayName = this.days[3];
+        break;
+      case 'Thu':
+        this.dayName = this.days[4];
+        break;
+      case 'Fri':
+        this.dayName = this.days[5];
+        break;
+      case 'Sat':
+        this.dayName = this.days[6];
+        break;
+    }
+
+    console.log('dayName ', this.dayName);
+
   }
 
   async presentLoading() {
