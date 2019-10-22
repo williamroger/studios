@@ -290,8 +290,7 @@ final class StudioController
         ->setStudioId(intval($data['studio_id']))
         ->setMaximumCapacity(intval($data['maximum_capacity']))
         ->setColor($data['color'])
-        ->setCreatedAt($now)
-        ->setImage($data['image']);
+        ->setCreatedAt($now);
 
       $studioDAO->insertRoom($room);
 
@@ -550,6 +549,13 @@ final class StudioController
         "Friday", 
         "Saturday"
       );
+      $mondayToFriday = array(
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      );
 
       if (!$idRoom)
         throw new Exception('Erro na aplicação, tente novamente.');
@@ -571,6 +577,21 @@ final class StudioController
 
       if ($data['day'] == 'MondayToSaturday') {
         foreach($mondayToSaturday as $day) {
+          $msgFeedback = 'Períodos cadastrados com sucesso!';
+          $dayOrder = UtilController::setDayOrder($day);
+
+          $period->setRoomId($idRoom)
+            ->setAmount($data['amount'])
+            ->setDay($day)
+            ->setDayOrder($dayOrder)
+            ->setBeginPeriod($data['begin_period'])
+            ->setEndPeriod($data['end_period'])
+            ->setCreatedAt($now);
+
+          $studioDAO->insertPeriod($period);
+        }
+      } else if ($data['day'] == 'MondayToFriday') {
+        foreach ($mondayToFriday as $day) {
           $msgFeedback = 'Períodos cadastrados com sucesso!';
           $dayOrder = UtilController::setDayOrder($day);
 

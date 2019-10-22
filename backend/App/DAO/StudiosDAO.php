@@ -301,16 +301,14 @@ class StudiosDAO extends ConnectionDataBase
                    name, 
                    maximum_capacity, 
                    color, 
-                   created_at,
-                   image)
+                   created_at)
                  VALUES
                     (:description, 
                      :studio_id, 
                      :name, 
                      :maximum_capacity, 
                      :color, 
-                     :created_at,
-                     :image)');
+                     :created_at)');
 
     $statement->execute([
       'description'      => $room->getDescription(), 
@@ -318,8 +316,7 @@ class StudiosDAO extends ConnectionDataBase
       'name'             => $room->getName(), 
       'maximum_capacity' => $room->getMaximumCapacity(), 
       'color'            => $room->getColor(), 
-      'created_at'       => $room->getCreatedAt(),
-      'image'           => $room->getImage()
+      'created_at'       => $room->getCreatedAt()
     ]);
   }
 
