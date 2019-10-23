@@ -30,9 +30,21 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.cityId = this.auth.userLoggedIn['city_id'];
-    if (this.cityId != null)
+    if (this.cityId != null) {
       this.getStudiosByCityCustomerId();
+    }
   }
+
+  ionRefresh(event) {
+    console.log('Pull Event Triggered!');
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      this.ionViewWillEnter();
+      event.target.complete();
+    }, 2000);
+  }
+
+  async ionViewWillEnter() {}
 
   getStudiosByCityCustomerId() {
     this.service.getStudiosByCityIdCustomer().subscribe(

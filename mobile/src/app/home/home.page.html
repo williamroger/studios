@@ -13,6 +13,16 @@
     </ion-item>
   </ion-list>
   
+  <ion-refresher slot="fixed"
+	(ionRefresh)="ionRefresh($event)">
+		<ion-refresher-content
+      		pullingIcon="arrow-dropdown"
+      		pullingText="Pull to refresh"
+      		refreshingSpinner="circles"
+      		refreshingText="Refreshing...">
+    		</ion-refresher-content>
+	</ion-refresher>
+  
   <ion-card class="ion-padding alert-message" *ngIf="cityId == null">
     <ion-img src="./assets/city.svg"></ion-img>
     <h3>Bem-vindo ao <strong>Studios</strong>,</h3>
