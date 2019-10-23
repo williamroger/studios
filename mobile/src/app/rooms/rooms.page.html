@@ -11,20 +11,22 @@
     
 </ion-header>
 
-<ion-content>
+<div class="capa">
+    <img src="./assets/ml.jpg"/>
+  
+  <!--<div class='infoStudio'>
+    <ion-card-subtitle>Street {{studio.street}}</ion-card-subtitle>
+    <h2>{{studio.name}}</h2>
+  </div>--> 
+</div>
 
-    <div class="studio">
-        <div class="img">
-          <img src="./assets/ml.jpg"/>
-        </div>
-        <!--<div class='infoStudio'>
-          <ion-card-subtitle>Street {{studio.street}}</ion-card-subtitle>
-          <h2>{{studio.name}}</h2>
-        </div>-->
-    </div>
-      
+<div class="perfil">
+  <img src="./assets/images.png"/>
+</div>
+
+<ion-content>
       <div id="linha">
-          <span>Salas disponíveis</span>
+        <span>Salas disponíveis</span>
       </div>
       
       <ion-card *ngFor='let room of rooms; let i = index' (click)="callInfoRooms(i)">
