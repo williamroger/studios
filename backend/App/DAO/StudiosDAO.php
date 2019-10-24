@@ -529,7 +529,7 @@ class StudiosDAO extends ConnectionDataBase
       ->prepare('UPDATE time_periods SET
                     amount = :amount,
                     day = :day,
-                    day_order,
+                    day_order = :day_order,
                     begin_period = :begin_period,
                     end_period = :end_period,
                     updated_at = :updated_at
