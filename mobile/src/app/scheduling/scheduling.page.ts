@@ -25,6 +25,7 @@ export class SchedulingPage implements OnInit {
   public room: RoomModel;
   public period: PeriodModel = new PeriodModel();
   public scheduling: SchedulingModel = new SchedulingModel();
+  dateScheduling: Date = new Date();
   public dateNow = new Date();
   public dateNowString = this.dateNow.toISOString();
   public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth()+1}-${this.dateNow.getDate()}`;
@@ -100,8 +101,9 @@ export class SchedulingPage implements OnInit {
   }
 
   // Change Datetime
-  changeDateTime() {
-
+  changeDateSchedule(event) {
+    console.log('changeDate ', event);
+    console.log('Date ', new Date(event.detail.value))
   }
 
   setDayName(date: string) {

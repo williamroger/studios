@@ -11,7 +11,14 @@
 <form [formGroup]="schedulingForm">
 <ion-item>
   <ion-label>Selecionar Data</ion-label>
-  <ion-datetime displayFormat="YYYY MMMM DD" formControlName="date_scheduling"></ion-datetime>
+  <ion-datetime [min]="minDatetime"
+                value="{{ dateScheduling | date: 'yyyy-MM-dd' }}"
+                displayFormat="YYYY MMMM DD"
+                cancelText="Cancelar"
+                doneText="Ok" 
+                (ionChange)="changeDateSchedule($event)"
+                formControlName="date_scheduling">
+  </ion-datetime>
 </ion-item>
 <ion-list>
   <ion-radio-group allow-empty-selection = "true" name="radio-group" (ionChange)="radioGroup($event)">
