@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
   }
 
   private actionForSuccess(message: string) {
-    this.router.navigateByUrl('tabs/tabs/home');
+    this.router.navigateByUrl('tabs/studios');
   }
 
   private actionForError(error) {

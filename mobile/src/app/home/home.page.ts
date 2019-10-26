@@ -52,7 +52,7 @@ export class HomePage implements OnInit {
   }
 
   routeAccount() {
-    this.navCtrl.navigateRoot('tabs/tabs/account');
+    this.navCtrl.navigateRoot('tabs/account');
   }
 }
  
