@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RoomsPageModule } from './rooms/rooms.module';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { RoomsPageModule } from './rooms/rooms.module';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthGuard,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

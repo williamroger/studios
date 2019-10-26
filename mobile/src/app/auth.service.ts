@@ -34,10 +34,13 @@ export class AuthService {
     return this.userLocalStorage;
   }
 
+  /**
+  * Private Methods
+  */
   private handleError(error: any): Observable<any> {
+    // provisório
     console.log('Erro na Requisição => ', error);
 
     return throwError(error.error);
   }
-
 }

@@ -1,12 +1,10 @@
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { NavController} from '@ionic/angular';
-import { AuthService } from './../auth.service';
-import { LoadingController } from '@ionic/angular';
-import { UserModel } from './shared/UserModel';
+import { LoadingController, ToastController } from '@ionic/angular';
 
-//import toastr from 'toastr';
+import { AuthService } from './../auth.service';
+import { UserModel } from './shared/UserModel';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +14,13 @@ import { UserModel } from './shared/UserModel';
 export class LoginPage implements OnInit {
 
   formLogin: FormGroup;
-  submittingForm = false;
+  submittingForm: boolean = false;
 
-  constructor(public navCtrl: NavController, 
-    public formBuild: FormBuilder, 
-    public auth: AuthService, 
-    public router: Router,
-    public loadingCtrl: LoadingController) { }
+  constructor(private formBuild: FormBuilder, 
+              private authAuth: AuthService, 
+              private router: Router,
+              private loadingCtrl: LoadingController,
+              private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.builCustomerForm();
@@ -38,29 +36,22 @@ export class LoginPage implements OnInit {
     const { role, data } = await loading.onDidDismiss();
   }
 
-  rotaCadastro(){
-    this.navCtrl.navigateRoot('register');
-  }
-
   submitForm() {
     this.submittingForm = true;
+
     const user: UserModel = Object.assign(new UserModel(), this.formLogin.value);
-    const userError = {msg: 'Error!'};
 
     this.presentLoading();
 
-    this.auth.login(user).subscribe(
+    this.authAuth.login(user).subscribe(
       data => {
         if(data.success && data.userPayload.is_customer == 1) {
           this.actionForSuccess(data.msg);
-          this.auth.setLoggedIn(true);
+          this.authAuth.setLoggedIn(true);
           localStorage.setItem('userLoggedIn', JSON.stringify(data.userPayload));
         }
-        else{
-          this.actionForError(userError);
-        }
       },
-      error => this.actionForError(error)
+      error => this.actionForError(error.msg)
     );
   }
 
@@ -72,15 +63,20 @@ export class LoginPage implements OnInit {
   }
 
   private actionForSuccess(message: string) {
-    //toastr.success(message);
-
-    setTimeout(() => {
-      this.router.navigateByUrl('tabs/tabs/home');
-    }, 3000);
+    this.router.navigateByUrl('tabs/tabs/home');
   }
 
   private actionForError(error) {
     this.submittingForm = false;
-    //toastr.error(error.msg);
+    this.presentToast(error);
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      color: 'light',
+      duration: 5000
+    });
+    toast.present();
   }
 }
