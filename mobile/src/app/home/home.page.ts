@@ -5,7 +5,7 @@ import { HomeService } from './shared/home.service';
 import { StudioModel } from './shared/StudioModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../rooms/shared/room.service';
-import { AuthService } from '../login/shared/auth.service';
+import { AuthService } from './../auth.service';
 
 
 @Component({

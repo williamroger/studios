@@ -1,4 +1,4 @@
-import { AuthService } from './../login/shared/auth.service';
+import { AuthService } from './../auth.service';
 import { AlertController } from '@ionic/angular';
 import { AccountService } from './shared/account.service';
 import { CustomerModel } from './../register/shared/customer';

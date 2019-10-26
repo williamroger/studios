@@ -1,14 +1,12 @@
 <ion-header>
-
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-button (click)="voltar()">
-                <ion-icon name="arrow-back"></ion-icon>
-              </ion-button>
-        </ion-buttons>
-        <ion-title>Salas</ion-title>
-    </ion-toolbar>
-    
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-button (click)="voltar()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+    </ion-buttons>
+    <ion-title>Salas</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <div class="capa">
@@ -25,20 +23,20 @@
 </div>
 
 <ion-content>
-      <div id="linha">
-        <span>Salas disponíveis</span>
-      </div>
+  <div id="linha">
+    <span>Salas disponíveis</span>
+  </div>
       
-      <ion-card *ngFor='let room of rooms; let i = index' (click)="callInfoRooms(i)">
-        <img src="./assets/imgRoom.jpg"/>
-        <ion-card-header>
-          <ion-card-subtitle><span>Sala:</span></ion-card-subtitle>
-          <ion-card-title>{{room.name}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          Capacidade da sala: {{room.maximum_capacity}} pessoas
-        </ion-card-content>
-      </ion-card>
+  <ion-card *ngFor='let room of rooms; let i = index' (click)="callInfoRooms(i)">
+    <img src="./assets/imgRoom.jpg"/>
+    <ion-card-header>
+      <ion-card-subtitle><span>Sala:</span></ion-card-subtitle>
+      <ion-card-title>{{room.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Capacidade da sala: {{room.maximum_capacity}} pessoas
+    </ion-card-content>
+  </ion-card>
 </ion-content>
 
 

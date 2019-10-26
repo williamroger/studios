@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NavController} from '@ionic/angular';
-import { AuthService } from './shared/auth.service';
+import { AuthService } from './../auth.service';
 import { LoadingController } from '@ionic/angular';
 import { UserModel } from './shared/UserModel';
 

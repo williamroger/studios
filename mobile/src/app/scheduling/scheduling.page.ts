@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { PeriodModel } from './shared/PeriodModel';
-import { AuthService } from '../login/shared/auth.service';
+import { AuthService } from './../auth.service';
 import { RoomModel } from '../rooms/shared/RoomModel';
 
 

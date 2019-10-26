@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../scheduling/shared/scheduling.service';
-import { AuthService } from '../login/shared/auth.service';
+import { AuthService } from './../auth.service';
 import { SchedulingModel } from '../scheduling/shared/SchedulingModel';
 
 @Component({
