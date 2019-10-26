@@ -23,11 +23,11 @@
     		</ion-refresher-content>
 	</ion-refresher>
   
-  <ion-card class="ion-padding alert-message" *ngIf="cityId == null">
+  <ion-card class="ion-padding alert-message" *ngIf="!customerHasCityId">
     <ion-img src="./assets/city.svg"></ion-img>
     <h3>Bem-vindo ao <strong>Studios</strong>,</h3>
     <p>Você precisa atualizar os seus dados para ver os melhores estudios da sua cidade.</p>
-    <ion-button class="primary" expand="block" (click)="rotaAccount()">Atualizar meus dados</ion-button>
+    <ion-button class="primary" expand="block" (click)="routeAccount()">Atualizar meus dados</ion-button>
   </ion-card>
 
   <ion-list *ngIf="cityId != null" class="list-studios">

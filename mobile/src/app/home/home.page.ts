@@ -1,9 +1,7 @@
-import { CityModel } from './../account/shared/CityModel';
 import { Component, OnInit} from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { HomeService } from './shared/home.service';
 import { StudioModel } from './shared/StudioModel';
-import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from '../rooms/shared/room.service';
 import { AuthService } from './../auth.service';
 
@@ -15,39 +13,32 @@ import { AuthService } from './../auth.service';
 })
 export class HomePage implements OnInit {
 
-  public customerHasCityId: boolean;
-  public city: CityModel = new CityModel();
-  public cityId: number;
-  public studios: Array<StudioModel>;
-  public API_URL = 'http://localhost:8080/';
+  userLoggedIn: any;
+  customerHasCityId: boolean;
+
+  cityId: number;
+  studios: Array<StudioModel> = [];
 
   constructor(public navCtrl: NavController,  
-    public service:HomeService,
-    public serviceRoom:RoomService,
-    public auth: AuthService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+    public homeService: HomeService,
+    public serviceRoom: RoomService,
+    public auth: AuthService) { }
 
   ngOnInit() {
-    this.cityId = this.auth.userLoggedIn['city_id'];
-    if (this.cityId != null) {
-      this.getStudiosByCityCustomerId();
+    this.loadCityId();
+    if (this.customerHasCityId) {
+      this.getStudiosByCityIdCustomer();
     }
   }
 
-  ionRefresh(event) {
-    console.log('Pull Event Triggered!');
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      this.ionViewWillEnter();
-      event.target.complete();
-    }, 2000);
+  private loadCityId() {
+    this.userLoggedIn = JSON.parse(localStorage.getItem('userLoggedIn'));
+    this.customerHasCityId = (+this.userLoggedIn.city_id) ? true : false;
+    this.cityId = +this.userLoggedIn.city_id;
   }
 
-  async ionViewWillEnter() {}
-
-  getStudiosByCityCustomerId() {
-    this.service.getStudiosByCityIdCustomer().subscribe(
+  private getStudiosByCityIdCustomer() {
+    this.homeService.getStudiosByCityIdCustomer().subscribe(
       studios => {
         this.studios = studios;
       }
@@ -56,11 +47,11 @@ export class HomePage implements OnInit {
 
   async chamarSala(index){
     this.navCtrl.navigateRoot('rooms');
-    this.service.takeIndex(this.studios[index]);
+    this.homeService.takeIndex(this.studios[index]);
     //console.log(this.studios[index].id);   
   }
 
-  rotaAccount() {
+  routeAccount() {
     this.navCtrl.navigateRoot('tabs/tabs/account');
   }
 }

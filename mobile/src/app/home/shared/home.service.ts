@@ -17,14 +17,7 @@ export class HomeService {
   constructor(public http: HttpClient) { }
 
   public studio: StudioModel;
-
-  getStudios(): Observable<StudioModel[]> {
-    return this.http.get(this.API_URL + 'studio/getallstudios').pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToStudios)
-    );
-  }
-
+  
   getStudiosByCityIdCustomer() {
     const idCustomer = this.userLocalStorage['customer_id'];
     return this.http.get(`api/customer/getstudiosbycityidcustomer/${idCustomer}`).pipe(
@@ -32,13 +25,6 @@ export class HomeService {
       map(this.jsonDataToStudios)
     );
   }
-
-  /*getStudiosById(): Observable<StudioModel[]> {
-    return this.http.get(this.API_URL + 'studio/getstudiobyid/1').pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToStudios)
-    );
-  }*/
 
   public takeIndex(studio: StudioModel){
     this.studio = studio;
