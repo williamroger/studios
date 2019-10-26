@@ -26,11 +26,13 @@ export class SchedulingPage implements OnInit {
   public period: PeriodModel = new PeriodModel();
   public scheduling: SchedulingModel = new SchedulingModel();
   dateScheduling: Date = new Date();
-  public dateNow = new Date();
-  public dateNowString = this.dateNow.toISOString();
-  public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth()+1}-${this.dateNow.getDate()}`;
-  public dayName = '';
-  public days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  dateNow = new Date();
+  dateNowString = this.dateNow.toISOString();
+  minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth()+1}-${this.dateNow.getDate()}`;
+  maxDatetime = `${this.dateNow.getFullYear()+1}`;
+  dayName = '';
+  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   constructor(public service: SchedulingService,
               public roomService: RoomService,

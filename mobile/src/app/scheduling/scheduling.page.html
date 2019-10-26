@@ -8,16 +8,19 @@
 <h1 style="margin-left: 10px">{{room.name}}</h1>
 <div>
 
-<form [formGroup]="schedulingForm">
+<form [formGroup]="schedulingForm" class="form-scheduling">
 <ion-item>
-  <ion-label>Selecionar Data</ion-label>
+  <ion-input type="text" formControlName="date_scheduling" name="dateScheduling"></ion-input>
+  <ion-label position="stacked">Selecionar Data</ion-label>
   <ion-datetime [min]="minDatetime"
+                [max]="maxDatetime"
                 value="{{ dateScheduling | date: 'yyyy-MM-dd' }}"
-                displayFormat="YYYY MMMM DD"
+                displayFormat="DD MMMM YYYY"
                 cancelText="Cancelar"
                 doneText="Ok" 
                 (ionChange)="changeDateSchedule($event)"
-                formControlName="date_scheduling">
+                
+                [monthNames]="monthNames">
   </ion-datetime>
 </ion-item>
 <ion-list>
