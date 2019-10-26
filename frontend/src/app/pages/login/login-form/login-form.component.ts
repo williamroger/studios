@@ -34,7 +34,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe(
         data => {
           if (data.success && data.userPayload.is_studio == 1) {
-            this.actionsForSuccess(data.msg);
+            this.actionsForSuccess();
             this.authService.setLoggedIn(true);
             localStorage.setItem('userLoggedIn', JSON.stringify(data.userPayload));
           } else {
@@ -52,7 +52,7 @@ export class LoginFormComponent implements OnInit {
     })
   }
 
-  private actionsForSuccess(message: string) {
+  private actionsForSuccess() {
     this.router.navigateByUrl('/dashboard');
   }
 
