@@ -12,8 +12,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../home/home.module').then(m => m.HomePageModule)
+            loadChildren: '../home/home.module#HomePageModule'
           }
         ]
       },
@@ -22,8 +21,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../schedules/schedules.module').then(m => m.SchedulesPageModule)
+            loadChildren: '../schedules/schedules.module#SchedulesPageModule'
           }
         ]
       },
@@ -32,8 +30,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../account/account.module').then(m => m.AccountPageModule)
+            loadChildren: '../account/account.module#AccountPageModule'
           }
         ]
       }

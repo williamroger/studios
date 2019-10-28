@@ -1,9 +1,9 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { RoomService } from './shared/room.service';
 import { RoomModel } from './shared/RoomModel';
-import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../home/shared/home.service';
-import {StudioModel} from '../home/shared/StudioModel';
-import { NavController} from '@ionic/angular';
+import { StudioModel } from '../home/shared/StudioModel';
 
 @Component({
   selector: 'app-rooms',
@@ -15,37 +15,27 @@ export class RoomsPage implements OnInit {
   public rooms: Array<RoomModel> = [];
   public studio: StudioModel;
 
-  constructor(public service: RoomService,
-    public serviceHome: HomeService,
-    public navCtrl: NavController) {}
+  constructor(private service: RoomService,
+              private router: Router) {}
 
   ngOnInit() {
-    //this.getRooms();
-    this.studio = this.serviceHome.returnStudio();
-    this.getRoomsByStudio(this.studio);
+    this.getStudio();
+    this.getRoomsByStudioID(this.studio.id);
   }
 
-  getRooms() {
-    this.service.getRooms().subscribe(
-      rooms => {
-        console.log('rooms', rooms);
-        this.rooms = rooms;
-      }
-    );
-  }
-
-  getRoomsByStudio(studio: StudioModel){
-    this.service.getRoomsByStudio(studio.id).subscribe(
+  getRoomsByStudioID(id: number){
+    this.service.getRoomsByStudioID(id).subscribe(
       rooms => this.rooms = rooms
     )
   }
 
-  callInfoRooms(index){
-    this.service.setRoom(this.rooms[index]);
-    this.navCtrl.navigateRoot('info-room');
+  getStudio() {
+    const studioJson = JSON.parse(localStorage.getItem('studioDetails'));
+    this.studio = Object.assign(new StudioModel(), studioJson);
   }
 
-  voltar(){
-    this.navCtrl.navigateRoot('tabs/tabs/home');
+  toBackStudios() {
+    localStorage.removeItem('studioDetails');
+    this.router.navigate(['tabs/studios']);
   }
 }

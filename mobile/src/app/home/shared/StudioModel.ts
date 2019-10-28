@@ -6,6 +6,7 @@ export class StudioModel
     public phone?: string,
     public description?: string,
     public cnpj?: string,
+    public telephone?: string,
     public created_at?: string,
     public updated_at?: string,
     public has_parking?: number,

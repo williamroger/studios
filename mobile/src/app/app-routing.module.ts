@@ -12,20 +12,14 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    loadChildren: './tabs/tabs.module#TabsPageModule',
     canActivate: [AuthGuard]
   },
-  { path: 'rooms', 
+  {
+    path: ':id/rooms',
     loadChildren: './rooms/rooms.module#RoomsPageModule',
     canActivate: [AuthGuard]
   },
-  { path: 'info-room', 
-    loadChildren: './info-rooms/info-rooms.module#InfoRoomsPageModule'
-  },
-  { path: 'scheduling', 
-    loadChildren: './scheduling/scheduling.module#SchedulingPageModule',
-    canActivate: [AuthGuard] 
-  },  { path: 'schedules', loadChildren: './schedules/schedules.module#SchedulesPageModule' }
 
 ];
 @NgModule({
@@ -35,3 +29,18 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+/*
+,
+  { path: 'rooms',
+    loadChildren: './rooms/rooms.module#RoomsPageModule',
+    canActivate: [AuthGuard]
+  },
+  { path: 'info-room',
+    loadChildren: './info-rooms/info-rooms.module#InfoRoomsPageModule'
+  },
+  { path: 'scheduling',
+    loadChildren: './scheduling/scheduling.module#SchedulingPageModule',
+    canActivate: [AuthGuard]
+  },
+  { path: 'schedules', loadChildren: './schedules/schedules.module#SchedulesPageModule' }
+*/

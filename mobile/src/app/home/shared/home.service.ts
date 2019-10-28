@@ -30,9 +30,9 @@ export class HomeService {
     this.studio = studio;
   }
 
-  public returnStudio(){
-    return this.studio;
-  }
+  // public returnStudio(){
+  //   return this.studio;
+  // }
 
   private jsonDataToStudios(jsonData: any[]): StudioModel[] {
     const studios: StudioModel[] = [];

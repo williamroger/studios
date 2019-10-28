@@ -1,4 +1,4 @@
-<ion-header class="ion-padding-top ion-padding-bottom">
+<ion-header translucent="true" class="ion-padding-top ion-padding-bottom">
   <ion-toolbar>
     <ion-title>
       <img src="/assets/icon/logo-studios_2x.png">
@@ -31,7 +31,7 @@
   </ion-card>
 
   <ion-list *ngIf="cityId != null" class="list-studios">
-    <ion-item *ngFor="let studio of studios; let i = index" (click)="chamarSala(i)" lines="none">
+    <ion-item *ngFor="let studio of studios"  (click)="goToRooms(studio)" lines="none">
       <ion-card class="card-studio">
         <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
         <ion-item class="card-studio__image" lines="none" [ngStyle]="{'background-image': 'url(./assets/studios.png)'}">

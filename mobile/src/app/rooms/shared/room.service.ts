@@ -23,14 +23,7 @@ export class RoomService {
     return this.room;
   }
 
-  getRooms(): Observable<RoomModel[]> {
-    return this.http.get(this.API_URL + 'studio/getallrooms').pipe(
-      catchError(this.handleError),
-      map(this.jsonDataToRooms)
-    );
-  }
-
-  getRoomsByStudio(idStudio: number): Observable<RoomModel[]> {
+  getRoomsByStudioID(idStudio: number): Observable<RoomModel[]> {
     return this.http.get(this.API_URL + `studio/getroomsbystudioid/${idStudio}`).pipe(
       catchError(this.handleError),
       map(this.jsonDataToRooms)
@@ -39,7 +32,12 @@ export class RoomService {
 
   private jsonDataToRooms(jsonData: any[]): RoomModel[] {
     const rooms: RoomModel[] = [];
-    jsonData['rooms'].forEach(element => rooms.push(element as RoomModel));
+
+    jsonData['rooms'].forEach(element => {
+      const room = Object.assign(new RoomModel(), element);
+      rooms.push(room);
+    });
+    
     return rooms;
   }
 

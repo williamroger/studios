@@ -2,9 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { HomeService } from './shared/home.service';
 import { StudioModel } from './shared/StudioModel';
-import { RoomService } from '../rooms/shared/room.service';
-import { AuthService } from './../auth.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,10 +17,9 @@ export class HomePage implements OnInit {
   cityId: number;
   studios: Array<StudioModel> = [];
 
-  constructor(public navCtrl: NavController,  
-    public homeService: HomeService,
-    public serviceRoom: RoomService,
-    public auth: AuthService) { }
+  constructor(private navCtrl: NavController,  
+              private homeService: HomeService,
+              private router: Router) { }
 
   ngOnInit() {
     this.loadCityId();
@@ -45,10 +42,9 @@ export class HomePage implements OnInit {
     );
   }
 
-  async chamarSala(index){
-    this.navCtrl.navigateRoot('rooms');
-    this.homeService.takeIndex(this.studios[index]);
-    //console.log(this.studios[index].id);   
+  goToRooms(studio: StudioModel) {
+    this.router.navigate([studio.id, 'rooms']);
+    localStorage.setItem('studioDetails', JSON.stringify(studio));
   }
 
   routeAccount() {
