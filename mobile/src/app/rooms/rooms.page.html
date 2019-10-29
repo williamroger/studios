@@ -1,12 +1,12 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-        <ion-button (click)="toBackStudios()">
-            <ion-icon name="arrow-back"></ion-icon>
-            Estúdios
-          </ion-button>
+      <ion-button (click)="toBackStudios()">
+        <ion-icon name="arrow-back"></ion-icon>
+        Voltar
+      </ion-button>
     </ion-buttons>
-    <ion-title>Salas de Ensaio</ion-title>
+    <ion-title>{{ studio.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -60,7 +60,7 @@
       </span>
 
       <ion-list>
-        <ion-item *ngFor="let room of rooms" lines="none">
+        <ion-item *ngFor="let room of rooms" (click)="goToRoomDetails(room)" lines="none">
           <ion-card class="studio-details__room">
             <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
             <div class="studio-details__room-cover" [ngStyle]="{'background-image': 'url(./assets/room-default.jpg)'}"> 

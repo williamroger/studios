@@ -38,4 +38,9 @@ export class RoomsPage implements OnInit {
     localStorage.removeItem('studioDetails');
     this.router.navigate(['tabs/studios']);
   }
+
+  goToRoomDetails(room: RoomModel) {
+    this.router.navigate([room.studio_id, 'rooms', room.id, 'details']);
+    localStorage.setItem('roomDetails', JSON.stringify(room));
+  }
 }

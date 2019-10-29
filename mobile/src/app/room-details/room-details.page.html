@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="toBackRooms()">
+        <ion-icon name="arrow-back"></ion-icon>
+        Voltar
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ room.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
+  <div class="room-cover" [ngStyle]="{'background-image': 'url(./assets/room-default.jpg)'}">
+  </div>
+
+  <div class="ion-padding">
+    <div class="room-details"> 
+      <small>Sala</small>
+      <h1 class="room-details__name">{{ room.name }}</h1>
+      <div class="room-details__capacity">
+        <ion-icon name="people"></ion-icon>
+        <p>Comporta até {{ room.maximum_capacity }} pessoas</p>
+      </div>
+
+      <span class="small-title">
+        <small>Sobre a Sala</small>
+      </span>
+
+      <div class="room-details__description">
+        <p>{{ room.description }}</p>
+      </div>
+    </div>
+    
+    <ion-button expand="block" class="button" color="secondary">
+      Agendar Ensaio
+    </ion-button>
+  </div>
+</ion-content>

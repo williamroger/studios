@@ -1,4 +1,4 @@
-import { UserModel } from './UserModel';
+import { UserModel } from './login/shared/UserModel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';

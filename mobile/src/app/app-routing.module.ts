@@ -20,6 +20,11 @@ const routes: Routes = [
     loadChildren: './rooms/rooms.module#RoomsPageModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: ':id/rooms/:idroom/details',
+    loadChildren: './room-details/room-details.module#RoomDetailsPageModule',
+    canActivate: [AuthGuard]
+  }
 
 ];
 @NgModule({
