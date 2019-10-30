@@ -47,6 +47,14 @@ final class StudioModel
   /**
    * @var int
    */
+  private $hasRecording;
+  /**
+   * @var int
+   */
+  private $hasMixingMastering;
+  /**
+   * @var int
+   */
   private $is24Hours;
   /**
    * @var int
@@ -306,6 +314,48 @@ final class StudioModel
     return $this;
   }
 
+  /**
+   * Get the value of hasRecording
+   * @return  int
+   */
+  public function getHasRecording(): int
+  {
+    return $this->hasRecording;
+  }
+
+  /**
+   * Set the value of hasRecording
+   * @param  int  $hasRecording
+   * @return  self
+   */
+  public function setHasRecording(?int $hasRecording): self
+  {
+    $this->hasRecording = $hasRecording;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of hasMixingMastering
+   * @return  int
+   */
+  public function getHasMixingMastering(): int
+  {
+    return $this->hasMixingMastering;
+  }
+
+  /**
+   * Set the value of hasMixingMastering
+   * @param  int  $hasMixingMastering
+   * @return  self
+   */
+  public function setHasMixingMastering(?int $hasMixingMastering): self
+  {
+    $this->hasMixingMastering = $hasMixingMastering;
+
+    return $this;
+  }
+  
   /**
    * Get the value of is24Hours
    * @return  int
