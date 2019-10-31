@@ -49,6 +49,14 @@
           <ion-icon name="wifi"></ion-icon>
           <p>Wi-Fi Grátis</p>
         </span>
+        <span *ngIf="studio.has_recording == 1">
+          <ion-icon name="microphone"></ion-icon>
+          <p>Gravação</p>
+        </span>
+        <span *ngIf="studio.has_mixing_mastering == 1">
+          <ion-icon name="options"></ion-icon>
+          <p>Mixagem e Masterização</p>
+        </span>
         <span *ngIf="studio.is_24_hours == 1">
           <ion-icon name="time"></ion-icon>
           <p>Funciona 24 horas</p>

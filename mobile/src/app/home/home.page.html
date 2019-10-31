@@ -48,6 +48,8 @@
               <div class="card-studio__info-icons">
                 <ion-icon name="car" *ngIf="studio.has_parking == 1"></ion-icon>
                 <ion-icon name="wifi" *ngIf="studio.has_wifi == 1"></ion-icon>
+                <ion-icon name="microphone" *ngIf="studio.has_recording == 1"></ion-icon>
+                <ion-icon name="options" *ngIf="studio.has_mixing_mastering == 1"></ion-icon>
                 <ion-icon name="time" *ngIf="studio.is_24_hours == 1"></ion-icon>
               </div>
             </div>
