@@ -9,6 +9,7 @@ import { ToastController } from '@ionic/angular';
 import { PeriodModel } from './shared/PeriodModel';
 import { AuthService } from './../auth.service';
 import { RoomModel } from '../rooms/shared/RoomModel';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -40,7 +41,8 @@ export class SchedulingPage implements OnInit {
               public nav: NavController,
               public formBuilder: FormBuilder,
               public toastr: ToastController,
-              public loading: LoadingController) { }
+              public loading: LoadingController,
+              private router: Router) { }
 
   ngOnInit() {
     this.room = this.roomService.getRoom();
@@ -164,5 +166,9 @@ export class SchedulingPage implements OnInit {
 
   actionsForError(error) {
     this.presentToast('Ocorreu um erro, tente novamente!');
+  }
+
+  toBackRoomDetails() {
+    this.router.navigate([this.room.studio_id, 'rooms', this.room.id, 'details']);
   }
 }
