@@ -24,8 +24,12 @@ const routes: Routes = [
     path: ':id/rooms/:idroom/details',
     loadChildren: './room-details/room-details.module#RoomDetailsPageModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: ':id/rooms/:idroom/details/scheduling',
+    loadChildren: './scheduling/scheduling.module#SchedulingPageModule',
+    canActivate: [AuthGuard]
   }
-
 ];
 @NgModule({
   imports: [
@@ -34,18 +38,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-/*
-,
-  { path: 'rooms',
-    loadChildren: './rooms/rooms.module#RoomsPageModule',
-    canActivate: [AuthGuard]
-  },
-  { path: 'info-room',
-    loadChildren: './info-rooms/info-rooms.module#InfoRoomsPageModule'
-  },
-  { path: 'scheduling',
-    loadChildren: './scheduling/scheduling.module#SchedulingPageModule',
-    canActivate: [AuthGuard]
-  },
-  { path: 'schedules', loadChildren: './schedules/schedules.module#SchedulesPageModule' }
-*/

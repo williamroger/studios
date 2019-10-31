@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-<h1 style="margin-left: 10px">{{room.name}}</h1>
+<!-- <h1 style="margin-left: 10px">{{room.name}}</h1> -->
 <div>
 
 <form [formGroup]="schedulingForm" class="form-scheduling">
@@ -29,7 +29,7 @@
       <ion-label>Horários Disponíveis</ion-label> 
     </ion-list-header>
     <ion-item *ngFor="let period of periods">
-      <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label>
+      <!-- <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label> -->
       <ion-radio slot="end" color="primary" value="{{period.id}}" formControlName="time_period_id"></ion-radio>
     </ion-item>
   </ion-radio-group>

@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild  } from '@angular/core';
 
-import { RoomService } from '../rooms/shared/room.service';
 import { RoomModel } from '../rooms/shared/RoomModel';
 
 @Component({
@@ -13,8 +12,7 @@ export class RoomDetailsPage implements OnInit {
 
   public room: RoomModel;
 
-  constructor(private serviceRoom: RoomService,
-              private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.getRoom();
@@ -30,4 +28,7 @@ export class RoomDetailsPage implements OnInit {
     this.router.navigate([this.room.studio_id, 'rooms']);
   }
 
+  toScheduling(room: RoomModel) {
+    this.router.navigate([room.studio_id, 'rooms', room.id, 'details', 'scheduling']);
+  }
 }

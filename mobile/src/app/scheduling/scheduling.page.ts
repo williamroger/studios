@@ -44,7 +44,7 @@ export class SchedulingPage implements OnInit {
 
   ngOnInit() {
     this.room = this.roomService.getRoom();
-    this.loadPeriods();
+    // this.loadPeriods();
     this.builSchedulingForm();
     console.log('dateNow ', this.dateNow);
     console.log('dateNowString ', this.dateNowString);
