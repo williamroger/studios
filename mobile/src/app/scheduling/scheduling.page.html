@@ -11,41 +11,45 @@
 </ion-header>
 
 <ion-content>
-<!-- <h1 style="margin-left: 10px">{{room.name}}</h1> -->
-<div>
+  <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
+  <div class="room-cover" [ngStyle]="{'background-image': 'url(./assets/room-default.jpg)'}">
+  </div>
 
-<form [formGroup]="schedulingForm" class="form-scheduling">
-<ion-item>
-  <ion-input type="text" formControlName="date_scheduling" name="dateScheduling"></ion-input>
-  <ion-label position="stacked">Selecionar Data</ion-label>
-  <ion-datetime [min]="minDatetime"
-                [max]="maxDatetime"
-                value="{{ dateScheduling | date: 'yyyy-MM-dd' }}"
-                displayFormat="DD MMMM YYYY"
-                cancelText="Cancelar"
-                doneText="Ok" 
-                (ionChange)="changeDateSchedule($event)"
-                
-                [monthNames]="monthNames">
-  </ion-datetime>
-</ion-item>
-<ion-list>
-  <ion-radio-group allow-empty-selection = "true" name="radio-group" (ionChange)="radioGroup($event)">
-    <ion-list-header>
-      <ion-label>Horários Disponíveis</ion-label> 
-    </ion-list-header>
-    <ion-item *ngFor="let period of periods">
-      <!-- <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label> -->
-      <ion-radio slot="end" color="primary" value="{{period.id}}" formControlName="time_period_id"></ion-radio>
-    </ion-item>
-  </ion-radio-group>
-</ion-list>
-<ion-item>
-  <ion-label>Comentario</ion-label>
-  <ion-textarea formControlName="comment"></ion-textarea>
-</ion-item>
-<ion-button (click) = "submitForm()">Agendar</ion-button>
-</form>
+  <div class="ion-padding">
+    <div class="scheduling">
+      <h1 class="scheduling__title">Agendar Ensaio</h1>
+      
+      <ion-label position="stacked">Sala Escolhida</ion-label>
+      <h2 class="scheduling__room-name">{{ room.name }}</h2>
+      <p class="scheduling__studio-name">{{ studio.name }}</p>
+      <div class="scheduling__room-capacity">
+        <ion-icon name="people"></ion-icon>
+        <p>Comporta até {{ room.maximum_capacity }} pessoas</p>
+      </div>
+      
+      <form [formGroup]="schedulingForm">
+        <ion-input type="text" formControlName="date_scheduling" name="dateScheduling"></ion-input>
+        <ion-label position="stacked">Selecionar Data</ion-label>
+        <ion-datetime [min]="minDatetime" [max]="maxDatetime" value="{{ dateScheduling | date: 'yyyy-MM-dd' }}"
+          displayFormat="DD MMMM YYYY" cancelText="Cancelar" doneText="Ok" (ionChange)="changeDateSchedule($event)"
+          [monthNames]="monthNames">
+        </ion-datetime>
+        
+        <ion-label position="stacked">Horários Disponíveis</ion-label>
+        <ion-radio-group allow-empty-selection="true" name="radio-group" (ionChange)="radioGroup($event)">
+          <ion-item *ngFor="let period of periods">
+            <!-- <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label> -->
+            <ion-radio slot="end" color="primary" value="{{period.id}}" formControlName="time_period_id"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+        
+        <div>
+          <ion-label>Comentario</ion-label>
+          <ion-textarea formControlName="comment" rows="6" cols="20"></ion-textarea>
+        </div>
+        <ion-button (click)="submitForm()">Agendar</ion-button>
+      </form>
+    </div>
+  </div>
 
-</div>
 </ion-content>

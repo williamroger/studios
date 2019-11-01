@@ -1,3 +1,4 @@
+import { StudioModel } from './../home/shared/StudioModel';
 import { Component, OnInit } from '@angular/core';
 import { NavController} from '@ionic/angular';
 import { SchedulingService } from './shared/scheduling.service';
@@ -19,21 +20,25 @@ import { Router } from '@angular/router';
 })
 export class SchedulingPage implements OnInit {
 
+  public room: RoomModel;
+  public studio: StudioModel;
+
+
   public selectDate: any;
   public selectRadioGroup: any;
   public periods: Array<PeriodModel>;
   public schedulingForm: FormGroup;
-  public room: RoomModel;
   public period: PeriodModel = new PeriodModel();
   public scheduling: SchedulingModel = new SchedulingModel();
-  dateScheduling: Date = new Date();
-  monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-  dateNow = new Date();
-  dateNowString = this.dateNow.toISOString();
-  minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth()+1}-${this.dateNow.getDate()}`;
-  maxDatetime = `${this.dateNow.getFullYear()+1}`;
-  dayName = '';
-  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  public dateScheduling: Date = new Date();
+  public monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  public days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  
+  public dateNow = new Date();
+  public dateNowString = this.dateNow.toISOString();
+  public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth()+1}-${this.dateNow.getDate()}`;
+  public maxDatetime = `${this.dateNow.getFullYear()+1}`;
+  public dayName = '';
 
   constructor(public service: SchedulingService,
               public roomService: RoomService,
@@ -45,11 +50,12 @@ export class SchedulingPage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.room = this.roomService.getRoom();
+    this.getStudioAndRoom();
     // this.loadPeriods();
     this.builSchedulingForm();
-    console.log('dateNow ', this.dateNow);
-    console.log('dateNowString ', this.dateNowString);
+    console.log('minDatetime ', this.minDatetime);
+    // console.log('dateNow ', this.dateNow);
+    // console.log('dateNowString ', this.dateNowString);
     this.setDayName(this.dateNow.toString());
   }
 
@@ -106,8 +112,8 @@ export class SchedulingPage implements OnInit {
 
   // Change Datetime
   changeDateSchedule(event) {
-    console.log('changeDate ', event);
-    console.log('Date ', new Date(event.detail.value))
+    // console.log('changeDate ', event);
+    // console.log('Date ', new Date(event.detail.value))
   }
 
   setDayName(date: string) {
@@ -141,6 +147,18 @@ export class SchedulingPage implements OnInit {
 
   }
 
+  getStudioAndRoom() {
+    const studioJson = JSON.parse(localStorage.getItem("studioDetails"));
+    const roomJson = JSON.parse(localStorage.getItem("roomDetails"));
+
+    this.studio = Object.assign(new StudioModel(), studioJson);
+    this.room = Object.assign(new RoomModel(), roomJson);
+  }
+
+  toBackRoomDetails() {
+    this.router.navigate([this.room.studio_id, 'rooms', this.room.id, 'details']);
+  }
+
   async presentLoading() {
     const loading = await this.loading.create({
       message: 'Cadastrando',
@@ -166,9 +184,5 @@ export class SchedulingPage implements OnInit {
 
   actionsForError(error) {
     this.presentToast('Ocorreu um erro, tente novamente!');
-  }
-
-  toBackRoomDetails() {
-    this.router.navigate([this.room.studio_id, 'rooms', this.room.id, 'details']);
   }
 }

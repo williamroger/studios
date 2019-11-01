@@ -1,7 +1,81 @@
-.form-scheduling {
-  
-  [name="dateScheduling"] {
+ion-header {
+  ion-button {
+    text-transform: none !important;
+  }
+}
+
+.room-cover {
+  width: 100%;
+  height: 170px;
+  background-color: var(--ion-color-primary);
+  background-position: center center;
+  background-size: cover;
+}
+
+.scheduling {
+  form [name="dateScheduling"] {
     display: none;
     visibility: hidden;
   }
+
+  ion-label {
+    text-transform: uppercase;
+    color: var(--ion-color-medium-shade);
+    font-weight: 400;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 1.7rem;
+    color: var(--ion-color-secondary);
+  }
+
+  &__studio-name {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: .95rem;
+    color: var(--ion-color-medium-shade);
+  }
+
+  &__room-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ion-color-dark-tint);
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+
+  &__studio-name {
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  &__room-capacity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    ion-icon {
+      font-size: 1.5rem;
+      margin-right: .5rem;
+      color: var(--ion-color-medium-shade);
+    }
+
+    p {
+      font-size: .95rem;
+      margin: 0;
+      color: var(--ion-color-medium-shade);
+    }
+  }
+
+  ion-datetime {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: 2rem;
+  }
+
+
 }
