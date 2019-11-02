@@ -166,11 +166,11 @@ final class ScheduleController
       
       $scheduleDAO = new SchedulesDAO();
 
-      $schedules = $scheduleDAO->getPeriodsFreeByRoomIdAndDate($roomId, $day, $date);
+      $periods = $scheduleDAO->getPeriodsFreeByRoomIdAndDate($roomId, $day, $date);
 
       $response = $response->withJson([
         'success' => true,
-        'schedules' => $schedules
+        'periods' => $periods
       ], 200);
 
       return $response;

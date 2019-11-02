@@ -136,11 +136,11 @@ class SchedulesDAO extends ConnectionDataBase
       'date' => $date
     ]);
 
-    $schedules = $statement->fetchAll(\PDO::FETCH_ASSOC);
+    $periods = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-    if (count($schedules) === 0)
+    if (count($periods) === 0)
       return null;
     
-    return $schedules;
+    return $periods;
   }
 }
