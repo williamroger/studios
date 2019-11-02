@@ -13,7 +13,7 @@ ion-header {
 }
 
 .scheduling {
-  form [name="dateScheduling"] {
+  ion-input.dateScheduling {
     display: none;
     visibility: hidden;
   }

@@ -19,28 +19,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./scheduling.page.scss'],
 })
 export class SchedulingPage implements OnInit {
-
+  
   public room: RoomModel;
   public studio: StudioModel;
-
-
+  public monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  public days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  public dateNow = new Date();
+  public dateNowString = this.dateNow.toISOString();
+  public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth() + 1}-${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()}`;
+  public maxDatetime = `${this.dateNow.getFullYear() + 1}`;
+  public dayName = '';
+  
   public selectDate: any;
   public selectRadioGroup: any;
   public periods: Array<PeriodModel>;
   public schedulingForm: FormGroup;
-  public period: PeriodModel = new PeriodModel();
   public scheduling: SchedulingModel = new SchedulingModel();
   public dateScheduling: Date = new Date();
-  public monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-  public days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   
-  public dateNow = new Date();
-  public dateNowString = this.dateNow.toISOString();
-  public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth() + 1}-${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()}`;
-
-  public maxDatetime = `${this.dateNow.getFullYear()+1}`;
-  public dayName = '';
-
   constructor(public service: SchedulingService,
               public roomService: RoomService,
               public auth: AuthService,
@@ -52,22 +48,14 @@ export class SchedulingPage implements OnInit {
 
   ngOnInit() {
     this.getStudioAndRoom();
-    // this.loadPeriods();
-    this.builSchedulingForm();
-    console.log('minDatetime ', this.minDatetime);
-    console.log('dateNow ', this.dateNow);
-    // console.log('dateNowString ', this.dateNowString);
     this.setDayName(this.dateNow.toString());
+    this.loadPeriodsFree(this.dayName, this.minDatetime);
+    this.builSchedulingForm(this.minDatetime);
+   
   }
 
   radioGroup(event) {
     this.selectRadioGroup = event.detail;
-  }
-
-  dateSchedule(event) {
-    this.selectDate = event.detail;
-    this.loadPeriodsFree();
-    console.log(this.loadPeriodsFree());
   }
 
   submitForm() {
@@ -83,13 +71,12 @@ export class SchedulingPage implements OnInit {
     console.log(this.selectRadioGroup);
   }
 
-  builSchedulingForm() {
+  builSchedulingForm(dateSchedule: string) {
     this.schedulingForm = this.formBuilder.group({
-      //id: [null],
-      date_scheduling: new FormControl(Date),
+      date_scheduling: new FormControl(dateSchedule, Validators.compose([Validators.required])),
       customer_id: [this.service.userLocalStorage['customer_id']],
       time_period_id: [this.selectRadioGroup],
-      comment: new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(150)]))
+      comment: new FormControl(null)
     });
   }
 
@@ -98,23 +85,21 @@ export class SchedulingPage implements OnInit {
     console.log(this.scheduling.time_period_id);
   }
 
-  loadPeriods() {
-    this.service.getPeriodsByRoomId(this.room.id).subscribe(
-      periods => this.periods = periods
-    );
-  }
-
-  loadPeriodsFree() {
-    this.service.getPeriodsFreeByRoomIdAndDate(this.room.id, this.period.day, this.scheduling.date_scheduling)
+  loadPeriodsFree(day: string, date: string) {
+    this.service.getPeriodsFreeByRoomIdAndDate(this.room.id, day, date)
     .subscribe(
       periods => this.periods = periods
     );
   }
 
-  // Change Datetime
   changeDateSchedule(event) {
-    // console.log('changeDate ', event);
-    // console.log('Date ', new Date(event.detail.value))
+    const newDate = event.detail.value.slice(0, 10);
+    let day = new Date(event.detail.value).toString();
+    day = day.slice(0, 3);
+    const newDayName = this.getDayName(day);
+
+    this.builSchedulingForm(newDate);
+    this.loadPeriodsFree(newDayName, newDate);
   }
 
   setDayName(date: string) {
@@ -143,9 +128,32 @@ export class SchedulingPage implements OnInit {
         this.dayName = this.days[6];
         break;
     }
-
-    console.log('dayName ', this.dayName);
-
+  }
+  
+  getDayName(day: string) {
+    switch (day) {
+      case 'Sun':
+        return this.days[0];
+        break;
+      case 'Mon':
+        return this.days[1];
+        break;
+      case 'Tue':
+        return this.days[2];
+        break;
+      case 'Wed':
+        return this.days[3];
+        break;
+      case 'Thu':
+        return this.days[4];
+        break;
+      case 'Fri':
+        return this.days[5];
+        break;
+      case 'Sat':
+        return this.days[6];
+        break;
+    }
   }
 
   getStudioAndRoom() {

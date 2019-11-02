@@ -48,6 +48,7 @@ export class SchedulingService {
 
     jsonData['periods'].forEach(element => {
       const period = Object.assign(new PeriodModel(), element);
+      
       periods.push(period);
     });
 

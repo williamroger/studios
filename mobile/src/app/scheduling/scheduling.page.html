@@ -28,27 +28,29 @@
       </div>
       
       <form [formGroup]="schedulingForm">
-        <ion-input type="text" formControlName="date_scheduling" name="dateScheduling"></ion-input>
+        <ion-input type="text" formControlName="date_scheduling" class="dateScheduling"></ion-input>
+        
         <ion-label position="stacked">Selecionar Data</ion-label>
         <ion-datetime [min]="minDatetime" [max]="maxDatetime" value="{{ dateScheduling | date: 'yyyy-MM-dd' }}"
-          displayFormat="DD MMMM YYYY"displayFormat="MM/DD/YYYY" cancelText="Cancelar" doneText="Ok" (ionChange)="changeDateSchedule($event)"
+          displayFormat="DD MMMM YYYY" cancelText="Cancelar" doneText="Ok" (ionChange)="changeDateSchedule($event)"
           [monthNames]="monthNames">
         </ion-datetime>
         
         <ion-label position="stacked">Horários Disponíveis</ion-label>
         <ion-radio-group allow-empty-selection="true" name="radio-group" (ionChange)="radioGroup($event)">
           <ion-item *ngFor="let period of periods">
-            <!-- <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label> -->
+            <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label>
             <ion-radio slot="end" color="primary" value="{{period.id}}" formControlName="time_period_id"></ion-radio>
           </ion-item>
         </ion-radio-group>
         
         <div>
-          <ion-label>Comentario</ion-label>
+          <ion-label>Observações</ion-label>
           <ion-textarea formControlName="comment" rows="6" cols="20"></ion-textarea>
         </div>
         <ion-button (click)="submitForm()">Agendar</ion-button>
       </form>
+      <pre>{{ schedulingForm.value | json }}</pre>
     </div>
   </div>
 
