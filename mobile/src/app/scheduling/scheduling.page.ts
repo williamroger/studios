@@ -36,7 +36,8 @@ export class SchedulingPage implements OnInit {
   
   public dateNow = new Date();
   public dateNowString = this.dateNow.toISOString();
-  public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth()+1}-${this.dateNow.getDate()}`;
+  public minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth() + 1}-${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()}`;
+
   public maxDatetime = `${this.dateNow.getFullYear()+1}`;
   public dayName = '';
 
@@ -54,7 +55,7 @@ export class SchedulingPage implements OnInit {
     // this.loadPeriods();
     this.builSchedulingForm();
     console.log('minDatetime ', this.minDatetime);
-    // console.log('dateNow ', this.dateNow);
+    console.log('dateNow ', this.dateNow);
     // console.log('dateNowString ', this.dateNowString);
     this.setDayName(this.dateNow.toString());
   }

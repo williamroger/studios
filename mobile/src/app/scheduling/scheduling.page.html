@@ -31,7 +31,7 @@
         <ion-input type="text" formControlName="date_scheduling" name="dateScheduling"></ion-input>
         <ion-label position="stacked">Selecionar Data</ion-label>
         <ion-datetime [min]="minDatetime" [max]="maxDatetime" value="{{ dateScheduling | date: 'yyyy-MM-dd' }}"
-          displayFormat="DD MMMM YYYY" cancelText="Cancelar" doneText="Ok" (ionChange)="changeDateSchedule($event)"
+          displayFormat="DD MMMM YYYY"displayFormat="MM/DD/YYYY" cancelText="Cancelar" doneText="Ok" (ionChange)="changeDateSchedule($event)"
           [monthNames]="monthNames">
         </ion-datetime>
         
