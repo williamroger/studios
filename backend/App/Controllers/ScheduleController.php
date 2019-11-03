@@ -167,11 +167,18 @@ final class ScheduleController
       $scheduleDAO = new SchedulesDAO();
 
       $periods = $scheduleDAO->getPeriodsFreeByRoomIdAndDate($roomId, $day, $date);
-
-      $response = $response->withJson([
-        'success' => true,
-        'periods' => $periods
-      ], 200);
+      
+      if ($periods != null) {
+        $response = $response->withJson([
+          'success' => true,
+          'periods' => $periods
+        ], 200);
+      } else {
+        $response = $response->withJson([
+          'success' => false,
+          'msg' => 'Não temos nenhum período disponível para esta data!'
+        ], 200);
+      }
 
       return $response;
         

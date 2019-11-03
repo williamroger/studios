@@ -62,3 +62,8 @@ ALTER TABLE `db_dev_studios`.`studios`
 ADD COLUMN `has_recording` INT(11) NULL AFTER `has_wifi`,
 ADD COLUMN `has_mixing_mastering` INT(11) NULL AFTER `has_recording`;
 
+=========================================================03-11-19
+
+ALTER TABLE `db_dev_studios`.`schedules`
+DROP FOREIGN KEY `fk_Agendamentos_Clientes1`;
+
