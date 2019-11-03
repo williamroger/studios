@@ -46,13 +46,19 @@ export class SchedulingService {
   private jsonDataToPeriods(jsonData: any[]): PeriodModel[] {
     const periods: PeriodModel[] = [];
 
-    jsonData['periods'].forEach(element => {
-      const period = Object.assign(new PeriodModel(), element);
-      
-      periods.push(period);
-    });
+    if (jsonData['success']) {
+      jsonData['periods'].forEach(element => {
+        const period = Object.assign(new PeriodModel(), element);
+
+        periods.push(period);
+      });
+
+    } else {
+      periods.push(jsonData['msg']);
+    }
 
     return periods;
+
   }
 
   private jsonScheduling(jsonData: any[]): SchedulingModel[] {

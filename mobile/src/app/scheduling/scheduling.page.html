@@ -37,20 +37,37 @@
         </ion-datetime>
         
         <ion-label position="stacked">Horários Disponíveis</ion-label>
-        <ion-radio-group allow-empty-selection="true" name="radio-group" (ionChange)="radioGroup($event)">
-          <ion-item *ngFor="let period of periods">
-            <ion-label>{{period.begin_period + " - " + period.end_period}}</ion-label>
-            <ion-radio slot="end" color="primary" value="{{period.id}}" formControlName="time_period_id"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-        
+        <ion-input type="text" formControlName="time_period_id" class="periodID"></ion-input>
+          <div *ngIf="hasPeriods" >
+            <div *ngFor="let period of periods" (click)="checkedTimePeriod(period.id)" data-id="{{period.id}}" class="card-period">
+              <span class="card-period__time">
+                <p>{{ period.beginPeriod }}</p>
+                <small>às</small>
+                <p>{{ period.endPeriod }}</p>
+              </span>
+              <span class="card-period__amount">
+                <p>R$ {{ period.amount }}</p>
+              </span>
+              <span class="card-period__checkbox">
+              
+              </span>
+            </div>
+          </div>
+          <div *ngIf="!hasPeriods">
+            <div class="period-message">
+              <img src="./../../assets/found.svg">
+              <p>{{ messagePeriods }}</p>
+            </div>
+          </div>
         <div>
           <ion-label>Observações</ion-label>
           <ion-textarea formControlName="comment" rows="6" cols="20"></ion-textarea>
         </div>
-        <ion-button (click)="submitForm()">Agendar</ion-button>
+        <ion-button expand="block" class="button" color="secondary" (click)="submitForm()" [disabled]="schedulingForm.invalid">
+          Finalizar Agendamento
+        </ion-button>
       </form>
-      <pre>{{ schedulingForm.value | json }}</pre>
+      <!-- <pre>{{ schedulingForm.value | json }}</pre> -->
     </div>
   </div>
 
