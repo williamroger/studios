@@ -49,8 +49,8 @@
             <p>Você precisa atualizar os dados do seu estúdio para ser vistos pelos usuários.</p>
             <a routerLink="/configuracoes" class="btn btn-primary">Atualizar meus dados</a>
           </div>
-          <div class="schedules">
-            <div class="schedules__header">
+          <div class="schedule">
+            <div class="schedule__header">
               <div class="room-color">
               </div>
               <div class="period-time">
@@ -91,17 +91,98 @@
                   Cancelar
                 </a>
               </div>
+              <button class="btn-toggle-details" (click)="toggleDetails($event)">
+                <i class="pi pi-chevron-down icon" style="font-size: 1.3em"></i>
+              </button>
             </div>
-            <div class="schedules__body">
+            <div class="schedule__body d-none">
               <div class="space">
 
               </div>
               <div class="info">
-                <div class="customer-contact">
-
+                <div class="customer-data">
+                  <div class="customer-contact">
+                    <label>Contato</label>
+                    <p>(81) 98743-0998</p>
+                  </div>
+                  <div class="customer-cpf">
+                    <label>CPF</label>
+                    <p>987-098-098-20</p>
+                  </div>
                 </div>
                 <div class="customer-comment">
+                  <label>Observações</label>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas molestias harum laboriosam a, nostrum placeat quam reprehenderit itaque reiciendis odio molestiae exercitationem magni nesciunt veniam ratione deserunt alias doloremque earum!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="schedule">
+            <div class="schedule__header">
+              <div class="room-color">
+              </div>
+              <div class="period-time">
+                <strong>08:00</strong>
+                <span>
+                  <small>11:00</small>
+                  <i class="pi pi-clock waiting" style="font-size: 1.4em"></i>
+                  <!-- <i class="pi pi-check confirmed" style="font-size: 1.4em"></i> -->
+                  <!-- <i class="pi pi-calendar-times canceled" style="font-size: 1.2em"></i> -->
+                </span>
+              </div>
+              <div class="customer-name">
+                <div>
+                  <label>Nome</label>
+                  <p>William Roger</p>
+                </div>
+              </div>
+              <div class="room-name">
+                <label>Sala</label>
+                <p>Cold Play (Premium)</p>
+              </div>
+              <div class="status">
+                <label>Status</label>
+                <p>Aguardando</p>
+              </div>
+              <div class="amount">
+                <label>Valor</label>
+                <p>R$ 75,00</p>
+              </div>
+              <div class="actions">
+                <label>Ações</label>
+                <a href="#" class="btn button-confirm btn-sm mr-3">
+                  <i class="pi pi-check" style="font-size: 1.2em"></i>
+                  Confirmar
+                </a>
+                <a href="#" class="btn button-cancel btn-sm">
+                  <i class="pi pi-calendar-times" style="font-size: 1.2em"></i>
+                  Cancelar
+                </a>
+              </div>
+              <button class="btn-toggle-details" (click)="toggleDetails($event)">
+                <i class="pi pi-chevron-down icon" style="font-size: 1.3em"></i>
+              </button>
+            </div>
+            <div class="schedule__body d-none">
+              <div class="space">
 
+              </div>
+              <div class="info">
+                <div class="customer-data">
+                  <div class="customer-contact">
+                    <label>Contato</label>
+                    <p>(81) 98743-0998</p>
+                  </div>
+                  <div class="customer-cpf">
+                    <label>CPF</label>
+                    <p>987-098-098-20</p>
+                  </div>
+                </div>
+                <div class="customer-comment">
+                  <label>Observações</label>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas molestias harum laboriosam a, nostrum
+                    placeat quam reprehenderit itaque reiciendis odio molestiae exercitationem magni nesciunt veniam ratione
+                    deserunt alias doloremque earum!</p>
                 </div>
               </div>
             </div>
