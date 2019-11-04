@@ -80,6 +80,7 @@ class SchedulesDAO extends ConnectionDataBase
                  INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
                  INNER JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id
                  INNER JOIN rooms ON time_periods.room_id = rooms.id
+                 INNER JOIN customers ON customers.id = schedules.customer_id
                  WHERE rooms.studio_id = :id AND schedules.date_scheduling = :date');
     
     $statement->execute([
