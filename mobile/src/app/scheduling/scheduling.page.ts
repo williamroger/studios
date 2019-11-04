@@ -1,6 +1,5 @@
 import { StudioModel } from './../home/shared/StudioModel';
 import { Component, OnInit } from '@angular/core';
-import { NavController} from '@ionic/angular';
 import { SchedulingService } from './shared/scheduling.service';
 import { RoomService } from '../rooms/shared/room.service';
 import { SchedulingModel } from './shared/SchedulingModel';
@@ -8,7 +7,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { PeriodModel } from './shared/PeriodModel';
-import { AuthService } from './../auth.service';
 import { RoomModel } from '../rooms/shared/RoomModel';
 import { Router } from '@angular/router';
 import { CustomerModel } from '../account/shared/customerModel';
@@ -44,8 +42,6 @@ export class SchedulingPage implements OnInit {
   
   constructor(public service: SchedulingService,
               public roomService: RoomService,
-              public auth: AuthService,
-              public nav: NavController,
               public formBuilder: FormBuilder,
               public toastr: ToastController,
               public loading: LoadingController,
@@ -89,7 +85,6 @@ export class SchedulingPage implements OnInit {
           this.hasPeriods = false;
           this.messagePeriods = periods[0].toString();
         }
-        
       } 
     );
   }
@@ -189,7 +184,7 @@ export class SchedulingPage implements OnInit {
 
   async presentLoading() {
     const loading = await this.loading.create({
-      message: 'Cadastrando',
+      message: 'Aguarde...',
       duration: 1000
     });
     await loading.present();
@@ -201,13 +196,16 @@ export class SchedulingPage implements OnInit {
     const toast = await this.toastr.create({
       message,
       duration: 2000,
-      color: 'primary'
+      color: 'secondary'
     });
     toast.present();
   }
 
   actionsForSuccess(scheduling: SchedulingModel) {
-    this.presentToast('Agendado com sucesso!');
+    this.presentToast('Ensaio agendado com sucesso!');
+    setTimeout(() => {
+      this.router.navigate(['tabs', 'schedules']);
+    }, 3000);
   }
 
   actionsForError(error) {

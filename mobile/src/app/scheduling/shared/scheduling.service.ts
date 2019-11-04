@@ -69,9 +69,6 @@ export class SchedulingService {
     });
     return scheduling;
   }
-  /*private jsonDataToPeriod(jsonData: any): PeriodModel {
-    return Object.assign(new PeriodModel(), jsonData['period']);
-  }*/
 
   private jsonDataToScheduling(jsonData: any): SchedulingModel {
     return jsonData as SchedulingModel;
