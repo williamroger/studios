@@ -39,4 +39,12 @@ export class PeriodModel {
     }
     return day;
   }
+
+  get beginPeriod() {
+    return this.begin_period.slice(0, 5);
+  }
+
+  get endPeriod() {
+    return this.end_period.slice(0, 5);
+  }
 }
