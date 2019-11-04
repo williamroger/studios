@@ -1,2 +1,86 @@
+@import './../../../../styles.scss';
 
+.waiting {
+  color: $color-label;
+}
+
+.confirmed {
+  color: #40C057;
+}
+
+.canceled {
+  color: #E42C64;
+}
+
+.button-confirm {
+  background-color: #40C057;
+  color: #fff;
+}
+
+.button-cancel {
+  background-color: #E42C64;
+  color: #fff;
+}
+
+.schedules {
+  border: 1px solid lighten($color-label, 30%);
+  padding: 1.3rem .8rem;
+  border-radius: 5px;
+  color: $color-text;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    label {
+      color: #6F7885;
+      font-weight: 300;
+      display: inline-block;
+      margin-bottom: .5rem;
+    }
+
+    p  {
+      margin-bottom: 0;
+    }
+
+    .period-time {
+      display: flex;
+      flex-direction: column;
+      margin-left: .5rem;
+
+      strong {
+        font-size: 2rem;
+        line-height: 1;
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+      }
+
+      small {
+        font-size: 1.3rem;
+        color: $color-label;
+        margin-right: 3px;
+      }
+    }
+
+    .room-color {
+      width: 6px !important;
+      height: 60px;
+      background: orange;
+      position: absolute;
+      left: -13px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    .actions {
+      label {
+        display: block;
+      }
+    }
+  }
+}
 
