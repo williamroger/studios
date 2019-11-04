@@ -102,7 +102,8 @@ class SchedulesDAO extends ConnectionDataBase
                  INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
                  INNER JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id
                  INNER JOIN rooms ON time_periods.room_id = rooms.id
-                 WHERE schedules.customer_id = :id;');
+                 WHERE schedules.customer_id = :id
+                 ORDER BY schedules.date_scheduling DESC;');
 
     $statement->bindParam('id', $customerId);
     
