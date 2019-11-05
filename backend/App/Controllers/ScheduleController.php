@@ -109,10 +109,17 @@ final class ScheduleController
       
       $schedules = $scheduleDAO->getSchedulesByStudioIdAndDate($studioId, $date);
 
-      $response = $response->withJson([
-        'success' => true,
-        'schedules' => $schedules
-      ], 200);
+      if ($schedules != null) {
+        $response = $response->withJson([
+          'success' => true,
+          'schedules' => $schedules
+        ], 200);
+      } else {
+        $response = $response->withJson([
+          'success' => false,
+          'msg' => 'Não tem nenhum ensaio agendado para hoje!'
+        ], 200);
+      }
 
       return $response;
 
