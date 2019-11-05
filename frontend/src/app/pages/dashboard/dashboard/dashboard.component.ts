@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SchedulingService } from '../shared/scheduling.service';
+import { ScheduleModel } from '../shared/schedule.model';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -9,11 +12,19 @@ export class DashboardComponent implements OnInit {
 
   userLoggedIn: any;
   studioHasCityId: boolean;
+  schedules: ScheduleModel[] = [];
 
-  constructor() { }
+  constructor(private schedulesService: SchedulingService) { }
 
   ngOnInit() {
     this.loadCityId();
+    this.getSchedules();
+  }
+
+  private getSchedules() {
+    this.schedulesService.getSchedulesByStudioIdAndDate(1, '2019-10-08').subscribe(
+      schedules => this.schedules = schedules
+    )
   }
 
   private loadCityId() {

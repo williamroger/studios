@@ -36,10 +36,11 @@
 
 .schedule {
   border: 1px solid lighten($color-label, 30%);
-  padding: 1.3rem .8rem;
+  padding: 1.3rem 1.3rem 1.3rem .8rem;
   border-radius: 5px;
   color: $color-text;
   margin-bottom: 1rem;
+  transition: all .5s ease-in-out;
 
   &__header,
   &__body {
@@ -85,7 +86,6 @@
     .room-color {
       width: 6px !important;
       height: 60px;
-      background: orange;
       position: absolute;
       left: -13px;
       border-top-right-radius: 5px;
@@ -101,13 +101,11 @@
 
   &__body {
     display: flex;
-    transition: .3s ease-in-out;
-
-    .space {
-      display: block;
-      width: 31%;
-      height: 100%;
-    }
+    transition: all .3s ease-in-out;
+    border-top: 1px solid lighten($color-label, 30%);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    margin-left: .5rem;
 
     .customer-data {
       display: flex;
