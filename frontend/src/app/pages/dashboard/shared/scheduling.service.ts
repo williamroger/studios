@@ -21,11 +21,14 @@ export class SchedulingService {
   private jsonDataToSchedules(jsonData: any): ScheduleModel[] {
     const schedules: ScheduleModel[] = [];
 
-    jsonData['schedules'].forEach(element => {
-      const sched = Object.assign(new ScheduleModel(), element)
-      schedules.push(sched);
-      console.log('sched ', sched);
-    });
+    if (jsonData['success']) {
+      jsonData['schedules'].forEach(element => {
+        const sched = Object.assign(new ScheduleModel(), element)
+        schedules.push(sched);
+      });
+    } else {
+      schedules.push(jsonData['msg']);
+    }
 
     return schedules;
   }

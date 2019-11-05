@@ -30,8 +30,13 @@
     <div class="d-none d-xl-block col-xl-3">
       <div class="content-box content-calendar shadow-sm p-3">
         <div class="content-calendar__today">
-          <h1>Ensaios Hoje</h1>
-          <p>Não tem nenhum ensaio agendado para hoje!</p>
+          <h1 class="mb-5">Ensaios Hoje</h1>
+          <div *ngIf="!hasSchedules">
+            <div class="schedules-message">
+              <img src="./../../../../assets/images/found.svg">
+              <p>{{ scheduleMessage }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -41,7 +46,7 @@
           <h1>Agendamentos</h1>
         </div>
         <div class="content-box__info">
-          <p>Hoje, 06 de Outubro de 2019</p>
+          <p>{{ day }}, 06 de Novembro de 2019</p>
         </div>
         <div class="content-box__body">
           <div class="alert alert-warning" *ngIf="!studioHasCityId">
@@ -49,69 +54,77 @@
             <p>Você precisa atualizar os dados do seu estúdio para ser vistos pelos usuários.</p>
             <a routerLink="/configuracoes" class="btn btn-primary">Atualizar meus dados</a>
           </div>
-          <div class="schedule" *ngFor="let schedule of schedules">
-            <div class="schedule__header">
-              <div class="room-color" [ngStyle]="{backgroundColor: schedule.color }">
+          <div *ngIf="hasSchedules">
+            <div class="schedule" *ngFor="let schedule of schedules">
+              <div class="schedule__header">
+                <div class="room-color" [ngStyle]="{backgroundColor: schedule.color }">
+                </div>
+                <div class="period-time">
+                  <strong>{{ schedule.beginPeriod }}</strong>
+                  <span>
+                    <small>{{ schedule.endPeriod }}</small>
+                    <i class="pi pi-clock waiting" style="font-size: 1.4em"></i>
+                    <!-- <i class="pi pi-check confirmed" style="font-size: 1.4em"></i> -->
+                    <!-- <i class="pi pi-calendar-times canceled" style="font-size: 1.2em"></i> -->
+                  </span>
+                </div>
+                <div class="customer-name">
+                  <div>
+                    <label>Nome</label>
+                    <p>{{ schedule.firstname + " " + schedule.lastname }}</p>
+                  </div>
+                </div>
+                <div class="room-name">
+                  <label>Sala</label>
+                  <p>{{ schedule.name }}</p>
+                </div>
+                <div class="status">
+                  <label>Status</label>
+                  <p>{{ schedule.statusText }}</p>
+                </div>
+                <div class="amount">
+                  <label>Valor</label>
+                  <p>R$ {{ schedule.amount }}</p>
+                </div>
+                <div class="actions">
+                  <label>Ações</label>
+                  <a href="#" class="btn button-confirm btn-sm mr-3">
+                    <i class="pi pi-check" style="font-size: 1.2em"></i>
+                    Confirmar
+                  </a>
+                  <a href="#" class="btn button-cancel btn-sm">
+                    <i class="pi pi-calendar-times" style="font-size: 1.2em"></i>
+                    Cancelar
+                  </a>
+                </div>
+                <button class="btn-toggle-details" (click)="toggleDetails($event)">
+                  <i class="pi pi-chevron-down icon" style="font-size: 1.3em"></i>
+                </button>
               </div>
-              <div class="period-time">
-                <strong>{{ schedule.beginPeriod }}</strong>
-                <span>
-                  <small>{{ schedule.endPeriod }}</small>
-                  <i class="pi pi-clock waiting" style="font-size: 1.4em"></i>
-                  <!-- <i class="pi pi-check confirmed" style="font-size: 1.4em"></i> -->
-                  <!-- <i class="pi pi-calendar-times canceled" style="font-size: 1.2em"></i> -->
-                </span>
-              </div>
-              <div class="customer-name">
-                <div>
-                  <label>Nome</label>
-                  <p>{{ schedule.firstname + " " + schedule.lastname }}</p>
+              <div class="schedule__body d-none">
+                <div class="info">
+                  <div class="customer-data">
+                    <div class="customer-contact">
+                      <label>Contato</label>
+                      <p>{{ schedule.phone }}</p>
+                    </div>
+                    <div class="customer-cpf">
+                      <label>CPF</label>
+                      <p>{{ schedule.cpf }}</p>
+                    </div>
+                  </div>
+                  <div class="customer-comment">
+                    <label>Observações</label>
+                    <p>{{ schedule.comment }}</p>
+                  </div>
                 </div>
               </div>
-              <div class="room-name">
-                <label>Sala</label>
-                <p>{{ schedule.name }}</p>
-              </div>
-              <div class="status">
-                <label>Status</label>
-                <p>{{ schedule.statusText }}</p>
-              </div>
-              <div class="amount">
-                <label>Valor</label>
-                <p>R$ {{ schedule.amount }}</p>
-              </div>
-              <div class="actions">
-                <label>Ações</label>
-                <a href="#" class="btn button-confirm btn-sm mr-3">
-                  <i class="pi pi-check" style="font-size: 1.2em"></i>
-                  Confirmar
-                </a>
-                <a href="#" class="btn button-cancel btn-sm">
-                  <i class="pi pi-calendar-times" style="font-size: 1.2em"></i>
-                  Cancelar
-                </a>
-              </div>
-              <button class="btn-toggle-details" (click)="toggleDetails($event)">
-                <i class="pi pi-chevron-down icon" style="font-size: 1.3em"></i>
-              </button>
             </div>
-            <div class="schedule__body d-none">
-              <div class="info">
-                <div class="customer-data">
-                  <div class="customer-contact">
-                    <label>Contato</label>
-                    <p>{{ schedule.phone }}</p>
-                  </div>
-                  <div class="customer-cpf">
-                    <label>CPF</label>
-                    <p>{{ schedule.cpf }}</p>
-                  </div>
-                </div>
-                <div class="customer-comment">
-                  <label>Observações</label>
-                  <p>{{ schedule.comment }}</p>
-                </div>
-              </div>
+          </div>
+          <div *ngIf="!hasSchedules">
+            <div class="schedules-message">
+              <img src="./../../../../assets/images/found.svg">
+              <p>{{ scheduleMessage }}</p>
             </div>
           </div>
         </div>

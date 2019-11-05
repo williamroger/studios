@@ -13,17 +13,35 @@ export class DashboardComponent implements OnInit {
   userLoggedIn: any;
   studioHasCityId: boolean;
   schedules: ScheduleModel[] = [];
+  monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  dateNow = new Date();
+  dateNowString = this.dateNow.toISOString();
+  minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth() + 1}-${(this.dateNow.getDate() < 9) ? '0'+this.dateNow.getDate() : this.dateNow.getDate()}`;
+  maxDatetime = `${this.dateNow.getFullYear() + 1}`;
+  day = 'Hoje';
+  hasSchedules: boolean;
+  scheduleMessage = '';
 
   constructor(private schedulesService: SchedulingService) { }
 
   ngOnInit() {
     this.loadCityId();
-    this.getSchedules();
+    this.getSchedules(this.userLoggedIn.studio_id, this.minDatetime);
   }
 
-  private getSchedules() {
-    this.schedulesService.getSchedulesByStudioIdAndDate(1, '2019-10-08').subscribe(
-      schedules => this.schedules = schedules
+  private getSchedules(id: number, date: string) {
+    this.schedulesService.getSchedulesByStudioIdAndDate(id, date).subscribe(
+      (schedules) =>  {
+        // Melhorar essa verificação aqui
+        if (schedules.length > 1) {
+          this.schedules = schedules;
+          this.hasSchedules = true;
+        } else {
+          this.hasSchedules = false;
+          this.scheduleMessage = schedules[0].toString();
+        }
+      }
     )
   }
 
