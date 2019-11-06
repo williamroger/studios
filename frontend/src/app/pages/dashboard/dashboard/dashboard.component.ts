@@ -33,8 +33,7 @@ export class DashboardComponent implements OnInit {
   private getSchedules(id: number, date: string) {
     this.schedulesService.getSchedulesByStudioIdAndDate(id, date).subscribe(
       (schedules) =>  {
-        // Melhorar essa verificação aqui
-        if (schedules.length > 1) {
+        if (typeof schedules[0] == "object") {
           this.schedules = schedules;
           this.hasSchedules = true;
         } else {
