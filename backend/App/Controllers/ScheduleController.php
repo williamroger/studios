@@ -247,7 +247,7 @@ final class ScheduleController
 
       $response = $response->withJson([
         'success' => true,
-        'msg' => 'Agendamento confirmado com sucesso!'
+        'msg' => 'Agendamento cancelado com sucesso!'
       ], 200);
 
       return $response;

@@ -68,7 +68,7 @@ export class SchedulingPage implements OnInit {
   builSchedulingForm(dateSchedule?: string, periodId?: string) {
     this.schedulingForm = this.formBuilder.group({
       date_scheduling: new FormControl(dateSchedule, Validators.compose([Validators.required])),
-      customer_id: [this.customer.id, Validators.compose([Validators.required])],
+      customer_id: [this.customer.customer_id, Validators.compose([Validators.required])],
       time_period_id: new FormControl(periodId, Validators.compose([Validators.required])),
       comment: new FormControl(null)
     });
