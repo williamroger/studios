@@ -55,8 +55,8 @@ $app->group('', function() use ($app) {
   $app->get('/getschedulesbycustomerid/{id}', ScheduleController::class . ':getSchedulesByCustomerId');
   $app->get('/getschedulesbystudioidanddate/{id}/{date}', ScheduleController::class . ':getSchedulesByStudioIdAndDate');
   $app->get('/getperiodsfreebyroomidanddate/{id}/{day}/{date}', ScheduleController::class . ':getPeriodsFreeByRoomIdAndDate');
-  $app->put('/confirmscheduling/{id}', ScheduleController::class . ':confirmScheduling');
-  $app->put('/cancelscheduling/{id}', ScheduleController::class . ':cancelScheduling');
+  $app->put('/confirmscheduling', ScheduleController::class . ':confirmScheduling');
+  $app->put('/cancelscheduling', ScheduleController::class . ':cancelScheduling');
 
 })->add(function ($req, $res, $next) {
   $response = $next($req, $res);

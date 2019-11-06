@@ -200,8 +200,10 @@ final class ScheduleController
   public function confirmScheduling(Request $request, Response $response, array $args): Response 
   {
     try {
-      $idSchedule = intval($args['id']);
+      $data = $request->getParsedBody();
+      $idSchedule = $data['schedule_id'];
 
+      // Adicionar data de update
       if (!$idSchedule)
         throw new \Exception("Erro na aplicação, tente novamente.");
       
@@ -229,8 +231,11 @@ final class ScheduleController
   public function cancelScheduling(Request $request, Response $response, array $args): Response
   {
     try {
-      $idSchedule = intval($args['id']);
+      $data = $request->getParsedBody();
+      $idSchedule = $data['id'];
 
+      // Adicionar data de cancel
+      
       if (!$idSchedule)
         throw new \Exception("Erro na aplicação, tente novamente.");
 
