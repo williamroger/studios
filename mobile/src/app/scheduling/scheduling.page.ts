@@ -78,7 +78,7 @@ export class SchedulingPage implements OnInit {
     this.service.getPeriodsFreeByRoomIdAndDate(this.room.id, day, date)
     .subscribe(
       (periods) => {
-        if (periods.length > 1) {
+        if (typeof periods[0] == "object") {
           this.hasPeriods = true;
           this.periods = periods
         } else {
