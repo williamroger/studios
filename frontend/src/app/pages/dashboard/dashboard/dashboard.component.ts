@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadCityId();
-    this.getSchedules(this.userLoggedIn.studio_id, this.minDatetime);
+    this.getSchedules(this.userLoggedIn.studio_id, "2019-10-08");
   }
 
   private getSchedules(id: number, date: string) {

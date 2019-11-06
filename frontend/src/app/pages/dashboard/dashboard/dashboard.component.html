@@ -27,10 +27,29 @@
 
 <div class="container-fluid">
   <div class="row">
+    <!-- Sidebar -->
     <div class="d-none d-xl-block col-xl-3">
       <div class="content-box content-calendar shadow-sm p-3">
         <div class="content-calendar__today">
           <h1 class="mb-5">Ensaios Hoje</h1>
+          <div *ngIf="hasSchedules">
+            <div class="schedule-sidebar" *ngFor="let schedule of schedules">
+              <div class="schedule-sidebar__avatar" [ngStyle]="{'background-image': 'url(./../assets/images/user-avatar.jpg)'}">
+
+              </div>
+              <div class="schedule-sidebar__info">
+                <h3>{{ schedule.firstname + " " + schedule.lastname }}</h3>
+                <div>
+                  <span [ngStyle]="{backgroundColor: schedule.color }">
+                  </span>
+                  <p>{{ schedule.name }}</p>
+                  <i class="pi pi-clock waiting" style="font-size: 1.4em"></i>
+                  <!-- <i class="pi pi-check confirmed" style="font-size: 1.4em"></i> -->
+                  <!-- <i class="pi pi-calendar-times canceled" style="font-size: 1.2em"></i> -->
+                </div>
+              </div>
+            </div>
+          </div>
           <div *ngIf="!hasSchedules">
             <div class="schedules-message">
               <img src="./../../../../assets/images/found.svg">
@@ -40,6 +59,7 @@
         </div>
       </div>
     </div>
+    <!-- Schedules Main -->
     <div class="col-12 col-xl-9">
       <div class="content-box shadow-sm p-3">
         <div class="content-box__header">
