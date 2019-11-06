@@ -57,6 +57,14 @@ export class DashboardComponent implements OnInit {
     )
   }
 
+  private cancelScheduling(schedule) {
+    const sched: ScheduleModel = Object.assign(new ScheduleModel(), schedule);
+    this.schedulesService.cancelScheduling(sched).subscribe(
+      message => this.actionsForSuccess(message),
+      error => this.actionsForError(error)
+    )
+  }
+
   private loadCityId() {
     this.userLoggedIn = JSON.parse(localStorage.getItem('userLoggedIn'));
     this.studioHasCityId = (+this.userLoggedIn['city_id']) ? true : false;
