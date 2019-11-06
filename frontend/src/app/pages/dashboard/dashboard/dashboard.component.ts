@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { SchedulingService } from '../shared/scheduling.service';
 import { ScheduleModel } from '../shared/schedule.model';
 
+import toastr from 'toastr';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,6 +29,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadCityId();
+    // this.minDatetime
     this.getSchedules(this.userLoggedIn.studio_id, "2019-10-08");
   }
 
@@ -41,6 +44,16 @@ export class DashboardComponent implements OnInit {
           this.scheduleMessage = schedules[0].toString();
         }
       }
+    )
+  }
+
+  private confirmScheduling(schedule) {
+    const sched: ScheduleModel = Object.assign(new ScheduleModel(), schedule);
+    // console.log('sched ', sched);
+
+    this.schedulesService.confirmScheduling(sched).subscribe(
+      message => this.actionsForSuccess(message),
+      error => this.actionsForError(error)
     )
   }
 
@@ -103,5 +116,13 @@ export class DashboardComponent implements OnInit {
         return this.monthNames[11];
         break;
     }
+  }
+
+  private actionsForSuccess(message: string) {
+    toastr.success(message);
+  }
+
+  private actionsForError(error) {
+    toastr.error('Ocorreu um erro na aplicação, tento novamente!');
   }
 }

@@ -108,14 +108,14 @@
                 </div>
                 <div class="actions">
                   <label>Ações</label>
-                  <a href="#" class="btn button-confirm btn-sm mr-3">
+                  <button class="btn button-confirm btn-sm mr-3" (click)="confirmScheduling(schedule)">
                     <i class="pi pi-check" style="font-size: 1.2em"></i>
                     Confirmar
-                  </a>
-                  <a href="#" class="btn button-cancel btn-sm">
+                  </button>
+                  <button class="btn button-cancel btn-sm">
                     <i class="pi pi-calendar-times" style="font-size: 1.2em"></i>
                     Cancelar
-                  </a>
+                  </button>
                 </div>
                 <button class="btn-toggle-details" (click)="toggleDetails($event)">
                   <i class="pi pi-chevron-down icon" style="font-size: 1.3em"></i>

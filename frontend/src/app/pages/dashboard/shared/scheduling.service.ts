@@ -18,6 +18,20 @@ export class SchedulingService {
     )
   }
 
+  confirmScheduling(schedule: ScheduleModel): Observable<any> {
+    return this.http.put(`api/confirmscheduling`, schedule).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToMessage)
+    )
+  }
+
+  cancelScheduling(schedule: ScheduleModel): Observable<any> {
+    return this.http.put(`api/cancelscheduling`, schedule).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToMessage)
+    )
+  }
+
   private jsonDataToSchedules(jsonData: any): ScheduleModel[] {
     const schedules: ScheduleModel[] = [];
 
@@ -31,6 +45,12 @@ export class SchedulingService {
     }
 
     return schedules;
+  }
+
+  private jsonDataToMessage(jsonData: any): string {
+    let message = '';
+    message = jsonData['msg'];
+    return message;
   }
 
   private handleError(error: any): Observable<any> {
