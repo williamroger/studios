@@ -196,4 +196,61 @@ final class ScheduleController
       ], 500);
     }
   }
+
+  public function confirmScheduling(Request $request, Response $response, array $args): Response 
+  {
+    try {
+      $idSchedule = intval($args['id']);
+
+      if (!$idSchedule)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+      
+      // adicionar uma validação para verificar se o agendamento existe
+
+      $scheduleDAO = new SchedulesDAO();
+
+      $scheduleDAO->confirmScheduling($idSchedule);
+
+      $response = $response->withJson([
+        'success' => true,
+        'msg' => 'Agendamento confirmado com sucesso!'
+      ], 200);
+
+      return $response;
+
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
+  } 
+
+  public function cancelScheduling(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $idSchedule = intval($args['id']);
+
+      if (!$idSchedule)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      // adicionar uma validação para verificar se o agendamento existe
+
+      $scheduleDAO = new SchedulesDAO();
+
+      $scheduleDAO->cancelScheduling($idSchedule);
+
+      $response = $response->withJson([
+        'success' => true,
+        'msg' => 'Agendamento confirmado com sucesso!'
+      ], 200);
+
+      return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    } 
+  }
 }

@@ -145,4 +145,22 @@ class SchedulesDAO extends ConnectionDataBase
     
     return $periods;
   }
+
+  public function confirmScheduling(int $idSchedule): void 
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE schedules SET
+                  status = 1
+                 WHERE id = :id;');
+    $statement->execute(['id' => $idSchedule]);
+  }
+
+  public function cancelScheduling(int $idSchedule): void
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE schedules SET
+                  status = 2
+                 WHERE id = :id;');
+    $statement->execute(['id' => $idSchedule]);
+  }
 }
