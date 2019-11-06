@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   dateNowString = this.dateNow.toISOString();
   minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth() + 1}-${(this.dateNow.getDate() < 9) ? '0'+this.dateNow.getDate() : this.dateNow.getDate()}`;
   maxDatetime = `${this.dateNow.getFullYear() + 1}`;
-  day = 'Hoje';
+  selectedDay = `Hoje, ${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()} de ${this.getMonthName(this.dateNow.getMonth())} de ${this.dateNow.getFullYear()}`;
   hasSchedules: boolean;
   scheduleMessage = '';
 
@@ -61,6 +61,47 @@ export class DashboardComponent implements OnInit {
       details.classList.add('d-none');
       icon.classList.remove('pi-chevron-up');
       icon.classList.add('pi-chevron-down');
+    }
+  }
+
+  private getMonthName(month: number) {
+    switch (month) {
+      case 0:
+        return this.monthNames[0];
+        break;
+      case 1:
+        return this.monthNames[1];
+        break;
+      case 2:
+        return this.monthNames[2];
+        break;
+      case 3:
+        return this.monthNames[3];
+        break;
+      case 4:
+        return this.monthNames[4];
+        break;
+      case 5:
+        return this.monthNames[5];
+        break;
+      case 6:
+        return this.monthNames[6];
+        break;
+      case 7:
+        return this.monthNames[7];
+        break;
+      case 8:
+        return this.monthNames[8];
+        break;
+      case 9:
+        return this.monthNames[9];
+        break;
+      case 10:
+        return this.monthNames[10];
+        break;
+      case 11:
+        return this.monthNames[11];
+        break;
     }
   }
 }
