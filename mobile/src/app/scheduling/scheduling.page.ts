@@ -9,7 +9,6 @@ import { ToastController } from '@ionic/angular';
 import { PeriodModel } from './shared/PeriodModel';
 import { RoomModel } from '../rooms/shared/RoomModel';
 import { Router } from '@angular/router';
-import { CustomerModel } from '../account/shared/customerModel';
 
 
 @Component({
@@ -21,7 +20,7 @@ export class SchedulingPage implements OnInit {
   
   public room: RoomModel;
   public studio: StudioModel;
-  public customer: CustomerModel;
+  public customerId: number;
   public monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   public days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   public dateNow = new Date();
@@ -48,7 +47,7 @@ export class SchedulingPage implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.getCustomerStudioRoom();
+    this.getCustomerIdStudioRoom();
     this.setDayName(this.dateNow.toString());
     this.loadPeriodsFree(this.dayName, this.minDatetime);
     this.builSchedulingForm(this.minDatetime);
@@ -68,7 +67,7 @@ export class SchedulingPage implements OnInit {
   builSchedulingForm(dateSchedule?: string, periodId?: string) {
     this.schedulingForm = this.formBuilder.group({
       date_scheduling: new FormControl(dateSchedule, Validators.compose([Validators.required])),
-      customer_id: [this.customer.customer_id, Validators.compose([Validators.required])],
+      customer_id: [this.customerId, Validators.compose([Validators.required])],
       time_period_id: new FormControl(periodId, Validators.compose([Validators.required])),
       comment: new FormControl(null)
     });
@@ -168,12 +167,12 @@ export class SchedulingPage implements OnInit {
     }
   }
 
-  getCustomerStudioRoom() {
+  getCustomerIdStudioRoom() {
     const userJson = JSON.parse(localStorage.getItem("userLoggedIn"));
     const studioJson = JSON.parse(localStorage.getItem("studioDetails"));
     const roomJson = JSON.parse(localStorage.getItem("roomDetails"));
-
-    this.customer = Object.assign(new CustomerModel(), userJson);
+    
+    this.customerId = userJson.customer_id;
     this.studio = Object.assign(new StudioModel(), studioJson);
     this.room = Object.assign(new RoomModel(), roomJson);
   }
