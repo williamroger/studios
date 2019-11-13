@@ -99,12 +99,34 @@ class SchedulesDAO extends ConnectionDataBase
   public function getSchedulesByCustomerId(int $customerId): ?array 
   {
     $statement = $this->pdo
-      ->prepare('SELECT * FROM schedules_time_periods
-                 INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
-                 INNER JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id
-                 INNER JOIN rooms ON time_periods.room_id = rooms.id
-                 WHERE schedules.customer_id = :id
-                 ORDER BY schedules.date_scheduling DESC;');
+      ->prepare('SELECT 
+                    schedules_time_periods.*, 
+                    studios.name AS studio_name,
+                    schedules.status,
+                    schedules.date_cancellation,
+                    schedules.created_at,
+                    schedules.updated_at,
+                    schedules.customer_id,
+                    schedules.comment,
+                    schedules.date_scheduling,
+                    time_periods.id AS time_period_id, 
+                    time_periods.amount,
+                    time_periods.room_id,
+                    time_periods.day,
+                    time_periods.price_rate,
+                    time_periods.begin_period,
+                    time_periods.end_period,
+                    time_periods.day_order,
+                    rooms.studio_id,
+                    rooms.name AS room_name,
+                    rooms.maximum_capacity
+                  FROM schedules_time_periods
+                  INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
+                  INNER JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id
+                  INNER JOIN rooms ON time_periods.room_id = rooms.id
+                  INNER JOIN studios ON studios.id = rooms.studio_id 
+                  WHERE schedules.customer_id = :id
+                  ORDER BY schedules.date_scheduling DESC;');
 
     $statement->bindParam('id', $customerId);
     
