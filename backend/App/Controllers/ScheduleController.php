@@ -142,11 +142,18 @@ final class ScheduleController
       $scheduleDAO = new SchedulesDAO();
 
       $schedules = $scheduleDAO->getSchedulesByCustomerId($idCustomer);
-
-      $response = $response->withJson([
-        'success' => true,
-        'schedules' => $schedules
-      ], 200);
+      
+      if ($schedules != null) {
+        $response = $response->withJson([
+          'success' => true,
+          'schedules' => $schedules
+        ], 200);
+      } else {
+        $response = $response->withJson([
+          'success' => false,
+          'msg' => 'Você ainda não tem nenhum agendamento!'
+        ], 200);
+      }
 
       return $response;
       
