@@ -79,7 +79,7 @@ export class SchedulingPage implements OnInit {
       (periods) => {
         if (typeof periods[0] == "object") {
           this.hasPeriods = true;
-          this.periods = periods
+          this.periods = periods;
         } else {
           this.hasPeriods = false;
           this.messagePeriods = periods[0].toString();

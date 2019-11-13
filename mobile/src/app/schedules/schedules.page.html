@@ -7,13 +7,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let scheduling of mySchedulings">
-    <ion-label>
-      <h2>{{"Data do agendamento: " + scheduling.date_scheduling}}</h2>
-      <hr>
-      <h2>{{"Status: " + scheduling.statusText}}</h2>
-      <hr>
-      <p>{{"Comentário: " + scheduling.comment}}</p>
-    </ion-label>
-  </ion-card>
+  <div class="ion-padding">
+    <div *ngIf="hasSchedules">
+      <div class="schedule" *ngFor="let sched of schedules">
+        <h2>{{ sched.schedulingDate }}</h2>
+        <ion-card>
+          <!-- <pre>{{ sched | json }}</pre> -->
+          <ion-label>
+            <hr>
+            <h2>{{ "Status: " + sched.statusText }}</h2>
+            <hr>
+            <p>{{ "Comentário: " + sched.comment }}</p>
+          </ion-label>
+        </ion-card>
+      </div>
+    </div>
+
+    <div *ngIf="!hasSchedules">
+      <div class="schedule-message">
+        <img src="./../../assets/found.svg">
+        <p>{{ schedulesMessage }}</p>
+      </div>
+    </div>
+  </div>
 </ion-content>
