@@ -3,6 +3,7 @@ export class ScheduleModel {
     public id?: number,
     public schedule_id?: number,
     public time_period_id?: number,
+    public studio_name?: string,
     public status?: number,
     public date_cancellation?: string,
     public created_at?: string,
@@ -17,12 +18,9 @@ export class ScheduleModel {
     public begin_period?: string,
     public end_period?: string,
     public day_order?: number,
-    public description?: string,
     public studio_id?: number,
-    public name?: string,
-    public maximum_capacity?: number,
-    public color?: string,
-    public image?: string
+    public room_name?: string,
+    public maximum_capacity?: number
   ) {}
 
   get schedulingDate() {
@@ -73,6 +71,14 @@ export class ScheduleModel {
     return schedulingDate;
   }
 
+  get beginPeriod() {
+    return this.begin_period.slice(0, 5);
+  }
+
+  get endPeriod() {
+    return this.end_period.slice(0, 5);
+  }
+  
   get statusText() {
     if (this.status == 0) {
       return 'Aguardando';

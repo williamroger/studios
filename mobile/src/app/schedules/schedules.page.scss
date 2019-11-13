@@ -1,5 +1,89 @@
 .schedule {
+  &__date {
+    font-size: .95rem;
+    margin: 0;
+    color: var(--ion-color-medium-shade) !important;
+  }
 
+  ion-card {
+    margin: .5rem 0 2rem 0 !important;
+    padding: .5rem 1rem;
+
+    ion-label {
+      text-transform: uppercase;
+      color: var(--ion-color-medium-shade);
+    }
+
+    hr {
+      background-color: var(--ion-color-light-shade);
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: .3rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ion-color-dark-tint);
+    }
+
+    small {
+      font-size: .95rem;
+    }
+  }
+
+  &__time_amount {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+    color: var(--ion-color-dark-tint);
+
+    strong {
+      font-size: 1.1rem;
+    }
+
+    small {
+      margin-left: .5rem;
+      margin-right: .5rem;
+    }
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    margin-top: .3rem;
+
+    .icon {
+      margin-right: .5rem;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__status_action {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    ion-button {
+      --padding-start: .5rem !important;
+      --padding-end: .5rem !important;
+    }
+  }
+}
+
+.waiting {
+  color: var(--ion-color-medium-shade) !important;
+}
+
+.confirmed {
+  color: #40C057 !important;
+}
+
+.canceled {
+  color: #E42C64 !important;
 }
 
 .schedule-message {
