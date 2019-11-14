@@ -83,9 +83,9 @@
                   <strong>{{ schedule.beginPeriod }}</strong>
                   <span>
                     <small>{{ schedule.endPeriod }}</small>
-                    <i class="pi pi-clock waiting" style="font-size: 1.4em"></i>
-                    <!-- <i class="pi pi-check confirmed" style="font-size: 1.4em"></i> -->
-                    <!-- <i class="pi pi-calendar-times canceled" style="font-size: 1.2em"></i> -->
+                    <i class="pi pi-clock waiting" style="font-size: 1.4em" *ngIf="schedule.status == 0"></i>
+                    <i class="pi pi-check confirmed" style="font-size: 1.4em" *ngIf="schedule.status == 1"></i>
+                    <i class="pi pi-calendar-times canceled" style="font-size: 1.2em" *ngIf="schedule.status == 2"></i>
                   </span>
                 </div>
                 <div class="customer-name">
