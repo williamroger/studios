@@ -72,18 +72,13 @@
       --padding-end: .5rem !important;
     }
   }
-}
 
-.waiting {
-  color: var(--ion-color-medium-shade) !important;
-}
-
-.confirmed {
-  color: #40C057 !important;
-}
-
-.canceled {
-  color: #E42C64 !important;
+  &__canceled {
+    p {
+      margin-bottom: 0;
+      margin-top: .3rem;
+    }
+  }
 }
 
 .schedule-message {
@@ -98,4 +93,16 @@
     font-size: 1.3rem;
     color: var(--ion-color-primary);
   }
+}
+
+.waiting {
+  color: var(--ion-color-medium-shade) !important;
+}
+
+.confirmed {
+  color: #40C057 !important;
+}
+
+.canceled {
+  color: #E42C64 !important;
 }

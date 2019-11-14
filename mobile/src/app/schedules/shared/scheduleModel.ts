@@ -71,6 +71,14 @@ export class ScheduleModel {
     return schedulingDate;
   }
 
+  get cancellationDate() {
+    const year = this.date_cancellation.slice(0, 4);
+    const month = this.date_cancellation.slice(5, 7);
+    const day = this.date_cancellation.slice(8, 10);
+
+    return `${day}/${month}/${year}`;
+  }
+
   get beginPeriod() {
     return this.begin_period.slice(0, 5);
   }
