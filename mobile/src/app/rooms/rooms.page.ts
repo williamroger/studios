@@ -32,6 +32,7 @@ export class RoomsPage implements OnInit {
   getStudio() {
     const studioJson = JSON.parse(localStorage.getItem('studioDetails'));
     this.studio = Object.assign(new StudioModel(), studioJson);
+    console.log(this.studio);
   }
 
   toBackStudios() {

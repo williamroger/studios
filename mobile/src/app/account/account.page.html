@@ -16,7 +16,7 @@
       <form [formGroup]="customerForm" class="update-user__form">
         <ion-list class="line-input">
           <ion-item class="ion-margin-top" lines="none">
-            <ion-label position="stacked">Nome</ion-label>
+            <ion-label position="stacked">*Nome</ion-label>
             <ion-input type="text" formControlName="firstname"></ion-input>
             <div *ngIf="customerForm.get('firstname').invalid && customerForm.get('firstname').touched">
               <!--<div *ngIf="customerForm.get('firstname').errors.required">Este campo é obrigatório!</div>
@@ -24,7 +24,7 @@
             </div>
           </ion-item>
           <ion-item class="ion-margin-top" lines="none">
-            <ion-label position="stacked">E-mail</ion-label>
+            <ion-label position="stacked">*Sobrenome</ion-label>
             <ion-input type="text" formControlName="lastname"></ion-input>
             <div *ngIf="customerForm.get('lastname').invalid && customerForm.get('lastname').touched">
               <!--<div *ngIf="customerForm.get('lastname').errors.required">Este campo é obrigatório!</div>
@@ -32,7 +32,7 @@
             </div>
           </ion-item>
           <ion-item class="ion-margin-top" lines="none">
-            <ion-label position="stacked">Telefone</ion-label>
+            <ion-label position="stacked">*Telefone</ion-label>
             <ion-input type="text" formControlName="phone"></ion-input>
             <div *ngIf="customerForm.get('phone').invalid && customerForm.get('phone').touched">
               <!--<div *ngIf="customerForm.get('phone').errors.required">Este campo é obrigatório!</div>
@@ -40,7 +40,7 @@
             </div>
           </ion-item>
           <ion-item class="ion-margin-top" lines="none">
-            <ion-label position="stacked">CPF</ion-label>
+            <ion-label position="stacked">*CPF</ion-label>
             <ion-input type="text" formControlName="cpf"></ion-input>
             <div *ngIf="customerForm.get('cpf').invalid && customerForm.get('cpf').touched">
               <!--<div *ngIf="customerForm.get('cpf').errors.required">Este campo é obrigatório!</div>
@@ -48,7 +48,7 @@
             </div>
           </ion-item>
           <ion-item class="ion-margin-top" lines="none">
-            <ion-label position="stacked">Cidade</ion-label>
+            <ion-label position="stacked">*Cidade</ion-label>
             <ion-select formControlName="city_id">
               <ion-select-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ion-select-option>
             </ion-select>

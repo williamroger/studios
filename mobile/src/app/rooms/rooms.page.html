@@ -12,8 +12,7 @@
 
 <ion-content>
   <div class="studio-cover">
-    <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
-    <div class="studio-cover__logo" [ngStyle]="{'background-image': 'url(./assets/studios.png)'}">
+    <div class="studio-cover__logo" [ngStyle]="{'background-image': 'url('+studio.logoStudio+')'}">
     </div>
   </div>
   <div class="ion-padding">
@@ -70,10 +69,9 @@
       <ion-list>
         <ion-item *ngFor="let room of rooms" (click)="goToRoomDetails(room)" lines="none">
           <ion-card class="studio-details__room">
-            <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
-            <div class="studio-details__room-cover" [ngStyle]="{'background-image': 'url(./assets/room-default.jpg)'}"> 
-
+            <div class="studio-details__room-cover" [ngStyle]="{'background-image': 'url('+room.imageRoom+')'}"> 
             </div>
+
             <ion-card-header>
               <ion-card-subtitle>Sala</ion-card-subtitle>
               <ion-card-title>{{ room.name }}</ion-card-title>
