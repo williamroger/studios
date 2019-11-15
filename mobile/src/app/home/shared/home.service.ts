@@ -1,5 +1,5 @@
 import { map, catchError } from 'rxjs/operators';
-import {StudioModel} from '../shared/StudioModel';
+import { StudioModel } from '../shared/StudioModel';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -30,13 +30,20 @@ export class HomeService {
     this.studio = studio;
   }
 
-  // public returnStudio(){
-  //   return this.studio;
-  // }
-
   private jsonDataToStudios(jsonData: any[]): StudioModel[] {
     const studios: StudioModel[] = [];
-    jsonData['studios'].forEach(element => studios.push(element as StudioModel));
+
+    if (jsonData['success']) {
+      jsonData['studios'].forEach(element => {
+        const studio = Object.assign(new StudioModel(), element);
+
+        studios.push(studio);
+      });
+
+    } else {
+      studios.push(jsonData['msg']).toString();
+    }
+
     return studios;
   }
 

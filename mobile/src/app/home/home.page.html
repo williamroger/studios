@@ -34,8 +34,10 @@
     <ion-item *ngFor="let studio of studios"  (click)="goToRooms(studio)" lines="none">
       <ion-card class="card-studio">
         <!-- [ngStyle]="{'background-image': 'url('+image+')'}" -->
-        <ion-item class="card-studio__image" lines="none" [ngStyle]="{'background-image': 'url(./assets/studios.png)'}">
+        <ion-item class="card-studio__image" lines="none" [ngStyle]="{'background-image': 'url('+ studio.logoStudio +')'}">
         </ion-item>
+        
+        <!-- <ion-img src="http://localhost:8080/App/public/uploads/studio_1/logo_studio.png"></ion-img> -->
         <ion-item class="card-studio__info" lines="none">
           <ion-card-header >
             <ion-card-title>{{ studio.name }}</ion-card-title>

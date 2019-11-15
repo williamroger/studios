@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, BooleanValueAccessor } from '@ionic/angular';
 import { HomeService } from './shared/home.service';
 import { StudioModel } from './shared/StudioModel';
 import { Router } from '@angular/router';
@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
-  userLoggedIn: any;
-  customerHasCityId: boolean;
+  public userLoggedIn: any;
+  public customerHasCityId: boolean;
 
-  cityId: number;
-  studios: Array<StudioModel> = [];
-
+  public cityId: number;
+  public hasStudios: boolean;
+  public studiosMessage = '';
+  public studios: Array<StudioModel>;
+  
   constructor(private navCtrl: NavController,  
               private homeService: HomeService,
               private router: Router) { }
@@ -36,8 +38,14 @@ export class HomePage implements OnInit {
 
   private getStudiosByCityIdCustomer() {
     this.homeService.getStudiosByCityIdCustomer().subscribe(
-      studios => {
-        this.studios = studios;
+      (studios) => {
+        if (typeof studios[0] == "object") {
+          this.hasStudios = true;
+          this.studios = studios;
+        } else {
+          this.hasStudios = false;
+          this.studiosMessage = studios[0].toString();
+        }
       }
     );
   }

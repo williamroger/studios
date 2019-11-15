@@ -1,5 +1,4 @@
-export class StudioModel 
-{
+export class StudioModel {
   constructor(
     public id?: number,
     public name?: string,
@@ -22,6 +21,19 @@ export class StudioModel
     public complement?: string,
     public district?: string,
     public number?: string,
-    public image?: string 
-  ) {}
+    public image?: string, 
+  ) { }
+
+  get logoStudio() {
+    let logopath = './assets/studios.png';
+
+    if (this.image) {
+      let path = this.image;
+      logopath = 'http://localhost:8080' + path.substr(path.indexOf('/App'), path.length);
+      
+      return logopath;
+    }
+
+    return logopath;
+  }
 }
