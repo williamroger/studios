@@ -97,4 +97,7 @@ export class ScheduleModel {
     }
   }
   
+  get amountText() {
+    return this.amount.toString().replace('.', ',');
+  }
 }
