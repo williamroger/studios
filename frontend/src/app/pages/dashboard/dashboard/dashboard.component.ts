@@ -29,8 +29,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadCityId();
-
-    this.getSchedules(this.userLoggedIn.studio_id, this.minDatetime);
+    // 2019-10-08 this.minDatetime
+    this.getSchedules(this.userLoggedIn.studio_id, '2019-10-08');
   }
 
   private getSchedules(id: number, date: string) {
@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit {
 
   private confirmScheduling(schedule) {
     const sched: ScheduleModel = Object.assign(new ScheduleModel(), schedule);
-    // console.log('sched ', sched);
 
     this.schedulesService.confirmScheduling(sched).subscribe(
       message => this.actionsForSuccess(message),
