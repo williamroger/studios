@@ -208,17 +208,20 @@ final class ScheduleController
   {
     try {
       $data = $request->getParsedBody();
-      $idSchedule = $data['schedule_id'];
+      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+      $now = $date->format('Y-m-d');
+      $idSchedule = intval($data['schedule_id']);
+      $idCustomer = intval($data['customer_id']);
 
-      // Adicionar data de update
       if (!$idSchedule)
         throw new \Exception("Erro na aplicação, tente novamente.");
-      
-      // adicionar uma validação para verificar se o agendamento existe
 
       $scheduleDAO = new SchedulesDAO();
+      
+      if (!$scheduleDAO->schedulingExists($idSchedule, $idCustomer)) 
+        throw new Exception('Este agendamento não está mais disponível.');
 
-      $scheduleDAO->confirmScheduling($idSchedule);
+      $scheduleDAO->confirmScheduling($idSchedule, $now);
 
       $response = $response->withJson([
         'success' => true,
@@ -235,22 +238,25 @@ final class ScheduleController
     }
   } 
 
-  public function cancelScheduling(Request $request, Response $response, array $args): Response
+  public function studioCancelScheduling(Request $request, Response $response, array $args): Response
   {
     try {
       $data = $request->getParsedBody();
-      $idSchedule = $data['id'];
+      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+      $now = $date->format('Y-m-d');
+      $idSchedule = intval($data['schedule_id']);
+      $idCustomer = intval($data['customer_id']);
 
-      // Adicionar data de cancel
       
       if (!$idSchedule)
         throw new \Exception("Erro na aplicação, tente novamente.");
 
-      // adicionar uma validação para verificar se o agendamento existe
-
       $scheduleDAO = new SchedulesDAO();
 
-      $scheduleDAO->cancelScheduling($idSchedule);
+      if (!$scheduleDAO->schedulingExists($idSchedule, $idCustomer))
+        throw new Exception('Este agendamento não está mais disponível.');
+
+      $scheduleDAO->studioCancelScheduling($idSchedule, $now);
 
       $response = $response->withJson([
         'success' => true,
@@ -264,5 +270,39 @@ final class ScheduleController
         'msg' => $ex->getMessage()
       ], 500);
     } 
+  }
+
+  public function userCancelScheduling(Request $request, Response $response, array $args): Response
+  {
+    try {
+      $data = $request->getParsedBody();
+      $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
+      $now = $date->format('Y-m-d');
+      $idSchedule = intval($data['schedule_id']);
+      $idCustomer = intval($data['customer_id']);
+
+
+      if (!$idSchedule)
+        throw new \Exception("Erro na aplicação, tente novamente.");
+
+      $scheduleDAO = new SchedulesDAO();
+
+      if (!$scheduleDAO->schedulingExists($idSchedule, $idCustomer))
+        throw new Exception('Este agendamento não está mais disponível.');
+
+      $scheduleDAO->cancelScheduling($idSchedule, $now);
+
+      $response = $response->withJson([
+        'success' => true,
+        'msg' => 'Agendamento cancelado com sucesso!'
+      ], 200);
+
+      return $response;
+    } catch (\Exception $ex) {
+      return $response->withJson([
+        'success' => false,
+        'msg' => $ex->getMessage()
+      ], 500);
+    }
   }
 }

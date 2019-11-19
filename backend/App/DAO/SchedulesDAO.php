@@ -168,21 +168,69 @@ class SchedulesDAO extends ConnectionDataBase
     return $periods;
   }
 
-  public function confirmScheduling(int $idSchedule): void 
+  public function schedulingExists(int $idSchedule, int $idCustomer): int 
   {
     $statement = $this->pdo
-      ->prepare('UPDATE schedules SET
-                  status = 1
-                 WHERE id = :id;');
-    $statement->execute(['id' => $idSchedule]);
+      ->prepare('SELECT 
+                    id,
+                    customer_id
+                 FROM 
+                    schedules
+                 WHERE id = :id AND customer_id = :customer_id;');
+
+    $statement->execute([
+      'id' => $idSchedule,
+      'customer_id' => $idCustomer
+    ]);
+
+    return $statement->rowCount(\PDO::FETCH_ASSOC);
   }
 
-  public function cancelScheduling(int $idSchedule): void
+  public function confirmScheduling(int $idSchedule, string $date): void 
   {
     $statement = $this->pdo
       ->prepare('UPDATE schedules SET
-                  status = 2
+                  status = 1,
+                  updated_at = :updated_at
                  WHERE id = :id;');
-    $statement->execute(['id' => $idSchedule]);
+
+    $statement->execute([
+      'id' => $idSchedule,
+      'updated_at' => $date
+    ]);
+  }
+
+  public function studioCancelScheduling(int $idSchedule, string $date): void
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE schedules SET
+                  status = 2,
+                  updated_at = :updated_at,
+                  date_cancellation = :date_cancellation,
+                  user_cancellation = "Estúdio"
+                 WHERE id = :id;');
+
+    $statement->execute([
+      'id' => $idSchedule,
+      'updated_at' => $date,
+      'date_cancellation' => $date
+    ]);
+  }
+
+  public function userCancelScheduling(int $idSchedule, string $date): void
+  {
+    $statement = $this->pdo
+      ->prepare('UPDATE schedules SET
+                  status = 2,
+                  updated_at = :updated_at,
+                  date_cancellation = :date_cancellation,
+                  user_cancellation = "Usuário"
+                 WHERE id = :id;');
+
+    $statement->execute([
+      'id' => $idSchedule,
+      'updated_at' => $date,
+      'date_cancellation' => $date
+    ]);
   }
 }

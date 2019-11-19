@@ -93,6 +93,7 @@ class StudiosDAO extends ConnectionDataBase
                  FROM
                     studios
                  WHERE id = :id');
+                 
     $statement->execute([
       'id' => $idStudio
     ]);

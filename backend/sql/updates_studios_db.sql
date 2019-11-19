@@ -67,3 +67,7 @@ ADD COLUMN `has_mixing_mastering` INT(11) NULL AFTER `has_recording`;
 ALTER TABLE `db_dev_studios`.`schedules`
 DROP FOREIGN KEY `fk_Agendamentos_Clientes1`;
 
+=========================================================19-11-19
+
+ALTER TABLE `db_dev_studios`.`schedules` 
+ADD COLUMN `user_cancellation` VARCHAR(45) NULL AFTER `date_scheduling`;
