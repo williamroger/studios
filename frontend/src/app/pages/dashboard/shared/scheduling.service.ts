@@ -26,7 +26,7 @@ export class SchedulingService {
   }
 
   cancelScheduling(schedule: ScheduleModel): Observable<any> {
-    return this.http.put(`api/cancelscheduling`, schedule).pipe(
+    return this.http.put(`api/studiocancelscheduling`, schedule).pipe(
       catchError(this.handleError),
       map(this.jsonDataToMessage)
     )

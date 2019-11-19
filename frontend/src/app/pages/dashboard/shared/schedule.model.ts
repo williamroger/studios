@@ -27,7 +27,8 @@ export class ScheduleModel {
     public lastname?: string,
     public phone?: string,
     public cpf?: string,
-    public city_id?: number
+    public city_id?: number,
+    public user_cancellation?: string
   ) {}
 
   get beginPeriod() {
@@ -46,5 +47,17 @@ export class ScheduleModel {
     } else {
       return 'Cancelado';
     }
+  }
+
+  get cancellationDate() {
+    const year = this.date_cancellation.slice(0, 4);
+    const month = this.date_cancellation.slice(5, 7);
+    const day = this.date_cancellation.slice(8, 10);
+
+    return `${day}/${month}/${year}`;
+  }
+
+  get amountText() {
+    return this.amount.toString().replace('.', ',');
   }
 }

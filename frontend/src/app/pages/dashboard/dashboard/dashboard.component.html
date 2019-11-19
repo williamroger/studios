@@ -90,29 +90,29 @@
                 </div>
                 <div class="customer-name">
                   <div>
-                    <label>Nome</label>
+                    <label>nome</label>
                     <p>{{ schedule.firstname + " " + schedule.lastname }}</p>
                   </div>
                 </div>
                 <div class="room-name">
-                  <label>Sala</label>
+                  <label>sala</label>
                   <p>{{ schedule.name }}</p>
                 </div>
                 <div class="status">
-                  <label>Status</label>
+                  <label>status</label>
                   <p>{{ schedule.statusText }}</p>
                 </div>
                 <div class="amount">
-                  <label>Valor</label>
-                  <p>R$ {{ schedule.amount }}</p>
+                  <label>valor</label>
+                  <p>R$ {{ schedule.amountText }}</p>
                 </div>
                 <div class="actions">
-                  <label>Ações</label>
+                  <label>ações</label>
                   <button class="btn button-confirm btn-sm mr-3" (click)="confirmScheduling(schedule)" [disabled]="schedule.status == 1 || schedule.status == 2">
                     <i class="pi pi-check" style="font-size: 1.2em"></i>
                     Confirmar
                   </button>
-                  <button class="btn button-cancel btn-sm" (click)="cancelScheduling(schedule)">
+                  <button class="btn button-cancel btn-sm" (click)="cancelScheduling(schedule)" [disabled]="schedule.status == 2">
                     <i class="pi pi-calendar-times" style="font-size: 1.2em"></i>
                     Cancelar
                   </button>
@@ -123,17 +123,25 @@
               </div>
               <div class="schedule__body d-none">
                 <div class="info">
-                  <div class="customer-data">
-                    <div class="customer-contact">
-                      <label>Contato</label>
+                  <div class="schedule-data">
+                    <div class="schedule-contact">
+                      <label>contato</label>
                       <p>{{ schedule.phone }}</p>
                     </div>
-                    <div class="customer-cpf">
+                    <div class="schedule-cpf">
                       <label>CPF</label>
                       <p>{{ schedule.cpf }}</p>
                     </div>
+                    <div class="schedule-date-cancellation">
+                      <label>data do cancelamento</label>
+                      <p>{{ schedule.cancellationDate}}</p>
+                    </div>
+                    <div class="schedule-user-cancellation">
+                      <label>cancelado por</label>
+                      <p>{{ schedule.user_cancellation }}</p>
+                    </div>
                   </div>
-                  <div class="customer-comment">
+                  <div class="schedule-comment">
                     <label>Observações</label>
                     <p>{{ schedule.comment }}</p>
                   </div>
