@@ -31,11 +31,11 @@
     <div class="d-none d-xl-block col-xl-3">
       <div class="content-box content-calendar shadow-sm p-3">
         <div class="content-calendar__today">
-          <h1 class="mb-1">Ensaios Hoje</h1>
+          <h1 class="mb-1">Ensaios de Hoje</h1>
           <p class="mb-4">{{ today }}</p>
 
-          <div *ngIf="hasSchedules">
-            <div class="schedule-sidebar" *ngFor="let schedule of schedules">
+          <div *ngIf="hasSchedulesFixed">
+            <div class="schedule-sidebar" *ngFor="let schedule of schedulesFixed">
               <div class="schedule-sidebar__avatar" [ngStyle]="{'background-image': 'url(./../assets/images/user-avatar.jpg)'}">
 
               </div>
@@ -52,7 +52,7 @@
               </div>
             </div>
           </div>
-          <div *ngIf="!hasSchedules">
+          <div *ngIf="!hasSchedulesFixed">
             <div class="schedules-message">
               <img src="./../../../../assets/images/found.svg">
               <p>{{ scheduleMessage }}</p>
@@ -65,8 +65,12 @@
     <div class="col-12 col-xl-9">
       <div class="content-box shadow-sm p-3">
         <div class="content-box__header">
-          <h1>Agendamentos</h1>
           <div>
+            <h1>Agendamentos</h1>
+            <p class="mb-4">{{ dateSelected }}</p>
+          </div>
+          <div class="select-date">
+            <label>selecionar data</label>
             <p-calendar
               id="dateScheduling"
               [(ngModel)]="dateScheduling"
@@ -75,10 +79,8 @@
               [locale]="ptBR"
               (onSelect)="changeDateScheduling($event)">
             </p-calendar>
-            <pre>{{ dateScheduling | json }}</pre>
           </div>
         </div>
-
 
         <div class="content-box__body">
           <div class="alert alert-warning" *ngIf="!studioHasCityId">
@@ -120,11 +122,11 @@
                 </div>
                 <div class="actions">
                   <label>ações</label>
-                  <button class="btn button-confirm btn-sm mr-3" (click)="confirmScheduling(schedule)" [disabled]="schedule.status == 1 || schedule.status == 2">
+                  <button class="btn button-confirm btn-sm mr-3" (click)="confirmScheduling(schedule)" [disabled]="schedule.status == 1 || schedule.status == 2 || schedule.date_scheduling < minDatetime">
                     <i class="pi pi-check" style="font-size: 1.2em"></i>
                     Confirmar
                   </button>
-                  <button class="btn button-cancel btn-sm" (click)="cancelScheduling(schedule)" [disabled]="schedule.status == 2">
+                  <button class="btn button-cancel btn-sm" (click)="cancelScheduling(schedule)" [disabled]="schedule.status == 2 || schedule.date_scheduling < minDatetime">
                     <i class="pi pi-calendar-times" style="font-size: 1.2em"></i>
                     Cancelar
                   </button>
@@ -144,11 +146,11 @@
                       <label>CPF</label>
                       <p>{{ schedule.cpf }}</p>
                     </div>
-                    <div class="schedule-date-cancellation">
+                    <div class="schedule-date-cancellation" *ngIf="schedule.status == 2">
                       <label>data cancelamento</label>
                       <p>{{ schedule.cancellationDate}}</p>
                     </div>
-                    <div class="schedule-user-cancellation">
+                    <div class="schedule-user-cancellation" *ngIf="schedule.status == 2">
                       <label>cancelado por</label>
                       <p>{{ schedule.user_cancellation }}</p>
                     </div>

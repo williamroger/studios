@@ -30,6 +30,11 @@ body {
       text-transform: uppercase;
       margin: 0;
     }
+
+    p {
+      color: $color-label;
+      font-weight: 300;
+    }
   }
 
   &__info {

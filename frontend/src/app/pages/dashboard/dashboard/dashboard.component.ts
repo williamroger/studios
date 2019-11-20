@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   userLoggedIn: any;
   studioHasCityId: boolean;
   schedules: ScheduleModel[] = [];
+  schedulesFixed: ScheduleModel[] = [];
   monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   dateNow = new Date();
@@ -22,7 +23,10 @@ export class DashboardComponent implements OnInit {
   minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth() + 1}-${(this.dateNow.getDate() < 9) ? '0'+this.dateNow.getDate() : this.dateNow.getDate()}`;
   maxDatetime = `${this.dateNow.getFullYear() + 1}`;
   today = `${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()} de ${this.getMonthName(this.dateNow.getMonth())} de ${this.dateNow.getFullYear()}`;
+  dateSelected = `${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()} de ${this.getMonthName(this.dateNow.getMonth())} de ${this.dateNow.getFullYear()}`;
   hasSchedules: boolean;
+  hasSchedulesFixed: boolean;
+  scheduleMessageFixed = '';
   scheduleMessage = '';
   dateScheduling = '';
 
@@ -44,9 +48,24 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.loadCityId();
     this.getSchedules(this.userLoggedIn.studio_id, this.minDatetime);
-    const teste = `${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()}/${this.dateNow.getMonth() + 1}/${this.dateNow.getFullYear()}`;
-    this.dateScheduling = '11/11/2019';
-    console.log('teste ', teste.toString());
+    this.getSchedulesFixed(this.userLoggedIn.studio_id, this.minDatetime);
+
+    this.dateScheduling = `${this.dateNow.getMonth() + 1}/${ (this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()}/${this.dateNow.getFullYear()}`;
+    console.log('minDatetime ', this.minDatetime);
+  }
+
+  private getSchedulesFixed(id: number, date: string) {
+    this.schedulesService.getSchedulesByStudioIdAndDate(id, date).subscribe(
+      (schedules) => {
+        if (typeof schedules[0] == "object") {
+          this.schedulesFixed = schedules;
+          this.hasSchedulesFixed = true;
+        } else {
+          this.hasSchedulesFixed = false;
+          this.scheduleMessageFixed = schedules[0].toString();
+        }
+      }
+    )
   }
 
   private getSchedules(id: number, date: string) {
@@ -65,19 +84,26 @@ export class DashboardComponent implements OnInit {
 
   private confirmScheduling(schedule) {
     const sched: ScheduleModel = Object.assign(new ScheduleModel(), schedule);
+    const confirmation = confirm('Deseja realmente CONFIRMAR este agendamento?');
 
-    this.schedulesService.confirmScheduling(sched).subscribe(
-      message => this.actionsForSuccess(message),
-      error => this.actionsForError(error)
-    )
+    if (confirmation) {
+      this.schedulesService.confirmScheduling(sched).subscribe(
+        message => this.actionsForSuccess(message),
+        error => this.actionsForError(error)
+      );
+    }
   }
 
   private cancelScheduling(schedule) {
     const sched: ScheduleModel = Object.assign(new ScheduleModel(), schedule);
-    this.schedulesService.cancelScheduling(sched).subscribe(
-      message => this.actionsForSuccess(message),
-      error => this.actionsForError(error)
-    )
+    const cancellation = confirm('Deseja realmente CANCELAR este agendamento?');
+
+    if (cancellation) {
+      this.schedulesService.cancelScheduling(sched).subscribe(
+        message => this.actionsForSuccess(message),
+        error => this.actionsForError(error)
+      );
+    }
   }
 
   private loadCityId() {
@@ -141,6 +167,47 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  private getMonthNameString(month: string): string {
+    switch (month) {
+      case 'Jan':
+        return this.monthNames[0];;
+        break;
+      case 'Feb':
+        return this.monthNames[1];;
+        break;
+      case 'Mar':
+        return this.monthNames[2];;
+        break;
+      case 'Apr':
+        return this.monthNames[3];;
+        break;
+      case 'May':
+        return this.monthNames[4];;
+        break;
+      case 'Jun':
+        return this.monthNames[5];;
+        break;
+      case 'Jul':
+        return this.monthNames[6];;
+        break;
+      case 'Aug':
+        return this.monthNames[7];;
+        break;
+      case 'Sep':
+        return this.monthNames[8];;
+        break;
+      case 'Oct':
+        return this.monthNames[9];;
+        break;
+      case 'Nov':
+        return this.monthNames[10];;
+        break;
+      case 'Dec':
+        return this.monthNames[11];;
+        break;
+    }
+  }
+
   private actionsForSuccess(message: string) {
     toastr.success(message);
   }
@@ -156,8 +223,9 @@ export class DashboardComponent implements OnInit {
     let day = date.slice(8, 10);
     let year = date.slice(11, 15);
     const newDate = `${year}-${month}-${day}`;
-    console.log('newDate ', newDate);
+
     this.getSchedules(this.userLoggedIn.studio_id, newDate);
+    this.dateSelected = `${day} de ${this.getMonthNameString(monthString)} de ${year}`;
   }
 
   public getMonthNumber(month: string): string {

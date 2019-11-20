@@ -133,3 +133,15 @@
     font-weight: 300;
   }
 }
+
+.select-date {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    color: #6F7885;
+    font-weight: 300;
+    display: inline-block;
+    margin-bottom: 0;
+  }
+}
