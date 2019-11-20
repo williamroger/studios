@@ -21,16 +21,32 @@ export class DashboardComponent implements OnInit {
   dateNowString = this.dateNow.toISOString();
   minDatetime = `${this.dateNow.getFullYear()}-${this.dateNow.getMonth() + 1}-${(this.dateNow.getDate() < 9) ? '0'+this.dateNow.getDate() : this.dateNow.getDate()}`;
   maxDatetime = `${this.dateNow.getFullYear() + 1}`;
-  selectedDay = `Hoje, ${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()} de ${this.getMonthName(this.dateNow.getMonth())} de ${this.dateNow.getFullYear()}`;
+  today = `${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()} de ${this.getMonthName(this.dateNow.getMonth())} de ${this.dateNow.getFullYear()}`;
   hasSchedules: boolean;
   scheduleMessage = '';
+  dateScheduling = '';
+
+  ptBR = {
+    firstDayOfWeek: 0,
+    dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+    dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+    dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+    monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+    monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+    today: 'Hoje',
+    clear: 'Limpar',
+    dateFormat: 'mm/dd/yy',
+    weekHeader: 'Wk'
+  }
 
   constructor(private schedulesService: SchedulingService) { }
 
   ngOnInit() {
     this.loadCityId();
-    // 2019-10-08 this.minDatetime
-    this.getSchedules(this.userLoggedIn.studio_id, '2019-10-08');
+    this.getSchedules(this.userLoggedIn.studio_id, this.minDatetime);
+    const teste = `${(this.dateNow.getDate() < 9) ? '0' + this.dateNow.getDate() : this.dateNow.getDate()}/${this.dateNow.getMonth() + 1}/${this.dateNow.getFullYear()}`;
+    this.dateScheduling = '11/11/2019';
+    console.log('teste ', teste.toString());
   }
 
   private getSchedules(id: number, date: string) {
@@ -131,5 +147,57 @@ export class DashboardComponent implements OnInit {
 
   private actionsForError(error) {
     toastr.error('Ocorreu um erro na aplicação, tento novamente!');
+  }
+
+  public changeDateScheduling(event: any) {
+    const date = event.toString();
+    let monthString = date.slice(4, 7);
+    let month = this.getMonthNumber(monthString);
+    let day = date.slice(8, 10);
+    let year = date.slice(11, 15);
+    const newDate = `${year}-${month}-${day}`;
+    console.log('newDate ', newDate);
+    this.getSchedules(this.userLoggedIn.studio_id, newDate);
+  }
+
+  public getMonthNumber(month: string): string {
+    switch(month) {
+      case 'Jan':
+        return '01';
+        break;
+      case 'Feb':
+        return '02';
+        break;
+      case 'Mar':
+        return '03';
+        break;
+      case 'Apr':
+        return '04';
+        break;
+      case 'May':
+        return '05';
+        break;
+      case 'Jun':
+        return '06';
+        break;
+      case 'Jul':
+        return '07';
+        break;
+      case 'Aug':
+        return '08';
+        break;
+      case 'Sep':
+        return '09';
+        break;
+      case 'Oct':
+        return '10';
+        break;
+      case 'Nov':
+        return '11';
+        break;
+      case 'Dec':
+        return '12';
+        break;
+    }
   }
 }

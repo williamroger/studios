@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { ComponentsModule } from 'src/app/components/components.module';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    CalendarModule,
+    FormsModule
   ]
 })
 export class DashboardModule { }

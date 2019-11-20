@@ -10,7 +10,7 @@ registerLocaleData(localePt, 'pt');
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogoutComponent } from './pages/logout/logout.component';
-
+import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './auth.guard';
 
 @NgModule({
@@ -22,7 +22,8 @@ import { AuthGuard } from './auth.guard';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
