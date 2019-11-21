@@ -290,7 +290,7 @@ final class ScheduleController
       if (!$scheduleDAO->schedulingExists($idSchedule, $idCustomer))
         throw new Exception('Este agendamento não está mais disponível.');
 
-      $scheduleDAO->cancelScheduling($idSchedule, $now);
+      $scheduleDAO->userCancelScheduling($idSchedule, $now);
 
       $response = $response->withJson([
         'success' => true,

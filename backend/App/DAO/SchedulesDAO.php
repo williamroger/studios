@@ -104,6 +104,7 @@ class SchedulesDAO extends ConnectionDataBase
                     studios.name AS studio_name,
                     schedules.status,
                     schedules.date_cancellation,
+                    schedules.user_cancellation,
                     schedules.created_at,
                     schedules.updated_at,
                     schedules.customer_id,
