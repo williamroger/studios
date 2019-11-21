@@ -71,3 +71,8 @@ DROP FOREIGN KEY `fk_Agendamentos_Clientes1`;
 
 ALTER TABLE `db_dev_studios`.`schedules` 
 ADD COLUMN `user_cancellation` VARCHAR(45) NULL AFTER `date_scheduling`;
+
+=========================================================21-11-19
+
+ALTER TABLE `db_dev_studios`.`schedules_time_periods` 
+ADD COLUMN `schedule_cancelled` VARCHAR(45) NULL AFTER `time_period_id`;
