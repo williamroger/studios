@@ -22,6 +22,13 @@ export class SchedulesService {
     )
   }
 
+  cancelScheduling(schedule: ScheduleModel): Observable<any> {
+    return this.http.put(`api/usercancelscheduling`, schedule).pipe(
+      catchError(this.handleError),
+      map(this.jsonDataToMessage)
+    )
+  }
+
   private jsonDataToSchedules(jsonData: any[]): ScheduleModel[] {
     const schedules: ScheduleModel[] = [];
 
@@ -42,5 +49,11 @@ export class SchedulesService {
     console.log('Erro na RequisiÃ§Ã£o => ', error);
 
     return throwError(error);
+  }
+
+  private jsonDataToMessage(jsonData: any): string {
+    let message = '';
+    message = jsonData['msg'];
+    return message;
   }
 }

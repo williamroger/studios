@@ -6,6 +6,7 @@ export class ScheduleModel {
     public studio_name?: string,
     public status?: number,
     public date_cancellation?: string,
+    public user_cancellation?: string,
     public created_at?: string,
     public updated_at?: string,
     public customer_id?: number,

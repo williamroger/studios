@@ -38,7 +38,8 @@
               </div>
             </div>
             <div>
-              <ion-button (click)="onClick()" class="button" color="primary" size="small" *ngIf="sched.status != 2">
+              <!-- [disabled]="sched.date_scheduling < minDatetime" -->
+              <ion-button (click)="cancelScheduling(sched)" class="button" color="primary" size="small" *ngIf="sched.status != 2" >
                 Cancelar
               </ion-button>
               <div class="schedule__canceled" *ngIf="sched.status == 2">
@@ -46,6 +47,10 @@
                 <p>{{ sched.cancellationDate }}</p>
               </div>
             </div>
+          </div>
+          <div class="schedule__status_info" *ngIf="sched.status == 2">
+            <ion-label>cancelado por</ion-label>
+            <p>{{ sched.user_cancellation }}</p>
           </div>
         </ion-card>
       </div>
