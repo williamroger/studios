@@ -151,8 +151,14 @@ class SchedulesDAO extends ConnectionDataBase
 												                    SELECT schedules_time_periods.time_period_id FROM schedules_time_periods
 											                      INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
 												                    LEFT JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id AND time_periods.room_id = :id
-												                    WHERE schedules.date_scheduling = :date
+												                    WHERE schedules.date_scheduling = :date AND schedules_time_periods.schedule_cancelled IS NULL
                                             )
+                 OR time_periods.id IN (
+                                        SELECT schedules_time_periods.time_period_id FROM schedules_time_periods
+                                        INNER JOIN schedules ON schedules.id = schedules_time_periods.schedule_id
+                                        LEFT JOIN time_periods ON time_periods.id = schedules_time_periods.time_period_id AND time_periods.room_id = :id
+                                        WHERE schedules.date_scheduling = :date AND schedules_time_periods.schedule_cancelled = "true"
+                                        )
                 ORDER BY day_order;');
 
     $statement->execute([
