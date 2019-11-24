@@ -13,11 +13,11 @@ export class RoomModel {
 
   get imageRoom() {
     let imagepath = './assets/room-default.jpg';
-    
+
     if (this.image) {
       const image = this.image;
-      imagepath = 'http://localhost:8080' + image.substr(image.indexOf('/App'), image.length);
-      
+      imagepath = 'http://localhost:8080/' + image.substr(image.indexOf('App'), image.length);
+
       return imagepath;
     }
 

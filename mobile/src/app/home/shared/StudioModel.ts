@@ -29,8 +29,8 @@ export class StudioModel {
 
     if (this.image) {
       let path = this.image;
-      logopath = 'http://localhost:8080' + path.substr(path.indexOf('/App'), path.length);
-      
+      logopath = 'http://localhost:8080/' + path.substr(path.indexOf('App'), path.length);
+
       return logopath;
     }
 

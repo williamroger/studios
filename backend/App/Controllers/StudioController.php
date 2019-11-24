@@ -719,7 +719,7 @@ final class StudioController
   {
     try {
       $dir = __DIR__;
-      $dir = str_replace('/Controllers', '/', $dir);
+      $dir = str_replace('\Controllers', '/', $dir);
       $directory = $dir . 'public/uploads';
 
       $uploadedFiles = $request->getUploadedFiles();
@@ -788,7 +788,7 @@ final class StudioController
   {
     try {
       $dir = __DIR__;
-      $dir = str_replace('/Controllers', '/', $dir);
+      $dir = str_replace('\Controllers', '/', $dir);
       $directory = $dir . 'public/uploads';
 
       $uploadedFiles = $request->getUploadedFiles();

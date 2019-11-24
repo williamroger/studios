@@ -58,5 +58,8 @@ export class HomePage implements OnInit {
   routeAccount() {
     this.navCtrl.navigateRoot('tabs/account');
   }
+
+  ionRefresh(){
+    window.location.reload();
+  }
 }
- 

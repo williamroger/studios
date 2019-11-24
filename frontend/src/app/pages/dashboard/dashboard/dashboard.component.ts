@@ -91,6 +91,7 @@ export class DashboardComponent implements OnInit {
         message => this.actionsForSuccess(message),
         error => this.actionsForError(error)
       );
+      window.location.reload();
     }
   }
 
@@ -103,6 +104,7 @@ export class DashboardComponent implements OnInit {
         message => this.actionsForSuccess(message),
         error => this.actionsForError(error)
       );
+      window.location.reload();
     }
   }
 
