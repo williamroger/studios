@@ -227,12 +227,13 @@ class SchedulesDAO extends ConnectionDataBase
   public function userCancelScheduling(int $idSchedule, string $date): void
   {
     $statement = $this->pdo
-      ->prepare('UPDATE schedules SET
-                  status = 2,
-                  updated_at = :updated_at,
-                  date_cancellation = :date_cancellation,
-                  user_cancellation = "Usuário"
-                 WHERE id = :id;');
+      ->prepare('UPDATE schedules, schedules_time_periods SET
+                  schedules.status = 2,
+                  schedules.updated_at = :updated_at,
+                  schedules.date_cancellation = :date_cancellation,
+                  schedules.user_cancellation = "Usuário",
+                  schedules_time_periods.schedule_cancelled = "true"
+                 WHERE schedules.id = :id AND schedules_time_periods.schedule_id = :id;');
 
     $statement->execute([
       'id' => $idSchedule,
