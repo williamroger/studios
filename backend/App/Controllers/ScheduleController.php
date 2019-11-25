@@ -319,7 +319,8 @@ final class ScheduleController
     $mail->Host = 'smtp.gmail.com';
     $mail->Port       = 587;                                    // TCP port to connect to
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->SMTPAuth   = true;
+    $mail->CharSet = "UTF-8";                                // Enable SMTP authentication
     $mail->SMTPOptions = array(
       'ssl' => array(
         'verify_peer' => false,
