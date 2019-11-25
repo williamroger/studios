@@ -58,6 +58,7 @@ $app->group('', function() use ($app) {
   $app->put('/confirmscheduling', ScheduleController::class . ':confirmScheduling');
   $app->put('/studiocancelscheduling', ScheduleController::class . ':studioCancelScheduling');
   $app->put('/usercancelscheduling', ScheduleController::class . ':userCancelScheduling');
+  $app->post('/sendemail', ScheduleController::class . ':sendEmail');
 
 })->add(function ($req, $res, $next) {
   $response = $next($req, $res);

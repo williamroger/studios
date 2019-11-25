@@ -11,6 +11,9 @@ use DateTimeZone;
 use Exception;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\Exception;
 
 final class ScheduleController 
 {
@@ -303,6 +306,47 @@ final class ScheduleController
         'success' => false,
         'msg' => $ex->getMessage()
       ], 500);
+    }
+  }
+
+  public function sendEmail(Request $request, Response $response, array $args) 
+  {
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'tls';                  // Enable verbose debug output
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port       = 587;                                    // TCP port to connect to
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->SMTPOptions = array(
+      'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+      )
+    );
+                                                             // Send using SMTP                          // Set the SMTP server to send through
+    $mail->Username   = 'williamroger.frontend@gmail.com';                     // SMTP username
+    $mail->Password   = 'web3d8874366347';                               // SMTP password
+
+    $mail->setFrom('williamroger.frontend@gmail.com', 'Studios');
+    $mail->addAddress('usuariostudios@outlook.com', 'Usuário Studios');
+    // $mail->addReplyTo('williamroger.frontend@gmail.com');
+
+    // Content
+    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->Subject = 'Here is the subject';
+    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    
+    $mail->send();
+
+    if (!$mail->send()) {
+      echo 'Mailer Error: ' . $mail->ErrorInfo;
+    } else {
+      echo 'Message sent!';
     }
   }
 }
