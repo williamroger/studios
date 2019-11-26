@@ -126,8 +126,8 @@
                     <i class="pi pi-check" style="font-size: 1.2em"></i>
                     Confirmar
                   </button>
-                  <!-- [disabled]="schedule.status == 2 || schedule.date_scheduling < minDatetime" -->
-                  <button class="btn button-cancel btn-sm" (click)="cancelScheduling(schedule)" >
+
+                  <button class="btn button-cancel btn-sm" (click)="cancelScheduling(schedule)" [disabled]="schedule.status == 2 || schedule.date_scheduling < minDatetime">
                     <i class="pi pi-calendar-times" style="font-size: 1.2em"></i>
                     Cancelar
                   </button>
