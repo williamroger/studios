@@ -565,4 +565,32 @@ class StudiosDAO extends ConnectionDataBase
       'id' => $idPeriod
     ]);
   }
+
+  public function getEmailByStudioId(int $studioId)
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT users.email FROM users
+                WHERE users.studio_id = :id;');
+
+    $statement->bindParam('id', $studioId);
+    $statement->execute();
+    
+    $email = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    return $email[0];
+  }
+
+  public function getNameStudioId(int $studioId)
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT studios.name FROM studios
+                WHERE studios.id = :id;');
+
+    $statement->bindParam('id', $studioId);
+    $statement->execute();
+
+    $name = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    return $name[0];
+  }
 }

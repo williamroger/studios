@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\UtilController;
 use App\DAO\SchedulesDAO;
 use App\DAO\StudiosDAO;
+use App\DAO\CustomersDAO;
 use App\Models\ScheduleModel;
 use App\Models\SchedulePeriodModel;
 use DateTimeZone;
@@ -13,7 +14,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-// use PHPMailer\PHPMailer\Exception;
 
 final class ScheduleController 
 {
@@ -210,11 +210,34 @@ final class ScheduleController
   public function confirmScheduling(Request $request, Response $response, array $args): Response 
   {
     try {
+      $customerDAO = new CustomersDAO();
+      $studioDAO = new StudiosDAO();
+
       $data = $request->getParsedBody();
       $date = new \DateTime("now", new DateTimeZone('America/Sao_Paulo'));
       $now = $date->format('Y-m-d');
       $idSchedule = intval($data['schedule_id']);
-      $idCustomer = intval($data['customer_id']);
+      $studioId = intval($data['studio_id']);
+      $idCustomer = $data['customer_id'];
+      $nameCustomer = $data['firstname'] . ' ' . $data['lastname'];
+      $emailCustomer = $customerDAO->getEmailByCustomerId($idCustomer);
+      $studioName = $studioDAO->getNameStudioId($studioId);
+      $nameRoom = $data['name'];
+      $dateScheduling = $data['date_scheduling'];
+      $beginPeriod = $data['begin_period'];
+      $endPeriod = $data['end_period'];
+      $maximumCapacity = $data['maximum_capacity'];
+      // var_dump($studioName['name']);die;
+      $dataConfirmation = array(
+        'email_customer' => $emailCustomer['email'],
+        'name_customer' => $nameCustomer,
+        'studio_name' => $studioName['name'],
+        'date_scheduling' => $dateScheduling,
+        'name_room' => $nameRoom,
+        'begin_period' => $beginPeriod,
+        'end_period' => $endPeriod,
+        'maximum_capacity' => $maximumCapacity
+      );
 
       if (!$idSchedule)
         throw new \Exception("Erro na aplicação, tente novamente.");
@@ -225,6 +248,8 @@ final class ScheduleController
         throw new Exception('Este agendamento não está mais disponível.');
 
       $scheduleDAO->confirmScheduling($idSchedule, $now);
+
+      $this->sendEmailConfirmation($dataConfirmation);
 
       $response = $response->withJson([
         'success' => true,
@@ -309,18 +334,17 @@ final class ScheduleController
     }
   }
 
-  public function sendEmail(Request $request, Response $response, array $args) 
-  {
+  public function sendEmailConfirmation(array $data) {
+
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = 'tls';                  // Enable verbose debug output
+    $mail->SMTPSecure = 'tls';
     $mail->Host = 'smtp.gmail.com';
-    $mail->Port       = 587;                                    // TCP port to connect to
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+    $mail->Port       = 587;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->SMTPAuth   = true;
-    $mail->CharSet = "UTF-8";                                // Enable SMTP authentication
+    $mail->CharSet = "UTF-8";
     $mail->SMTPOptions = array(
       'ssl' => array(
         'verify_peer' => false,
@@ -328,26 +352,79 @@ final class ScheduleController
         'allow_self_signed' => true
       )
     );
-                                                             // Send using SMTP                          // Set the SMTP server to send through
-    $mail->Username   = 'williamroger.frontend@gmail.com';                     // SMTP username
-    $mail->Password   = 'web3d8874366347';                               // SMTP password
 
-    $mail->setFrom('williamroger.frontend@gmail.com', 'Studios');
+    $mail->Username   = getenv('STUDIOS_EMAIL');
+    $mail->Password   = getenv('STUDIOS_EMAIL_PASSWORD');
+
+    $mail->setFrom(getenv('STUDIOS_EMAIL'), 'Studios');
+    $mail->addAddress($data['email_customer'], $data['name_customer']);
+
+    $mail->isHTML(true);
+    $mail->Subject = 'Confirmação de Agendamento';
+    $mail->Body    = '<h2>Olá ' . $data['name_customer'] . '</h2> 
+                      Seu ensaio no estúdio <strong>' . $data['studio_name'] . '</strong> foi confirmado! 
+                      <br> 
+                      <h4>Não esqueça!</h4> 
+                      <strong>Data do Ensaio:</strong> 
+                      <br>'
+                      . $data['date_scheduling'] .
+                      '<br><br>
+                      <strong>Sala:</strong> 
+                      <br>'
+                      . $data['name_room'] .
+                      '<br><br>
+                      <strong>Período:</strong>
+                      <br>'
+                      . $data['begin_period'] . ' às ' . $data['end_period'] .
+                      '<br><br>
+                      <strong>Máximo de pessoas na sala:</strong> 
+                      <br>'
+                      . $data['maximum_capacity'] .
+                      '<br><br>
+                      <small>Equipe Studios</small>';
+
+    $mail->AltBody = 'Email de confirmação de Agendamento de Ensaio.';
+
+    $mail->send();
+  }
+
+  public function sendEmail() 
+  {
+    $mail = new PHPMailer(true);
+    $mail->isSMTP();
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+    // $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'tls';                 
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port       = 587;                                  
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;       
+    $mail->SMTPAuth   = true;
+    $mail->CharSet = "UTF-8";              
+    $mail->SMTPOptions = array(
+      'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+      )
+    );
+                                                             
+    $mail->Username   = getenv('STUDIOS_EMAIL');                     
+    $mail->Password   = getenv('STUDIOS_EMAIL_PASSWORD');                               
+    // var_dump($mail->Username);die;
+    $mail->setFrom(getenv('STUDIOS_EMAIL'), 'Studios');
     $mail->addAddress('usuariostudios@outlook.com', 'Usuário Studios');
-    // $mail->addReplyTo('williamroger.frontend@gmail.com');
-
     // Content
-    $mail->isHTML(true);                                  // Set email format to HTML
+    $mail->isHTML(true);                       
     $mail->Subject = 'Here is the subject';
     $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
     
     $mail->send();
 
-    if (!$mail->send()) {
-      echo 'Mailer Error: ' . $mail->ErrorInfo;
-    } else {
-      echo 'Message sent!';
-    }
+    // if (!$mail->send()) {
+    //   echo 'Mailer Error: ' . $mail->ErrorInfo;
+    // } else {
+    //   echo 'Message sent!';
+    // }
   }
 }
