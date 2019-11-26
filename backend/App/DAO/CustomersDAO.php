@@ -68,6 +68,20 @@ class CustomersDAO extends ConnectionDataBase
     return $email[0];
   }
 
+  public function getNameCustomerId(int $customerId)
+  {
+    $statement = $this->pdo
+      ->prepare('SELECT customers.firstname, customers.lastname FROM customers
+                WHERE customers.id = :id;');
+
+    $statement->bindParam('id', $customerId);
+    $statement->execute();
+
+    $name = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+    return $name[0];
+  }
+
   public function insertCustomer($firstName, $lastName, $createdAt): string
   {
     $statement = $this->pdo
