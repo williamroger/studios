@@ -88,10 +88,17 @@ export class DashboardComponent implements OnInit {
 
     if (confirmation) {
       this.schedulesService.confirmScheduling(sched).subscribe(
-        message => this.actionsForSuccess(message),
-        error => this.actionsForError(error)
+        (message) => {
+          this.actionsForSuccess(message);
+        },
+        (error) => {
+          if (error.error.text.indexOf('{"success":true') == 0) {
+            this.actionsForSuccess('Agendamento confirmado com sucesso!');
+          } else {
+            this.actionsForError(error);
+          }
+        }
       );
-      window.location.reload();
     }
   }
 
@@ -212,10 +219,16 @@ export class DashboardComponent implements OnInit {
 
   private actionsForSuccess(message: string) {
     toastr.success(message);
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 
   private actionsForError(error) {
     toastr.error('Ocorreu um erro na aplicação, tento novamente!');
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 
   public changeDateScheduling(event: any) {
