@@ -108,10 +108,17 @@ export class DashboardComponent implements OnInit {
 
     if (cancellation) {
       this.schedulesService.cancelScheduling(sched).subscribe(
-        message => this.actionsForSuccess(message),
-        error => this.actionsForError(error)
+        (message) => {
+          this.actionsForSuccess(message);
+        },
+        (error) => {
+          if (error.error.text.indexOf('{"success":true') == 0) {
+            this.actionsForSuccess('Agendamento cancelado com sucesso!');
+          } else {
+            this.actionsForError(error);
+          }
+        }
       );
-      window.location.reload();
     }
   }
 
