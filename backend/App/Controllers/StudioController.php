@@ -190,7 +190,7 @@ final class StudioController
       if ($studioDAO->studioExists($studioID) == 0)
         throw new \Exception("Não encontramos esse estúdio em nossa base de dados.");
 
-      if ($studioDAO->studioCNPJExists($data['cnpj'], $studioID) > 0)
+      if ($data['cnpj'] && $studioDAO->studioCNPJExists($data['cnpj'], $studioID) > 0)
         throw new \Exception('Já existe um estúdio com esse CNPJ cadastrado.');
 
       $studio->setId($studioID)
