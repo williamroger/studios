@@ -24,7 +24,7 @@ export class RoomService {
   }
 
   getRoomsByStudioID(idStudio: number): Observable<RoomModel[]> {
-    return this.http.get(this.API_URL + `studio/getroomsbystudioid/${idStudio}`).pipe(
+    return this.http.get(`api/studio/getroomsbystudioid/${idStudio}`).pipe(
       catchError(this.handleError),
       map(this.jsonDataToRooms)
     );
