@@ -1,3 +1,5 @@
+@import './../../../../styles.scss';
+
 .table {
   .td-description p {
     max-width: 400px;
@@ -12,4 +14,19 @@
   width: 50px;
   height: 31px;
   border-radius: 4px;
+}
+
+
+.schedules-message {
+  text-align: center;
+
+  img {
+    width: 250px;
+  }
+
+  p {
+    margin: 1.5rem 0;
+    color: $color-label;
+    font-weight: 300;
+  }
 }

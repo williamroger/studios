@@ -1,8 +1,23 @@
 // Estilo Provisório
+@import './../../../../styles.scss';
 
 .navbar {
   &__logo {
     display: inline-block;
     width: 225px;
+  }
+}
+
+.schedules-message {
+  text-align: center;
+
+  img {
+    width: 250px;
+  }
+
+  p {
+    margin: 1.5rem 0;
+    color: $color-label;
+    font-weight: 300;
   }
 }
